@@ -1,0 +1,248 @@
+.logo{
+    height: 80px;
+    width: 80px;
+}
+.shadow{
+    box-shadow: 10px 5px 5px grey;
+}
+.sidebar{
+        height: 100%;
+        width: 220px;
+        background-color: white;
+        border: 1px solid #707070;
+        font-size: 12px;
+}
+.sidebar1{
+    height: 100%;
+    width: 220px;
+    background-color: white;
+    border: 1px solid #707070;
+    font-size: 12px;
+}
+.bg4{
+    background-image: url('./ucp-lahore.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    
+}
+.Student-circle {
+    height: 200px;
+    width: 200px;
+    border: 4px solid #364446;
+    background-color: #476367;
+    border-radius: 50%;
+    display: inline-block;
+  }
+.Teacher-circle {
+    height: 200px;
+    width: 200px;
+    border: 4px solid #873228;
+    background-color: #BA4437;
+    border-radius: 50%;
+    display: inline-block;
+  }
+.Admin-circle {
+    height: 200px;
+    width: 200px;
+    border: 4px solid #BDA338;
+    background-color: #DFC142;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .bg{
+    background-image: url('./ucp-lahore.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 690px;
+    
+}
+.signinbox {
+    height: 100%;
+    width: 45%;
+    background-color:white;
+    border-radius: 20%;
+    display: inline-block;
+    opacity: 0.86;
+    
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+  }
+  .textshadow{
+    text-shadow: 2px 2px gray;
+  }
+  .bg1{
+    background-image: url('./UCP-Logo.gif');
+    background-size: 200px;
+    background-attachment: fixed;
+    height: 692px;
+
+}
+.signinboxteacher {
+    width: 1000px;
+    height: 500px;
+    display: inline-block;    
+    padding: 100px;
+    background-color:#B1B3B7;
+    border: #707070 1px solid;
+    
+  }
+  .logo{
+    height: 80px;
+    width: 80px;
+
+}
+.shadow{
+    box-shadow: 10px 5px 5px grey;
+}
+.sidebar{
+        height: 566px;
+        width: 220px;
+        background-color: white;
+        border: 1px solid #707070;
+        font-size: 12px;
+}
+.body{
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+}
+.notification{
+    height: 130px;
+    width: 1150px;
+
+    background-color: white;
+    border-radius: 35px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+
+}
+.sidebarhide{
+    height: 566px;
+    width: 20px;
+    background-color: white;
+    border: 1px solid #707070;
+    font-size: 12px;
+}
+.fridaytimetable
+{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 0px 0px 35px 35px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+}
+.TimeTable{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 35px 35px 0px 0px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+    
+}
+.TimeTablebody{
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+}
+.bg2{
+    background-image: url('./ucp-lahore.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 692px;
+}
+.CourseOutline{
+    height: 100%;
+    width: 99%;
+    color: black;
+    text-align: left;
+    display: inline-block;
+    padding-left: 30px;
+    background-color: white;
+    border-radius: 35px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
+.CourseMaterial{
+    height: 100%;
+    width: 99%;
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+    display: block;
+    background-color: white;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
+.GradeBook{
+    height: 100%;
+    width: 98%;
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+    display: block;
+    background-color: white;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
+.expandtabs{
+    height: 25px;
+    width: 150px;
+    color: white;
+    padding-left: 10px;
+    background-color: #F50F0F;
+    border-radius: 50px 50px 50px 50px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
+.Announcements{
+    height: 460px;
+    width: 800px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 35px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+
+}
+.Transcript{
+    height: 100%;
+    width: 99%;
+    display: block;
+    color: black;
+    text-align: left;
+    padding-left: 30px;
+    background-color: white;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
+.PersonalInformation{
+    height: 100%;
+    width: 800px;
+    display: inline-block;
+    background-color: white;
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 30px;
+    border-radius: 35px;
+    border: black 1px solid;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+    opacity: 0.86;
+}
