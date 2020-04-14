@@ -150,6 +150,15 @@
     opacity: 0.86;
     
 }
+.Services{
+    height: 450px;
+    width: 900px;
+    background-color: #3C315F;
+    border-radius: 10px 10px 10px 10px;
+    border: black 1px solid;
+    filter: alpha(opacity=70); /* For IE8 and earlier */
+    opacity: 0.70;
+}
 .TimeTablebody{
     color: black;
     text-align: left;
@@ -161,6 +170,12 @@
     background-attachment: fixed;
     background-repeat: no-repeat;
     height: 692px;
+}
+.bg5{
+    background-image: url('./ucp-lahore.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 .CourseOutline{
     height: 100%;
@@ -245,4 +260,43 @@
     border: black 1px solid;
     filter: alpha(opacity=50); /* For IE8 and earlier */
     opacity: 0.86;
+}
+.SetWeightage{
+    height: 550px;
+    width: 600px;
+    display: inline-block;
+    background-color: white;
+    text-align: left;
+    padding-left: 30px;
+    padding-top: 30px;
+    border: black 1px solid;
+    
+}
+.ViewList{
+    height: 94%;
+    width: 900px;
+    display: inline-block;
+    background-color: white;
+    text-align: left;
+    padding-left: 30px;
+    border: black 1px solid;
+    
+}
+.AddList{
+    height: 94%;
+    width: 900px;
+    display: inline-block;
+    background-color: white;
+    text-align: left;
+    padding-left: 30px;
+    border: black 1px solid;
+    
+}
+.AdminSigninPage{
+    height: 360px;
+    width:400px;
+    background-color:white;
+    border-radius: 0%;
+    display: inline-block;
+    border: black 2px solid;
 }

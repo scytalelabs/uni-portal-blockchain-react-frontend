@@ -5,6 +5,7 @@ import TeacherSignin from './TeacherSiginComoponent';
 import AdminSignin from './AdminSigninComponent';
 import TeacherHome from './TeacherHome';
 import StudentHome from './StudentHome';
+import AdminHome from './AdminHome';
 import StudentCourse from './StudentCourse';
 import StudentSignin from './StudentSignInComponent';
 import Announcement from './StudentAnnouncementComponent';
@@ -13,11 +14,14 @@ import CourseMaterial from './StudentCourseMaterialCompnent';
 import GradeBook from'./StudentGradeBookComponent';
 import Transcript from './StudentTranscriptComponent';
 import personalinformation from './StudentPersonalInformation';
+import Teacherpersonalinformation from './TeacherPersonalInformation';
+import TeacherCourse from './TeacherCourse';
+import TeacherViewList from './TeacherViewListComponent'
+import TeacherAddList from './TeacherAddListComponent';
 import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { TransitionGroup,CSSTransition} from 'react-transition-group';
-
 
 class Main extends Component{
   constructor(props){
@@ -65,6 +69,8 @@ class Main extends Component{
         <Route exact path='/home' component={MainPage} ></Route>
         <Route exact path='/student' component={StudentHome}></Route>
         <Route exact path='/teacher' component={TeacherHome}></Route>
+        <Route exact path='/Admin' component={AdminHome}></Route>
+
         
         <Route exact path='/student/course' component={StudentCourse}></Route>
         <Route exact path='/student/course/Announcement' component={Announcement}></Route>
@@ -73,6 +79,13 @@ class Main extends Component{
         <Route exact path='/student/course/GradeBook' component={GradeBook}></Route>
         <Route exact path='/student/transcript' component={Transcript}></Route>
         <Route exact path='/student/personalinformation' component={personalinformation}></Route>
+
+        <Route exact path='/teacher/course' component={TeacherCourse}></Route>
+        <Route exact path='/teacher/course/SetWeightage' component={TeacherCourse}></Route>
+        <Route exact path='/teacher/course/ViewList' component={TeacherViewList}></Route>
+        <Route exact path='/teacher/course/ViewList/AddList' component={TeacherAddList}></Route>
+        <Route exact path='/teacher/personalinformation' component={Teacherpersonalinformation}></Route>
+        
         <Route exact path='/stdsignin' component={StudentSignin}></Route>
         <Route exact path='/tchrsignin' component={TeacherSignin}></Route>
         <Route exact path='/admsignin' component={AdminSignin}></Route>

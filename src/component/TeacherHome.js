@@ -62,16 +62,16 @@ function RenderCourses(){
     )
 }
 
-function RenderStudentServices(){
+function RenderTeacherServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
                 
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
-                            <i className="fa fa-user"></i>{' '}Student Services<br/>
+                            <i className="fa fa-user"></i>{' '}Teacher Services<br/>
                         </Col>
                     </Row>
-                <Link to='/teacher/course/personalinformation'>
+                <Link to='/teacher/personalinformation'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             PERSONAL INFORMATION
@@ -92,12 +92,12 @@ function RenderSideBar1(){
                     </Col>
                 </Row>
                 <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
+                <RenderTeacherServices></RenderTeacherServices>
             </div>
     )
 }
 
-class StudentHome extends Component{
+class TeacherHome extends Component{
     constructor(props){
       super(props);
     }
@@ -107,7 +107,7 @@ class StudentHome extends Component{
       }      
      render(){
        return(
-           <div className='bg'>
+           <div className='bg2'>
                <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
                     <span>
                         <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
@@ -132,4 +132,4 @@ class StudentHome extends Component{
        )
      }
     }
-    export default StudentHome;
+    export default TeacherHome;

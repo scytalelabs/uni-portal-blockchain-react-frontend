@@ -146,7 +146,6 @@ function Renderpersonalinformation(){
                 </Row>
                 <hr></hr>
                 <h5 style={{backgroundColor:'#CEDAF1'}}>Academic Information</h5>
-                CGPA:3.83
                 <Row>
                     <Col>CGPA</Col>
                     <Col>3.93</Col>
@@ -170,6 +169,28 @@ function Renderpersonalinformation(){
                 <Row>
                     <Col>Accepted Credit hours</Col>
                     <Col>99</Col>
+                </Row>
+                <hr></hr>
+                <h5 style={{backgroundColor:'#CEDAF1'}}>E-mail Status</h5>
+                <Row>
+                    <Col>Registration ID:</Col>
+                    <Col>L1F16BSCS0151</Col>
+                </Row>
+                <Row>
+                    <Col>Request Received Date:</Col>
+                    <Col>3-11-2016 9:38:34 AM</Col>
+                </Row>
+                <Row>
+                    <Col>Request Status:</Col>
+                    <Col>19-10-2016 7:48:05 AM</Col>
+                </Row>
+                <Row>
+                    <Col>Approved Email Address:</Col>
+                    <Col>adreees0512@ucp.edu.pk</Col>
+                </Row>
+                <Row>
+                    <Col>Password:</Col>
+                    <Col>ucp12345</Col>
                 </Row>
                 
             </div>

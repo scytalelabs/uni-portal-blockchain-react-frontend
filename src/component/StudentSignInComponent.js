@@ -34,53 +34,52 @@ class StudentSignin extends Component{
             <h4><p className='textshadow' style={{color:'#707070'}}>Student Login</p></h4>
             <br></br><br></br>     
               <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-              <Row className='form-group'>
+                <Row className='form-group'>
+                  
+                  <Col md={{offset:3}}>
+                  <Control.text model=".regno" id="regno" name="regno" placeholder="Registration Number" className="form-control" 
+                  validators={{required, validReg}} 
+                    style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
+                  </Col>
+                  
+                  <Errors  className="text-danger" model=".regno" show="touched"
+                            messages={{ required: 'Required' }}/>
+                </Row> 
                 
-                <Col md={{offset:3}}>
-                <Control.text model=".regno" id="regno" name="regno" placeholder="Registration Number" className="form-control" 
-                validators={{required, validReg}} 
+                <Row className='form-group'>
+                  
+                  <Col md={{offset:3}}>
+                  <Control.text model=".password" id="password" name="password" type='password' placeholder="Password" className="form-control" 
+                  validators={{required}} 
                   style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
-                </Col>
-                
-                <Errors  className="text-danger" model=".regno" show="touched"
-                          messages={{ required: 'Required' }}/>
-              </Row> 
-              
-              <Row className='form-group'>
-                
-                <Col md={{offset:3}}>
-                <Control.text model=".password" id="password" name="password" type='password' placeholder="Password" className="form-control" 
-                validators={{required}} 
-                style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
-                </Col>
-                <Errors  className="text-danger" model=".password" show="touched"
-                        messages={{ required: 'Required'}}/>
-              </Row> 
-              
-              <Row className='form-group'>
-                
-                <Col md={{size:3,offset:3}}>
-                  <Label check>
-                  <Control.checkbox model=".agree" id="agree" name="agree" className="form-check-input"/> {' '}Remember me!
-                  </Label>
-                </Col>
-              </Row> 
-              <Row className="form-group">
-                <Col md={{ offset:3 }}>
-                  <Link to='/student'>
-                    <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'130px',paddingRight:'130px'}}>
-                       LOGIN
-                    </Button>
-                    </Link>
                   </Col>
-              </Row>
-              <Row className="form-group">
-                <Col style={{alignItems:'center' ,color:'red'}}>
-                       <p>Forget Password</p>
-                    
+                  <Errors  className="text-danger" model=".password" show="touched"
+                          messages={{ required: 'Required'}}/>
+                </Row> 
+                
+                <Row className='form-group'>
+                  
+                  <Col md={{size:3,offset:3}}>
+                    <Label check>
+                    <Control.checkbox model=".agree" id="agree" name="agree" className="form-check-input"/> {' '}Remember me!
+                    </Label>
                   </Col>
-              </Row>
-                 
+                </Row> 
+                <Row className="form-group">
+                  <Col md={{ offset:3 }}>
+                    <Link to='/student'>
+                      <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'130px',paddingRight:'130px'}}>
+                          LOGIN
+                      </Button>
+                      </Link>
+                    </Col>
+                </Row>
+                <Row className="form-group">
+                  <Col style={{alignItems:'center' ,color:'red'}}>
+                          <p>Forget Password</p>
+                      
+                  </Col>
+                </Row>
               </LocalForm>
             </span>
           </div>
