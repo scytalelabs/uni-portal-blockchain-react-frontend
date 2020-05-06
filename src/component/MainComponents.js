@@ -18,6 +18,22 @@ import Teacherpersonalinformation from './TeacherPersonalInformation';
 import TeacherCourse from './TeacherCourse';
 import TeacherViewList from './TeacherViewListComponent'
 import TeacherAddList from './TeacherAddListComponent';
+import AdminStudentSection from './AdminStudentSectionComponent'
+import AdminTeacherSection from './AdminTeacherSectionComponent';
+import AdminCourseSection from './AdminCourseSectionComponent';
+import AdminTeacher from './AdminTeacherComponent';
+import AdminStudent from './AdminStudentComponent';
+import AdminMarksType from './AdminMarksTypeComponent';
+import AdminCourse from './AdminCourseComponent'
+import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
+import AdminAddNewStudent from './AdminAddNewStudentComponent';
+import AdminTeacherSearch from './AdminTeacherSearchComponent';
+import AdminStudentSearch from './AdminStudentSearchComponent';
+import AdminStudentEdit from './AdminStudentEditComponent';
+import AdminTeacherEdit from './AdminTeacherEditComponent';
+import AdminAddNewCourse from './AdminAddNewCourseComponent';
+import AdminCourseSearch from './AdminCourseSearchComponent';
+import AdminCourseEdit from './AdminCourseEditComponent';
 import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -85,6 +101,41 @@ class Main extends Component{
         <Route exact path='/teacher/course/ViewList' component={TeacherViewList}></Route>
         <Route exact path='/teacher/course/ViewList/AddList' component={TeacherAddList}></Route>
         <Route exact path='/teacher/personalinformation' component={Teacherpersonalinformation}></Route>
+
+        <Route exact path='/Admin/StudentSection'component={AdminStudentSection}></Route>
+        {/* <Route exact path='/Admin/StudentSection/setSection'></Route> */}
+        <Route exact path='/Admin/TeacherSection'component={AdminTeacherSection}></Route>
+        {/* <Route exact path='/Admin/TeacherSection/setSection'></Route> */}
+        <Route exact path='/Admin/CourseSection'component={AdminCourseSection}></Route>
+        {/* <Route exact path='/Admin/CourseSection/setSection'></Route>  */}
+        <Route exact path='/Admin/Student' component={AdminStudent} ></Route>
+        <Route exact path='/Admin/Student/AddStudent' component={AdminAddNewStudent}></Route>
+        <Route exact path='/Admin/Student/Search' component={AdminStudentSearch}></Route>
+        <Route exact path='/Admin/Student/Edit' component={AdminStudentEdit}></Route>
+
+        <Route exact path='/Admin/Teacher' component={AdminTeacher}></Route>
+        <Route exact path='/Admin/Teacher/AddTeacher' component={AdminAddNewTeacher}></Route>
+        <Route exact path='/Admin/Teacher/Search' component={AdminTeacherSearch}></Route>
+        <Route exact path='/Admin/Teacher/Edit' component={AdminTeacherEdit}></Route>
+        
+        <Route exact path='/Admin/MarksType'component={AdminMarksType}></Route>
+        <Route exact path='/Admin/MarksType/AddMarksType' component={AdminAddNewCourse}></Route>
+
+
+        
+
+        <Route exact path='/Admin/Course' component={AdminCourse}></Route>
+        <Route exact path='/Admin/Course/AddCourse' component={AdminAddNewCourse}></Route>
+        <Route exact path='/Admin/Course/Search' component={AdminCourseSearch}></Route>
+        <Route exact path='/Admin/Course/edit' component={AdminCourseEdit}></Route>
+        
+        
+        
+
+        {/* 
+        <Link to='/Admin/MarksType/Search'>
+        <Link to='/Admin/MarksType/AddMarksType'>
+         */}
         
         <Route exact path='/stdsignin' component={StudentSignin}></Route>
         <Route exact path='/tchrsignin' component={TeacherSignin}></Route>

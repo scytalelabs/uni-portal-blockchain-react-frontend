@@ -49,7 +49,7 @@ function RenderAdminServices(){
 function RenderSideBar1(){
     return(    
         
-            <div className='sidebar'>
+            <div className='sidebar6'>
                 <Row>
                     <Col md={{ offset:10 }} >
                     <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
@@ -63,41 +63,39 @@ function RenderSideBar1(){
 function RenderServices(){
     return(
         <div>
-            <div className='Services'style={{fontFamily:'"Times New Roman", Times, serif',color:'white'}} >
+            <div className='Services'>
                 <Row>
-                    
-                    <Link to='/Admin/Student'>
-                        <Col >
-                        <br></br>
+                    <Col >
+                    <br></br>
+                        <Link to='/Admin/Student'>
                             <img src={Student} className=" " height='150px' width='150px ' alt="STUDENT" style={{borderRadius:'35px'}}/>
-                            <h3>Student</h3>
-                        </Col>
-                    </Link>
-                    <Link to='/Admin/Teacher'>
-                        <Col>
+                            <h3 style={{fontFamily:'"Times New Roman", Times, serif',color:'white'}} >Student</h3>
+                        </Link>
+                    </Col>
+                    
+                    <Col >
                         <br></br>
+                        <Link to='/Admin/Teacher'>
                             <img src={Teacher} className=" " height='150px' width='150px ' alt="Teacher" style={{borderRadius:'35px'}}/>
-                            <h3>Teacher</h3>
-                        </Col>
-                    </Link>
+                            <h3 style={{fontFamily:'"Times New Roman", Times, serif',color:'white'}} >Teacher</h3>
+                        </Link>
+                    </Col>
                 </Row>
-
-                
                 <Row>
+                <Col>
                     <Link to='/Admin/MarksType'>
-                        <Col>
                         <br></br>
                             <img src={Marks_Type} className=" " height='150px' width='150px ' alt="Marks Type" style={{borderRadius:'35px'}}/>
-                            <h3>Marks Type</h3>
-                        </Col>
-                    </Link>
-                    <Link to='/Admin/COurse'>
-                        <Col>
+                            <h3 style={{fontFamily:'"Times New Roman", Times, serif',color:'white'}} >Marks Type</h3>
+                        </Link>
+                    </Col>
+                    <Col>
+                        <Link to='/Admin/Course'>                        
                         <br></br>
                             <img src={Course} className=" " height='150px' width='150px ' alt="Course" style={{borderRadius:'35px'}}/>
-                            <h3>Course</h3>
-                        </Col>
-                    </Link>
+                            <h3 style={{fontFamily:'"Times New Roman", Times, serif',color:'white'}} >Course</h3>
+                        </Link>
+                    </Col>
                 </Row>
             </div>            
         </div>
@@ -114,7 +112,7 @@ class AdminHome extends Component{
       }      
      render(){
        return(
-           <div className='bg2'>
+           <div className='bg3'>
                <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
                     <span>
                         <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>

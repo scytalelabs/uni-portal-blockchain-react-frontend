@@ -19,6 +19,13 @@
     border: 1px solid #707070;
     font-size: 12px;
 }
+.sidebar6{
+    height: 518px;
+    width: 220px;
+    background-color: white;
+    border: 1px solid #707070;
+    font-size: 12px;
+}
 .bg4{
     background-image: url('./ucp-lahore.jpg');
     background-size: 100% 100%;
@@ -97,7 +104,7 @@
 .shadow{
     box-shadow: 10px 5px 5px grey;
 }
-.sidebar{
+.sidebar2{
         height: 566px;
         width: 220px;
         background-color: white;
@@ -159,6 +166,31 @@
     filter: alpha(opacity=70); /* For IE8 and earlier */
     opacity: 0.70;
 }
+.EmptyBox{
+    height: 250px;
+    width: 600px;
+    background-color: #3C315F;
+    color: azure;
+    border: black 2px solid;
+    text-align: left;
+}
+.EditBox{
+    height: 350px;
+    width: 800px;
+    background-color: #3C315F;
+    color: azure;
+    border: black 2px solid;
+    text-align: left;
+}
+.Services1{
+    height: 450px;
+    width: 950px;
+    background-color: white;
+    border-radius: 10px 10px 10px 10px;
+    border: black 1px solid;
+    filter: alpha(opacity=70); /* For IE8 and earlier */
+    opacity: 0.70;
+}
 .TimeTablebody{
     color: black;
     text-align: left;
@@ -169,7 +201,13 @@
     background-size: 100% 100%;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    height: 692px;
+}
+.bg3{
+    background-image: url('./ucp-lahore.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    height: 645px;
 }
 .bg5{
     background-image: url('./ucp-lahore.jpg');

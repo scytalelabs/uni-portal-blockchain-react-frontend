@@ -40,13 +40,13 @@ class AdminSignin extends Component{
             </Row>
             
             <Row>
-              <Col md={{offset:2}} className="AdminSigninPage" style={{backgroundColor:'#B1B3B7', borderRadius:'25% 0% 25% 0%'}}>
+              <Col md={{offset:2}} className="AdminSigninPage" style={{backgroundColor:'#B1B3B7', borderRadius:'25% 0% 0% 0%'}}>
               <br/>
                 <p style={{color:'#646464', fontFamily:'"Times New Roman", Times, serif' }}>Administrator/Teacher Login</p>
                 <p style={{color:'#646464'}}>Please login to access UCP Online Services:</p>
                 <p style={{color:'red'}}>Note: Always logoff after using UCP online Services.</p>
               </Col>
-              <Col Col  md={{offset:0}} className="AdminSigninPage" style={{backgroundColor:'#3C315F',borderRadius:'0% 25% 0% 25%'}}>
+              <Col Col  md={{offset:0}} className="AdminSigninPage" style={{backgroundColor:'#3C315F',borderRadius:'0% 0% 25% 0%'}}>
                 <hr/>
                 <h3 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Administrator/Teacher services</h3>
                 <hr/>

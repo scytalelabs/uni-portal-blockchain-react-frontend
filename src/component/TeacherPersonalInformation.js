@@ -103,7 +103,7 @@ function RenderSideBar1(){
 function Renderpersonalinformation(){
     return(
         <div className='PersonalInformation' style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            <h3>Student Information</h3>
+            <h3>Teacher Information</h3>
 
             <div className='container'>
                 <h5 style={{backgroundColor:'#CEDAF1'}}>Personal Information</h5>

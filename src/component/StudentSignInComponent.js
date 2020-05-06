@@ -3,6 +3,8 @@ import './main.css';
 import { Row, Col ,Button, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { baseUrl} from '../shared/basedUrl';
+import axios from 'axios';
 
 import logo from './UCP-Logo.gif';
 
@@ -15,16 +17,54 @@ const validReg = (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
 class StudentSignin extends Component{
     constructor(props){
       super(props);
+      this.state={
+        regno:'',
+        password:''
+      }
       this.handleLogin=this.handleLogin.bind(this);
     }
     handleLogin(values){
       
       console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
 
-        
+        alert('Current State is: ' + JSON.stringify(values));
+        alert('Current State is: ' + this.state);
+        console.log(this.state);
+
+        const requestOptions = {
+          method: 'POST',
+          headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer my-token'
+          },
+          body: JSON.stringify({ 
+            username: this.state.username,
+          password:this.state.password})
+        };
+        const response= fetch(baseUrl+'student/1/login',requestOptions);
+        // const data= response.json();
+        console.log(response);
+
+        //  axios.post(baseUrl+'student/1/login',this.state)
+        //  .then(response=>{
+        //    console.log(response)
+        //  })
+        //  .catch(error=>{
+        //    console.log(error)
+        //  })
     }
+    changeHandler=e=>{
+      this.setState({[e.target.name]:e.target.value})
+    }
+//     async componentDidMount(){
+          
+//       const response=await fetch(baseUrl+'student/l1f16bscs0151/personal_info');
+//       const data=await response.json();
+//       console.log(data);
+
+// }
      render(){
+       const {regno,password}=this.state;
        return(
           <div className='bg'>
             <span className="signinbox">
@@ -37,7 +77,7 @@ class StudentSignin extends Component{
                 <Row className='form-group'>
                   
                   <Col md={{offset:3}}>
-                  <Control.text model=".regno" id="regno" name="regno" placeholder="Registration Number" className="form-control" 
+                  <Control.text model=".regno" id="regno" name="regno" value={regno} placeholder="Registration Number" className="form-control" onChange={this.changeHandler}
                   validators={{required, validReg}} 
                     style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
                   </Col>
@@ -49,7 +89,7 @@ class StudentSignin extends Component{
                 <Row className='form-group'>
                   
                   <Col md={{offset:3}}>
-                  <Control.text model=".password" id="password" name="password" type='password' placeholder="Password" className="form-control" 
+                  <Control.text model=".password" id="password" name="password" value={password} type='password' placeholder="Password" className="form-control" onChange={this.changeHandler}
                   validators={{required}} 
                   style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
                   </Col>
@@ -67,11 +107,9 @@ class StudentSignin extends Component{
                 </Row> 
                 <Row className="form-group">
                   <Col md={{ offset:3 }}>
-                    <Link to='/student'>
                       <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'130px',paddingRight:'130px'}}>
                           LOGIN
                       </Button>
-                      </Link>
                     </Col>
                 </Row>
                 <Row className="form-group">
