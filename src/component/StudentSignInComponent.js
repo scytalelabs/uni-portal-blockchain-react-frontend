@@ -25,25 +25,26 @@ class StudentSignin extends Component{
     }
     handleLogin(values){
       
+      values.preventDefault();
       console.log('Current State is: ' + JSON.stringify(values));
 
         alert('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + this.state);
         console.log(this.state);
 
-        const requestOptions = {
-          method: 'POST',
-          headers: { 
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer my-token'
-          },
-          body: JSON.stringify({ 
-            username: this.state.username,
-          password:this.state.password})
-        };
-        const response= fetch(baseUrl+'student/1/login',requestOptions);
-        // const data= response.json();
-        console.log(response);
+        // const requestOptions = {
+        //   method: 'POST',
+        //   headers: { 
+        //       'Content-Type': 'application/json',
+        //       'Authorization': 'Bearer my-token'
+        //   },
+        //   body: JSON.stringify({ 
+        //     username: this.state.username,
+        //   password:this.state.password})
+        // };
+        // const response= fetch(baseUrl+'student/1/login',requestOptions);
+        // // const data= response.json();
+        // console.log(response);
 
         //  axios.post(baseUrl+'student/1/login',this.state)
         //  .then(response=>{
@@ -68,7 +69,6 @@ class StudentSignin extends Component{
        return(
           <div className='bg'>
             <span className="signinbox">
-            
             <img src={logo} className="ucp-logo " height='200px' width='200px ' alt="logo" />
             <br></br>
             <h4><p className='textshadow' style={{color:'#707070'}}>Student Login</p></h4>
