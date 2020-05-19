@@ -1,17 +1,19 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
-import {Navbar,} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import {Navbar,Container} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm} from 'react-redux-form';
+import TranscriptData from './StudentTranscriptDisplayComponent'
 import './main.css';
+import StudentNavbarComponent from './StudentNavbarComponent';
 
 
 
 function RenderCourses(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
                     <Col  md={{offset:1}} >
                         <i className="fa fa-align-justify"></i>{' '}Courses<br/>
@@ -66,7 +68,7 @@ function RenderCourses(){
 function RenderStudentServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
                             <i className="fa fa-user"></i>{' '}Student Services<br/>
@@ -92,13 +94,13 @@ function RenderStudentServices(){
                             LEAVE STATUS REPORT
                         </Col>
                     </Row>
-                </Link>       
+                </Link>
         </div>
     )
 }
 function RenderSideBar1(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <Row>
                     <Col md={{ offset:10 }} >
@@ -113,278 +115,77 @@ function RenderSideBar1(){
 
 
 
-function RenderTranscript(){
-    return(
-        <div className='Transcript' style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            <h3>Transcript</h3>
-            <div className='container'>
-                <Row style={{backgroundColor:'#CEDAF1',border:'1px solid black'}}>
-                    <Col>Credit Attempted</Col>
-                    <Col >Credit Accepted toward degree Completion</Col>
-                    <Col>Credit Earned</Col>
-                    <Col>CGPA</Col>
-                </Row>  
-                <Row style={{borderLeft:'1px solid black',borderBottom:'1px solid black',borderRight:'1px solid black'}}>
-                    <Col>48</Col>
-                    <Col>48</Col>
-                    <Col>48</Col>
-                    <Col>4</Col>
-                </Row>
-            </div>
-            <u>Fall 19</u>
-            <div className='container' >
-                
-                <Row style={{backgroundColor:'#CEDAF1',borderLeft:'1px solid black',borderTop:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>Course ID</Col>
-                    <Col>Course Title</Col>
-                    <Col>Course Credit</Col>
-                    <Col>Grade</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Pakistan Studies</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Numerical Computng</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base Lab</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Logical Thinking</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row >
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black'}}>Total 12</Col>
-                    <Col style={{borderRight:'1px solid black'}}>GPA 4</Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 0px 35px'}}>Total Beginning to Date 12</Col>
-                    <Col style={{borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 35px 0px'}}>CGPA 4</Col>
-                </Row>     
-            </div>
-            <u>Fall 19</u>
-            <div className='container' >
-                
-            <Row style={{backgroundColor:'#CEDAF1',borderLeft:'1px solid black',borderTop:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>Course ID</Col>
-                    <Col>Course Title</Col>
-                    <Col>Course Credit</Col>
-                    <Col>Grade</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Pakistan Studies</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Numerical Computng</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base Lab</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Logical Thinking</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row >
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black'}}>Total 12</Col>
-                    <Col style={{borderRight:'1px solid black'}}>GPA 4</Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 0px 35px'}}>Total Beginning to Date 12</Col>
-                    <Col style={{borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 35px 0px'}}>CGPA 4</Col>
-                </Row>     
-            </div>
-            <u>Fall 19</u>
-            <div className='container' >
-                
-            <Row style={{backgroundColor:'#CEDAF1',borderLeft:'1px solid black',borderTop:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>Course ID</Col>
-                    <Col>Course Title</Col>
-                    <Col>Course Credit</Col>
-                    <Col>Grade</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Pakistan Studies</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Numerical Computng</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base Lab</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Logical Thinking</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row >
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black'}}>Total 12</Col>
-                    <Col style={{borderRight:'1px solid black'}}>GPA 4</Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 0px 35px'}}>Total Beginning to Date 12</Col>
-                    <Col style={{borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 35px 0px'}}>CGPA 4</Col>
-                </Row>     
-            </div>
-            <u>Fall 19</u>
-            <div className='container' >
-                
-            <Row style={{backgroundColor:'#CEDAF1',borderLeft:'1px solid black',borderTop:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>Course ID</Col>
-                    <Col>Course Title</Col>
-                    <Col>Course Credit</Col>
-                    <Col>Grade</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Pakistan Studies</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Numerical Computng</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Data Base Lab</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row style={{borderLeft:'1px solid black',borderBottom:'1px solid black'}}>
-                    <Col>CSSS0123</Col>
-                    <Col>Logical Thinking</Col>
-                    <Col>3</Col>
-                    <Col>A</Col>
-                </Row>
-                <Row >
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black'}}>
-                        Total 12
-                    </Col>
-                    <Col style={{borderRight:'1px solid black'}}>GPA 4</Col>
-                </Row>
-                <Row>
-                    <Col></Col>
-                    <Col></Col>
-                    <Col style={{borderLeft:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 0px 35px'}}>Total Beginning to Date 12</Col>
-                    <Col style={{borderRight:'1px solid black',borderBottom:'1px solid black',borderRadius:'0px 0px 35px 0px'}}>CGPA 4</Col>
-                </Row>     
-            </div>
-        </div>
-    )
-}
 
 class Transcript extends Component{
     constructor(props){
       super(props);
     }
+    state={
+        transcriptheadinginfo:[
+            {id:1 ,credit_attempted:"Credit Attempted",credit_accepted_toward_degree_completion:"Credit Accepted toward degree Completion",credit_earned:"Credit Earned",cgpa:"CGPA"}
+        ],
+        transcriptheadingdata:[
+            {id:1 ,credit_attempted:0,credit_accepted_toward_degree_completion:0,credit_earned:0,cgpa:0}
+        ],
+        terminfo:[
+            {id:1 ,title:"Fall 16"},
+            {id:2 ,title:"Spring 17"},
+            {id:3 ,title:"Fall 17"},
+            {id:4 ,title:"Spring 18"},
+            {id:5 ,title:"Fall 19"}
+        ],
+        termheading:[
+            {id:1 ,courseid:"Course ID",course_title:"Course Title",course_credit:"Course Credit",grade:"Grade"}
+        ],
+        termdata:[
+            {tid:1,id:1,courseid:"BSCS01",course_title:"DataBase",course_credit:3,grade:"A"},
+            {tid:1,id:2,courseid:"BSCS02",course_title:"Pak Studies",course_credit:3,grade:"A"},
+            {tid:1,id:3,courseid:"BSCS03",course_title:"Numerical Computing",course_credit:3,grade:"A"},
+            {tid:1,id:4,courseid:"BSCS04",course_title:"DataBase Lab",course_credit:1,grade:"A"},
+            {tid:1,id:5,courseid:"BSCS05",course_title:"Logical Thinking",course_credit:3,grade:"A"},
+            {tid:2,id:1,courseid:"BSCS11",course_title:"Data Science",course_credit:3,grade:"A"},
+            {tid:2,id:2,courseid:"BSCS12",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+            {tid:2,id:3,courseid:"BSCS13",course_title:"Operating System",course_credit:3,grade:"A"},
+            {tid:2,id:4,courseid:"BSCS14",course_title:"Operating System Lab",course_credit:1,grade:"B"},
+            {tid:2,id:5,courseid:"BSCS15",course_title:"English I",course_credit:3,grade:"A-"},
+            {tid:3,id:1,courseid:"BSCS21",course_title:"Data Science",course_credit:3,grade:"A"},
+            {tid:3,id:2,courseid:"BSCS22",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+            {tid:3,id:3,courseid:"BSCS23",course_title:"Artificial Intelligence",course_credit:3,grade:"A"},
+            {tid:3,id:4,courseid:"BSCS24",course_title:"Artificial Intelligence Lab",course_credit:1,grade:"B"},
+            {tid:3,id:5,courseid:"BSCS25",course_title:"English II",course_credit:3,grade:"A-"},
+            {tid:4,id:1,courseid:"BSCS31",course_title:"Data Science",course_credit:3,grade:"A"},
+            {tid:4,id:2,courseid:"BSCS32",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+            {tid:4,id:3,courseid:"BSCS33",course_title:"Introduction to computr Science",course_credit:3,grade:"A"},
+            {tid:4,id:4,courseid:"BSCS34",course_title:"Introduction to computr Science Lab",course_credit:1,grade:"B"},
+            {tid:4,id:5,courseid:"BSCS35",course_title:"English II",course_credit:3,grade:"A-"},
+            {tid:5,id:1,courseid:"BSCS41",course_title:"Programming Fundamentals",course_credit:3,grade:"A"},
+            {tid:5,id:2,courseid:"BSCS42",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+            {tid:5,id:3,courseid:"BSCS43",course_title:"Object Oriented and Paradigm",course_credit:3,grade:"A"},
+            {tid:5,id:4,courseid:"BSCS44",course_title:"Object Oriented and Paradigm Lab",course_credit:1,grade:"B"},
+            {tid:5,id:5,courseid:"BSCS45",course_title:"Multivariat Calculus",course_credit:3,grade:"A-"}
+
+        ]
+
+    }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+          alert('Current State is: ' + JSON.stringify(values));
+      }
+
      render(){
        return(
            <div className='bg4'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    
-                    <Col ><RenderTranscript></RenderTranscript></Col>
-                </Row>
-                
-                
+               <StudentNavbarComponent></StudentNavbarComponent>
+                <Container fluid={true}>
+                    <Row>
+                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col><TranscriptData transcriptheadinginfo={this.state.transcriptheadinginfo} transcriptheadingdata={this.state.transcriptheadingdata} terminfo={this.state.terminfo} termheading={this.state.termheading} termdata={this.state.termdata} ></TranscriptData></Col>
+                    </Row>
+                </Container>
+
+
            </div>
-        
+
        )
      }
     }

@@ -1,10 +1,12 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
-import {Navbar} from 'reactstrap';
+import {Navbar, Container} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm } from 'react-redux-form';
+import RenderSetWeightage from './TeacherSetWeightageComponent'
 import './main.css';
+import TeacherNavbarComponent from './TeacherNavbarComponent';
 
 
 function RenderCourses(){
@@ -58,7 +60,7 @@ function RenderCourses(){
                     </Col>
                 </Row>
                 </Link>
-                
+
                 </div>
     )
 }
@@ -66,7 +68,7 @@ function RenderCourses(){
 function RenderTeacherServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
                             <i className="fa fa-user"></i>{' '}Teacher Services<br/>
@@ -79,13 +81,13 @@ function RenderTeacherServices(){
                         </Col>
                     </Row>
                 </Link>
-                
+
         </div>
     )
 }
 function RenderSideBar1(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <Row>
                     <Col md={{ offset:10 }} >
@@ -102,7 +104,7 @@ function RenderSideBar1(){
 function RenderCoursesData(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Link to='/teacher/course/SetWeightage'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
@@ -121,8 +123,8 @@ function RenderCoursesData(){
     )
 }
 function RenderSideBar2(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <br></br>
                 <br></br>
@@ -130,143 +132,41 @@ function RenderSideBar2(){
             </div>
     )
 }
-function RenderSetWeightage(){
-    return(
-        <div className='SetWeightage' style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            
-            <LocalForm >
-            <Row className='form-group'>
-                <Col><h4>Type</h4></Col>
-                <Col></Col>
-                <Col><h4>Percentage</h4></Col>
-            </Row>
-            <hr></hr>
-            <Row className='form-group'>
-                    <Col>Assignment</Col>
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input" id="input" name="input" type='input' placeholder="" className="form-control" /> </Col>
-                        <Col></Col>
-                    </Row>
-                </Row> 
-                <Row className='form-group'>
-                    <Col>Quiz</Col>
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input0" id="input0" name="input0" type='input0' placeholder="" className="form-control" /> </Col>
-                        <Col></Col>
-                    </Row>
-                </Row> 
-                
-                <Row className='form-group'>
-                    <Col>Mid-Term</Col>
-                    
-                    <Row>
-                        <Col></Col>
-                        <Col><Control.text model=".input1" id="input1" name="input1" type='input1' placeholder="" className="form-control" />   </Col>
-                        <Col></Col>
-                    </Row>
-                </Row>
-                
-                <Row className='form-group'>
-                    <Col>Class Participation</Col>
-                    
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input2" id="input2" name="input2" type='input2' placeholder="" className="form-control" />   </Col>
-                        <Col></Col>
-                    </Row>
-                </Row>
-                
-                <Row className='form-group'>
-                    <Col>Final Term</Col>
-                    
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input3" id="input3" name="input3" type='input3' placeholder="" className="form-control" />   </Col>
-                        <Col></Col>
-                    </Row>
-                </Row>
-                
-                <Row className='form-group'>
-                    <Col>Project</Col>
-                    
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input4" id="input4" name="input4" type='input4' placeholder="" className="form-control" />   </Col>
-                        <Col></Col>
-                    </Row>
-                </Row>
-                
-                <Row className='form-group'>
-                    <Col>Project Presentation</Col>
-
-                    <Row>
-                        <Col></Col>
-                        <Col ><Control.text model=".input5" id="input5" name="input5" type='input5' placeholder="" className="form-control" />   </Col>
-                        <Col></Col>
-                    </Row>
-                    
-                </Row>
-                
-                <Row className='form-group'>
-                    <Col>Total<p style={{color:'red'}}>(MUST BE 100)</p></Col>
-                    
-                    <Row>
-                    <Col></Col>
-                    <Col ><Control.text model=".input6" id="input6" name="input6" type='input6' width='10px' placeholder="" className="form-control" />   </Col>
-                    <Col></Col>
-                    </Row>
-                    
-                </Row>
-           </LocalForm>
-        </div>
-    )
-}
-
- 
 
 class TeacherCourse extends Component{
     constructor(props){
       super(props);
     }
+    state={
+        types:[
+            {id:1,data:"Assignment"},
+            {id:2,data:"Quiz"},
+            {id:3,data:"Mid-Term"},
+            {id:4,data:"Class Participation"},
+            {id:5,data:"Final-Term"},
+            {id:6,data:"Project"},
+            {id:7,data:"Project Presentation"}
+        ]
+    }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+          alert('Current State is: ' + JSON.stringify(values));
+      }
      render(){
        return(
            <div className='bg5'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                    
-                    <Col> <br/><br/><RenderSetWeightage></RenderSetWeightage></Col>
-                </Row>
-                
-                
+               <TeacherNavbarComponent></TeacherNavbarComponent>
+               <Container fluid={true}>
+                    <Row>
+                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
+                        <Col> <br/><br/><RenderSetWeightage types={this.state.types}></RenderSetWeightage></Col>
+                    </Row>
+                </Container>
+
+
            </div>
-        
+
        )
      }
     }

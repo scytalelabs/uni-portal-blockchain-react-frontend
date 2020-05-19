@@ -25,7 +25,7 @@ class StudentSignin extends Component{
     }
     handleLogin(values){
       
-      values.preventDefault();
+      // values.preventDefault();
       console.log('Current State is: ' + JSON.stringify(values));
 
         alert('Current State is: ' + JSON.stringify(values));
@@ -67,19 +67,19 @@ class StudentSignin extends Component{
      render(){
        const {regno,password}=this.state;
        return(
-          <div className='bg'>
+          <div className='bg4 '>
             <span className="signinbox">
-            <img src={logo} className="ucp-logo " height='200px' width='200px ' alt="logo" />
+            <img src={logo} className="ucp-logo " height='200px' width='200px' alt="logo" />
             <br></br>
             <h4><p className='textshadow' style={{color:'#707070'}}>Student Login</p></h4>
             <br></br><br></br>     
-              <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
+              <LocalForm onSubmit={this.handleLogin} style={{ marginRight:"15px" }}>
                 <Row className='form-group'>
                   
                   <Col md={{offset:3}}>
                   <Control.text model=".regno" id="regno" name="regno" value={regno} placeholder="Registration Number" className="form-control" onChange={this.changeHandler}
                   validators={{required, validReg}} 
-                    style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
+                    style={{backgroundColor:'#ECECEC',borderRadius: '35px',width:'150%'}}/>  
                   </Col>
                   
                   <Errors  className="text-danger" model=".regno" show="touched"
@@ -91,7 +91,7 @@ class StudentSignin extends Component{
                   <Col md={{offset:3}}>
                   <Control.text model=".password" id="password" name="password" value={password} type='password' placeholder="Password" className="form-control" onChange={this.changeHandler}
                   validators={{required}} 
-                  style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'120px'}}/>  
+                  style={{backgroundColor:'#ECECEC',borderRadius: '35px',width:'150%'}}/>  
                   </Col>
                   <Errors  className="text-danger" model=".password" show="touched"
                           messages={{ required: 'Required'}}/>
@@ -107,7 +107,7 @@ class StudentSignin extends Component{
                 </Row> 
                 <Row className="form-group">
                   <Col md={{ offset:3 }}>
-                      <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'130px',paddingRight:'130px'}}>
+                      <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',width:'410%'}}>
                           LOGIN
                       </Button>
                     </Col>

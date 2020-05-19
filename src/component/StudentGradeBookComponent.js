@@ -1,17 +1,15 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar,} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import {Container,} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import Gradebookdata from './StudentViewGradesComponents';
 import './main.css';
-
-
+import StudentNavbarComponent from './StudentNavbarComponent';
 
 function RenderCourses(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
                     <Col  md={{offset:1}} >
                         <i className="fa fa-align-justify"></i>{' '}Courses<br/>
@@ -66,7 +64,7 @@ function RenderCourses(){
 function RenderStudentServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
                             <i className="fa fa-user"></i>{' '}Student Services<br/>
@@ -92,13 +90,13 @@ function RenderStudentServices(){
                             LEAVE STATUS REPORT
                         </Col>
                     </Row>
-                </Link>       
+                </Link>
         </div>
     )
 }
 function RenderSideBar1(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <Row>
                     <Col md={{ offset:10 }} >
@@ -115,11 +113,11 @@ function RenderSideBar1(){
 function RenderCoursesData(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Link to='/student/course/Announcement'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            Announcement 
+                            Announcement
                         </Col>
                     </Row>
                 </Link>
@@ -133,7 +131,7 @@ function RenderCoursesData(){
                 <Link to='/student/course/CourseMaterial'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
-                            Course Material 
+                            Course Material
                         </Col>
                     </Row>
                 </Link>
@@ -151,14 +149,14 @@ function RenderCoursesData(){
                         </Col>
                     </Row>
                 </Link>
-                
-                
+
+
                 </div>
     )
 }
 function RenderSideBar2(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <br></br>
                 <br></br>
@@ -166,269 +164,56 @@ function RenderSideBar2(){
             </div>
     )
 }
-function RenderGradeBook(){
-    return(
-        <div className='GradeBook'style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            <h3>Grade Book</h3>
-            <hr/>
-            <div className='expandtabs' > Expand all Tabs <i class="fa fa-chevron-down"></i> </div>
-            <br></br>
-           <div className='container' >
-
-            <Row >
-                <Col md={{offset:0}}>
-                <h5>Assignment &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',backgroundColor:'#CEDAF1',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>10%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}  >Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <br></br>
-            <Row >
-                <Col md={{offset:0}}>
-                <h5>Quiz &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',backgroundColor:'#CEDAF1',width:'50px',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>10%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-           <br></br>
-            <Row >
-                <Col md={{offset:0}}>
-                <h5>Class Participation &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',backgroundColor:'#CEDAF1',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>10%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-
-            <br></br>
-            <Row>
-                <Col md={{offset:0}}>
-                <h5>Mid-Term &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px',backgroundColor:'#CEDAF1'}}>25%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <br></br>
-            <Row>
-                <Col md={{offset:0}}>
-                <h5>Final-Term &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',backgroundColor:'#CEDAF1',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>35%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <br></br>
-            <Row >
-                <Col md={{offset:0}}>
-                <h5>Project Presentation &nbsp;</h5></Col>
-                <Col md={{offset:0}}> 
-                <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',backgroundColor:'#CEDAF1',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>10%</div>
-                </Col>
-                <Col>
-                <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
-                </Col>
-            </Row>
-            <hr/>
-            <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>Date</Col>
-                <Col style={{border:'1px solid #707070'}}>Total Marks</Col>
-                <Col style={{border:'1px solid #707070'}}>Obtaned Marks</Col>
-            </Row>
-            <Row style={{border:'1px solid #707070'}}>
-                <Col  md={{size:6}} style={{border:'1px solid #707070'}}>29-4-2019 12:00:00 AM</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-                <Col style={{border:'1px solid #707070',textAlign:'center'}}>40</Col>
-            </Row>
-            <br></br>
-           </div>
-            
-        </div>
-    )
-}
 
 class GradeBook extends Component{
     constructor(props){
       super(props);
     }
+state={
+    gradebook:[
+        {id:1 ,title:"Assignment",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+        {id:2 ,title:"Quiz",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+        {id:3 ,title:"Class Participation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+        {id:4 ,title:"Mid-Term",weightage:"25%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+        {id:5 ,title:"Final Term",weightage:"35%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+        {id:6 ,title:"Project Presentation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"}
+    ],
+    gradebookmarks:[
+        {fid:1, id:1 ,date:"29-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+        {fid:1, id:2 ,date:"30-4-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+        {fid:1, id:3 ,date:"1-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+        {fid:1, id:4 ,date:"5-5-2019 12:00:00 AM",total_marks:"4",obtained_marks:"40"},
+        {fid:2, id:1 ,date:"25-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+        {fid:2, id:2 ,date:"5-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+        {fid:2, id:3 ,date:"12-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+        {fid:3, id:1 ,date:"16-5-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+        {fid:3, id:2 ,date:"19-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+        {fid:3, id:3 ,date:"25-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+        {fid:4, id:1 ,date:"25-4-201912:00:00 AM",total_marks:"1",obtained_marks:"40"},
+        {fid:5, id:1 ,date:"15-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+        {fid:6, id:1 ,date:"12-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"}
+    ]
+}
+
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+          alert('Current State is: ' + JSON.stringify(values));
+      }
      render(){
        return(
            <div className='bg4'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                    <Col ><RenderGradeBook></RenderGradeBook></Col>
-                </Row>
-                
-                
+               <StudentNavbarComponent></StudentNavbarComponent>
+                <Container fluid={true}>
+                    <Row>
+                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
+                        <Col ><Col ><Gradebookdata gradebook={this.state.gradebook} gradebookmarks={this.state.gradebookmarks}></Gradebookdata></Col></Col>
+                    </Row>
+                </Container>
+
+
            </div>
-        
+
        )
      }
     }

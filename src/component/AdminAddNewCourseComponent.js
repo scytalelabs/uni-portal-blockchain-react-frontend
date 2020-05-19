@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import { Row, Col ,Button, Container} from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
-
 import './main.css';
+import AdminNavbarComponent from './AdminNavBarComponent';
 
 
 function RenderAdminServices(){
@@ -109,94 +107,78 @@ class AdminAddNewCourse extends Component{
         const {search}=this.state;
        return(
            <div className='bg3'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col  md={{ offset:0 }}>
-                        <RenderSideBar1></RenderSideBar1>
-                    </Col>
-                    
-                    <Col md={{ offset:1 }}>
-                    <br></br><br></br>
-                        <div className='Services1'style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                            <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
-                            <br></br>
-                                
-                                <Row className='form-group'>           
-                                    <Col md={{offset:1}}>
-                                        <div className='EditBox'>
-                                            <h3>ADD COURSE</h3>
-                                        <br></br>
-                                            <Row>
-                                                <Col>
-                                                Course:
-                                                <Control.text model=".Course" id="Course" name="Course" value={search} placeholder="Enter Course Name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
-                                                </Col>
-                                                <Col>
-                                                Semester:
-                                                <Control.text model=".semester" id="semester" name="semester" value={search} placeholder="Enter Semester(FALL 19)" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                </Col>
-                                            </Row>
+               <AdminNavbarComponent></AdminNavbarComponent>
+               <Container fluid={true}>
+                    <Row>
+                        <Col  md={{ offset:0 }}>
+                            <RenderSideBar1></RenderSideBar1>
+                        </Col>
+                        
+                        <Col md={{ offset:1 }}>
+                        <br></br><br></br>
+                            <div className='Services1'style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
+                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                                <br></br>
+                                    
+                                    <Row className='form-group'>           
+                                        <Col md={{offset:1}}>
+                                            <div className='EditBox'>
+                                                <h3>ADD COURSE</h3>
                                             <br></br>
-                                            <Row>
-                                                <Col>
-                                               Section:
-                                                <Control.text model=".section" id="section" name="section" value={search} placeholder="Enter Section Name" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                </Col>
-                                                <Col>
-                                                Credi Hours:
-                                                <Control.text model=".credithours" id="credithours" name="credithours" value={search} placeholder="Enter Credit Hours" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                </Col>
-                                            </Row>
-                                            <br></br>
-                                            <Row>
-                                                <Col>
-                                                Course Code:
-                                                <Control.text model=".coursecode" id="coursecode" name="coursecode" value={search} placeholder="Enter Course Code" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                </Col>
-                                                
-                                            </Row>
-                                            <br></br>
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                <Col md={{offset:7}}>
-                                        <Link to='/Admin/Course'>
-                                            <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                Discard
-                                            </Button>
-                                        </Link>
-                                    </Col>
-                                    <Col md={{offset:1}}>
-                                        <Link to='/Admin/Course/AddCourse/Add'>
-                                            <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                Add
-                                            </Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                            </LocalForm>>
-                        </div>
-                    </Col>
-                </Row>
+                                                <Row>
+                                                    <Col>
+                                                    Course:
+                                                    <Control.text model=".Course" id="Course" name="Course" value={search} placeholder="Enter Course Name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    <Col>
+                                                    Semester:
+                                                    <Control.text model=".semester" id="semester" name="semester" value={search} placeholder="Enter Semester(FALL 19)" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>
+                                                Section:
+                                                    <Control.text model=".section" id="section" name="section" value={search} placeholder="Enter Section Name" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    <Col>
+                                                    Credi Hours:
+                                                    <Control.text model=".credithours" id="credithours" name="credithours" value={search} placeholder="Enter Credit Hours" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>
+                                                    Course Code:
+                                                    <Control.text model=".coursecode" id="coursecode" name="coursecode" value={search} placeholder="Enter Course Code" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    
+                                                </Row>
+                                                <br></br>
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                    <Col md={{offset:7}}>
+                                            <Link to='/Admin/Course'>
+                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                    Discard
+                                                </Button>
+                                            </Link>
+                                        </Col>
+                                        <Col md={{offset:1}}>
+                                            <Link to='/Admin/Course/AddCourse/Add'>
+                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                    Add
+                                                </Button>
+                                            </Link>
+                                        </Col>
+                                    </Row>
+                                </LocalForm>>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
            </div>
        )
      }

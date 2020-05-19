@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
-import {Navbar} from 'reactstrap';
+import {Navbar, Container} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm } from 'react-redux-form';
 import './main.css';
+import TeacherNavbarComponent from './TeacherNavbarComponent';
 
 
 function RenderCourses(){
@@ -58,7 +59,7 @@ function RenderCourses(){
                     </Col>
                 </Row>
                 </Link>
-                
+
                 </div>
     )
 }
@@ -66,7 +67,7 @@ function RenderCourses(){
 function RenderTeacherServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
                             <i className="fa fa-user"></i>{' '}Teacher Services<br/>
@@ -79,13 +80,13 @@ function RenderTeacherServices(){
                         </Col>
                     </Row>
                 </Link>
-                
+
         </div>
     )
 }
 function RenderSideBar1(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <Row>
                     <Col md={{ offset:10 }} >
@@ -102,11 +103,11 @@ function RenderSideBar1(){
 function RenderCoursesData(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Link to='/teacher/course/SetWeightage'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            Set Weightage 
+                            Set Weightage
                         </Col>
                     </Row>
                 </Link>
@@ -121,8 +122,8 @@ function RenderCoursesData(){
     )
 }
 function RenderSideBar2(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <br></br>
                 <br></br>
@@ -133,8 +134,8 @@ function RenderSideBar2(){
 function RenderAddList(){
     return(
         <div className='AddList' style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            
-            
+
+
             <LocalForm >
                 <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                     <Col  md={{offset:1}}  >
@@ -154,7 +155,7 @@ function RenderAddList(){
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>Muhammad Adrees</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>40</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}><Control.text model=".Final-Terminput" id="Final-Terminput" name="Final-Terminput" type='Final-Terminput' placeholder="Type Here" className="form-control"  style={{border:'1px solid white'}}/></Col>
-                </Row> 
+                </Row>
                 <Row >
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>1</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>L1F16BSCS0151</Col>
@@ -173,14 +174,14 @@ function RenderAddList(){
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>Muhammad Adrees</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>40</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}><Control.text model=".Final-Terminput" id="Final-Terminput" name="Final-Terminput" type='Final-Terminput' placeholder="Type Here" className="form-control"  style={{border:'1px solid white'}}/></Col>
-                </Row> 
+                </Row>
                 <Row >
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>1</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>L1F16BSCS0151</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>Muhammad Adrees</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>40</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}><Control.text model=".Final-Terminput" id="Final-Terminput" name="Final-Terminput" type='Final-Terminput' placeholder="Type Here" className="form-control"  style={{border:'1px solid white'}}/></Col>
-                </Row> 
+                </Row>
                 <Row >
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>1</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>L1F16BSCS0151</Col>
@@ -241,12 +242,8 @@ function RenderAddList(){
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>Muhammad Adrees</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}>40</Col>
                     <Col style={{backgroundColor:'white',border:'1px solid #707070'}}><Control.text model=".Final-Terminput" id="Final-Terminput" name="Final-Terminput" type='Final-Terminput' placeholder="Type Here" className="form-control"  style={{border:'1px solid white'}}/></Col>
-                </Row> 
-
+                </Row>
            </LocalForm>
-            
-            
-            
         </div>
     )
 }
@@ -257,41 +254,20 @@ class TeacherAddList extends Component{
     }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+          alert('Current State is: ' + JSON.stringify(values));
+      }
      render(){
        return(
            <div className='bg5'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                    
-                    <Col> <br/><br/><RenderAddList></RenderAddList></Col>
-                </Row>
-                
-                
+               <TeacherNavbarComponent></TeacherNavbarComponent>
+               <Container fluid={true}>
+                    <Row>
+                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
+                        <Col> <br/><br/><RenderAddList></RenderAddList></Col>
+                    </Row>
+                </Container>
            </div>
-        
        )
      }
     }

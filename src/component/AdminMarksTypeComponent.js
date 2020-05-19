@@ -1,11 +1,10 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import { Row, Col ,Button, Container} from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 
 import './main.css';
+import AdminNavbarComponent from './AdminNavBarComponent';
 
 
 function RenderAdminServices(){
@@ -109,69 +108,53 @@ class AdminMarksType extends Component{
         const {search}=this.state;
        return(
            <div className='bg3'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col  md={{ offset:0 }}>
-                        <RenderSideBar1></RenderSideBar1>
-                    </Col>
-                    
-                    <Col md={{ offset:1 }}>
-                    <br></br><br></br>
-                        <div className='Services1'>
-                            <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
-                            <br></br><br></br>
-                                <Row className='form-group'>            
-                                    <Col md={{offset:1}}>
-                                    <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Marks Type here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
-                                    </Col>
-                                    <Col md={{ offset:1 }}>
-                                        <Link to='/Admin/MarksType/Search'>
-                                            <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
-                                                SEARCH
-                                            </Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                                <Row >
-                                    <Col md={{offset:2}}>
-                                        
-                                        <div className='EmptyBox'>
-                                            No Result
-                                        </div>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col md={{offset:1}}>
-                                        <Link to='/Admin/MarksType/AddMarksType'>
-                                        <br></br>
-                                            <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'50px',paddingRight:'50px'}}>
-                                                Add New Marks Type
-                                            </Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                            </LocalForm>>
-                        </div>
-                    </Col>
-                </Row>
+               <AdminNavbarComponent></AdminNavbarComponent>
+               <Container fluid={true}>
+                    <Row>
+                        <Col  md={{ offset:0 }}>
+                            <RenderSideBar1></RenderSideBar1>
+                        </Col>
+                        
+                        <Col md={{ offset:1 }}>
+                        <br></br><br></br>
+                            <div className='Services1'>
+                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                                <br></br><br></br>
+                                    <Row className='form-group'>            
+                                        <Col md={{offset:1}}>
+                                        <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Marks Type here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                        </Col>
+                                        <Col md={{ offset:1 }}>
+                                            <Link to='/Admin/MarksType/Search'>
+                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                                    SEARCH
+                                                </Button>
+                                            </Link>
+                                        </Col>
+                                    </Row>
+                                    <Row >
+                                        <Col md={{offset:2}}>
+                                            
+                                            <div className='EmptyBox'>
+                                                No Result
+                                            </div>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col md={{offset:1}}>
+                                            <Link to='/Admin/MarksType/AddMarksType'>
+                                            <br></br>
+                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'50px',paddingRight:'50px'}}>
+                                                    Add New Marks Type
+                                                </Button>
+                                            </Link>
+                                        </Col>
+                                    </Row>
+                                </LocalForm>>
+                            </div>
+                        </Col>
+                    </Row>
+                </Container>
            </div>
        )
      }

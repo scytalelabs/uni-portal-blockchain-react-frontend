@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import './main.css';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import { Row, Col ,Button,} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 

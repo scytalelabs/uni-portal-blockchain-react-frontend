@@ -1,12 +1,9 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar,} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import {Container} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
 import './main.css';
-
-
+import StudentNavbarComponent from './StudentNavbarComponent';
 
 function RenderCourses(){
     return(
@@ -207,18 +204,6 @@ function RenderCourseMaterial(){
                 
             </Row>
             
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>            
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            
            </div>
             
         </div>
@@ -236,31 +221,14 @@ class CourseMaterial extends Component{
      render(){
        return(
            <div className='bg4'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                    <Col ><RenderCourseMaterial></RenderCourseMaterial></Col>
-                </Row>
+               <StudentNavbarComponent></StudentNavbarComponent>
+                <Container fluid={true}> 
+                    <Row>
+                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
+                        <Col ><RenderCourseMaterial></RenderCourseMaterial></Col>
+                    </Row>
+                </Container>
                 
                 
            </div>

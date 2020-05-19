@@ -1,17 +1,18 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
 import {Navbar,} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
+import { Row, Col,Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, LocalForm} from 'react-redux-form';
 import './main.css';
 import { baseUrl} from '../shared/basedUrl';
+import StudentNavbarComponent from './StudentNavbarComponent';
 
 
 function RenderCourses(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                 <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
                     <Col  md={{offset:1}} >
                         <i className="fa fa-align-justify"></i>{' '}Courses<br/>
@@ -66,7 +67,7 @@ function RenderCourses(){
 function RenderStudentServices(){
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
+
                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
                         <Col  md={{offset:1}} >
                             <i className="fa fa-user"></i>{' '}Student Services<br/>
@@ -82,7 +83,7 @@ function RenderStudentServices(){
                 <Link to='/student/transcript'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
-                            TRANSCRIPT 
+                            TRANSCRIPT
                         </Col>
                     </Row>
                 </Link>
@@ -92,13 +93,13 @@ function RenderStudentServices(){
                             LEAVE STATUS REPORT
                         </Col>
                     </Row>
-                </Link>       
+                </Link>
         </div>
     )
 }
 function RenderSideBar1(){
-    return(    
-        
+    return(
+
             <div className='sidebar1'>
                 <Row>
                     <Col md={{ offset:10 }} >
@@ -192,7 +193,7 @@ function Renderpersonalinformation(){
                     <Col>Password:</Col>
                     <Col>ucp12345</Col>
                 </Row>
-                
+
             </div>
         </div>
     )
@@ -203,48 +204,28 @@ class personalinformation extends Component{
     }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+          alert('Current State is: ' + JSON.stringify(values));
+      }
       async componentDidMount(){
-          
+
         const response=await fetch(baseUrl+'student/l1f16bscs0151/personal_info');
         const data=await response.json();
         console.log(data);
-  
+
   }
-    
+
      render(){
        return(
            <div className='bg4'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                    
-                    <Col ><Renderpersonalinformation></Renderpersonalinformation></Col>
-                </Row>
-                
-                
-           </div>
-        
+               <StudentNavbarComponent></StudentNavbarComponent>
+                <Container fluid={true}>
+                    <Row>
+                        <Col  md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>        
+                        <Col  ><Renderpersonalinformation></Renderpersonalinformation></Col>
+                    </Row>
+                </Container>    
+            </div>
+
        )
      }
     }

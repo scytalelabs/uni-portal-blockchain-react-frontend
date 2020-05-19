@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
-import {Navbar,} from 'reactstrap';
-import { Row, Col ,Button, Label} from 'reactstrap';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import {Navbar, Container,} from 'reactstrap';
+import { Row, Col } from 'reactstrap';
+import { Control, LocalForm } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import Notification from './studentNotificationComponent'
+import StudentNavbarComponent from './StudentNavbarComponent'
 import './main.css';
 
 
@@ -118,20 +120,6 @@ function RenderSideBar1(){
                 <RenderCourses></RenderCourses>
                 <RenderStudentServices></RenderStudentServices>
             </div>
-    )
-}
-function RenderNotificaton(){
-    return(
-        <div className='notification'style={{fontFamily:'"Times New Roman", Times, serif'}}>
-            <div className='body'>
-            <h3>Announcements</h3>
-                    <hr></hr>
-                12-04-2019 
-                <em><strong> &nbsp;&nbsp;Makeup Class</strong></em><br/>
-                AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April
-                2018 at 09:40 am in 003
-            </div>
-        </div>
     )
 }
 function RendertodaysTimetable(){
@@ -261,41 +249,37 @@ class StudentHome extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));   
       }      
+      state={
+        notifications:[
+            {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+            {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+            {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+            {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+            {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+            {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+            {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+            {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+            {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+            {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        ]
+    }
      render(){
        return(
            <div className='bg2'>
-               <Navbar style={{backgroundColor: '#A5A4A4'}} dark>
-                    <span>
-                        <h5 style={{color:'white'}}><img src={logo} className="logo" alt="logo"></img> University of Central Punjab</h5>
-                    </span>
-                    <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
-                        <Row className='form-group'>
-                            <Col className='shadow' style={{paddingRight:'50px'}}>
-                                    <Control.select  model='.userinfo' id='userinfo' name='userinfo' className='form-control' style={{backgroundColor:'#ECECEC',borderRadius: '35px',paddingRight:'50px'}}>
-                                        <option value='Muhammad Adrees' selected>Muhammad Adrees</option>
-                                        <option>L1F16BSCS0151</option>
-                                        <option>adreees012@ucp.edu.pk></option>
-                                        <option>Logout</option>
-                                    </Control.select>
-                                </Col>
-                        </Row>
-                    </LocalForm>
-                </Navbar>
-                <div style={{backgroundColor:'#3C315F'}}>
-                    <br></br>
-                </div>
-                <Row>
-                    <Col  md={{ offset:0 }}>
-                        <RenderSideBar1></RenderSideBar1>
-                    </Col>
-                    <Col  md={{ offset:0 }}>
-                        <br></br>
-                        <RenderNotificaton></RenderNotificaton>
-                        <br/>
-                        <RendertodaysTimetable></RendertodaysTimetable>
-                    </Col>
-                </Row>
-                
+               <StudentNavbarComponent></StudentNavbarComponent>
+                <Container fluid={true}>
+                    <Row>
+                        <Col  md={{ offset:0 }}>
+                            <RenderSideBar1></RenderSideBar1>
+                        </Col>
+                        <Col  md={{ offset:1 }}>
+                            <br></br>
+                            <Notification notifications={this.state.notifications}></Notification>
+                            <br/>
+                            <RendertodaysTimetable></RendertodaysTimetable>
+                        </Col>
+                    </Row>
+                </Container>
            </div>
         
        )
