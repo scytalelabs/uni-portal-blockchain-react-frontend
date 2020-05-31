@@ -250,6 +250,7 @@ class StudentHome extends Component{
           alert('Current State is: ' + JSON.stringify(values));   
       }      
       state={
+        id:null,
         notifications:[
             {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
             {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
@@ -263,10 +264,16 @@ class StudentHome extends Component{
             {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
         ]
     }
-     render(){
+    componentDidMount(){
+        console.log(this.props);
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+    }
+    render(){
        return(
            <div className='bg2'>
                <StudentNavbarComponent></StudentNavbarComponent>
+               <h3>{this.state.id}</h3>
                 <Container fluid={true}>
                     <Row>
                         <Col  md={{ offset:0 }}>
@@ -281,7 +288,6 @@ class StudentHome extends Component{
                     </Row>
                 </Container>
            </div>
-        
        )
      }
     }

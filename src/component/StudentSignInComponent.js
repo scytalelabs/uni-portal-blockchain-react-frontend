@@ -46,13 +46,13 @@ class StudentSignin extends Component{
         // // const data= response.json();
         // console.log(response);
 
-        //  axios.post(baseUrl+'student/1/login',this.state)
-        //  .then(response=>{
-        //    console.log(response)
-        //  })
-        //  .catch(error=>{
-        //    console.log(error)
-        //  })
+         axios.post(baseUrl+'student/1/login',this.state)
+         .then(response=>{
+           console.log(response)
+         })
+         .catch(error=>{
+           console.log(error)
+         })
     }
     changeHandler=e=>{
       this.setState({[e.target.name]:e.target.value})

@@ -171,7 +171,9 @@ function RenderSideBar2(){
 class Announcements extends Component{
     constructor(props){
       super(props);
+      console.log(this.props);
     }
+    
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));

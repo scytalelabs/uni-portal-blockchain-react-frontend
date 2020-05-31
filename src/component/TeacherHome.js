@@ -82,7 +82,6 @@ function RenderTeacherServices(){
 }
 function RenderSideBar1(){
     return(    
-        
             <div className='sidebar'>
                 <Row>
                     <Col md={{ offset:10 }} >

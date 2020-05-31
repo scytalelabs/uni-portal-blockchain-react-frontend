@@ -256,6 +256,51 @@ class TeacherAddList extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));
       }
+      
+      state={
+        listinfo:[
+            {id:1,lable:"Assignment"},
+            {id:2,lable:"Quiz"},
+            {id:3,lable:"Mid-Term"},
+            {id:4,lable:"Class Participation"},
+            {id:5,lable:"Final-Term"},
+            {id:6,lable:"Project"},
+            {id:7,lable:"Project Presentation"}
+        ],
+        studentinfo:[
+            {lid:1, id:1 ,rollno:"L1F16BSCS0151",name:"Muhammad Adrees",totalmarks:40},
+            {lid:1, id:2 ,rollno:"L1F16BSCS0157",name:"Zain Yazdan",totalmarks:40},
+            {lid:1, id:3 ,rollno:"L1F16BSCS0145",name:"Muhammad Hammad Mubeen",totalmarks:40},
+            {lid:1, id:4 ,rollno:"L1F16BSCS0136",name:"Muhammad Ghulam Fakhar Ud din",totalmarks:40},
+            {lid:1, id:5 ,rollno:"L1F16BSCS0154",name:"Muhammad Arsal",totalmarks:40},
+
+            {lid:2, id:1 ,rollno:"L1F16BSCS0151",name:"Muhammad Adrees",totalmarks:40},
+            {lid:2, id:2 ,rollno:"L1F16BSCS0157",name:"Zain Yazdan",totalmarks:40},
+            {lid:2, id:3 ,rollno:"L1F16BSCS0145",name:"Muhammad Hammad Mubeen",totalmarks:40},
+            {lid:2, id:4 ,rollno:"L1F16BSCS0136",name:"Muhammad Ghulam Fakhar Ud din",totalmarks:40},
+            {lid:2, id:5 ,rollno:"L1F16BSCS0154",name:"Muhammad Arsal",totalmarks:40},
+            
+            {lid:3, id:1 ,rollno:"L1F16BSCS0151",name:"Muhammad Adrees",totalmarks:40},
+            {lid:3, id:2 ,rollno:"L1F16BSCS0157",name:"Zain Yazdan",totalmarks:40},
+            {lid:3, id:3 ,rollno:"L1F16BSCS0145",name:"Muhammad Hammad Mubeen",totalmarks:40},
+            {lid:3, id:4 ,rollno:"L1F16BSCS0136",name:"Muhammad Ghulam Fakhar Ud din",totalmarks:40},
+            {lid:3, id:5 ,rollno:"L1F16BSCS0154",name:"Muhammad Arsal",totalmarks:40},
+            
+            {lid:4, id:1 ,rollno:"L1F16BSCS0151",name:"Muhammad Adrees",totalmarks:40},
+            {lid:4, id:2 ,rollno:"L1F16BSCS0157",name:"Zain Yazdan",totalmarks:40},
+            {lid:4, id:3 ,rollno:"L1F16BSCS0145",name:"Muhammad Hammad Mubeen",totalmarks:40},
+            {lid:4, id:4 ,rollno:"L1F16BSCS0136",name:"Muhammad Ghulam Fakhar Ud din",totalmarks:40},
+            {lid:4, id:5 ,rollno:"L1F16BSCS0154",name:"Muhammad Arsal",totalmarks:40},
+            
+            {lid:5, id:1 ,rollno:"L1F16BSCS0151",name:"Muhammad Adrees",totalmarks:40},
+            {lid:5, id:2 ,rollno:"L1F16BSCS0157",name:"Zain Yazdan",totalmarks:40},
+            {lid:5, id:3 ,rollno:"L1F16BSCS0145",name:"Muhammad Hammad Mubeen",totalmarks:40},
+            {lid:5, id:4 ,rollno:"L1F16BSCS0136",name:"Muhammad Ghulam Fakhar Ud din",totalmarks:40},
+            {lid:5, id:5 ,rollno:"L1F16BSCS0154",name:"Muhammad Arsal",totalmarks:40},
+            
+        ]
+
+    }
      render(){
        return(
            <div className='bg5'>

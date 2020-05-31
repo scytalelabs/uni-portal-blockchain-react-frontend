@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar, Container} from 'reactstrap';
+import { Container} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
+import RenderList from './TeacherRenderListComponent';
 
 function RenderCourses(){
     return(
@@ -253,9 +253,6 @@ function RenderViewList(){
                 <br></br>
                 <br></br>
            </LocalForm>
-
-
-
         </div>
     )
 }
@@ -268,6 +265,30 @@ class TeacherViewList extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));
       }
+    state={
+        listinfo:[
+            {id:1,head:"Assignment",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:2,head:"Quiz",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:3,head:"Mid-Term",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:4,head:"Class Participation",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:5,head:"Final-Term",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:6,head:"Project",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
+            {id:7,head:"Project Presentation",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"}
+        ],
+        lists:
+        [
+            {lid:1 ,id:1 ,lable:"assignment1",date:"12-5-2020",total:30},
+        ]    
+        
+    }
+    AddList=(list)=>{
+        list.id=Math.random()*1000;
+        let lists=[...this.state.lists,list]
+        this.setState({
+            lists:lists
+        })
+
+    }
      render(){
        return(
            <div className='bg5'>
@@ -276,7 +297,8 @@ class TeacherViewList extends Component{
                     <Row>
                         <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        <Col> <br/><br/><RenderViewList></RenderViewList></Col>
+                        <Col> <RenderList AddList={this.AddList} listinfo={this.state.listinfo} lists={this.state.lists}></RenderList></Col>
+                        {/* <Col> <br/><br/><RenderViewList></RenderViewList></Col> */}
                     </Row>
                 </Container>
            </div>

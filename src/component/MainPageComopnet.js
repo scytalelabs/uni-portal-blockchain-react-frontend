@@ -2,11 +2,13 @@ import React,{Component} from 'react';
 import './main.css';
 import { Media } from 'reactstrap';
 import logo from '../ucp-logo.png';
+import { Link } from 'react-router-dom';
 import {Navbar} from 'reactstrap';
 
 class MainPage extends Component{
     constructor(props){
       super(props);
+      console.log(this.props);
       this.state = {
         classes: [
             {
@@ -37,12 +39,12 @@ class MainPage extends Component{
             {
             return (
                 <div key={classe.id} className=" classes" >
-                     <a href='stdsignin'>
+                     <Link to='stdsignin'>
                         <Media left middle>
                         <br></br>
                             <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}}></Media>
                         </Media>
-                    </a>
+                    </Link>
                 </div>
             );
             }
@@ -59,12 +61,12 @@ class MainPage extends Component{
             {
                 return (
                     <div key={classe.id} className=" classes">
-                        <a href='tchrsignin'>
+                        <Link to='tchrsignin'>
                             <Media left middle>
                                 <br></br>
-                                <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}}  onClick={() => this.onTecherSelect(classe.id)}></Media>
+                                <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}} ></Media>
                             </Media>
-                        </a>
+                        </Link>
                     </div>
                   );
             }
@@ -81,12 +83,12 @@ class MainPage extends Component{
             {
                 return (
                 <div key={classe.id}>
-                    <a href='admsignin'>
+                    <Link to='admsignin'>
                         <Media left middle>
                         <br></br>
-                            <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}}onClick={() => this.onAdminSelect(classe.id)}></Media>
+                            <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}}></Media>
                         </Media>
-                    </a>
+                    </Link>
                 </div>
                 );
             }
