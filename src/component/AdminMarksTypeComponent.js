@@ -116,8 +116,8 @@ class AdminMarksType extends Component{
                         </Col>
                         
                         <Col md={{ offset:1 }}>
-                        <br></br><br></br>
-                            <div className='Services1'>
+                        <br></br>
+                            <div className='Services1' style={{paddingBottom:'41px',marginBottom:'41px'}}>
                                 <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
                                 <br></br><br></br>
                                     <Row className='form-group'>            
@@ -150,7 +150,7 @@ class AdminMarksType extends Component{
                                             </Link>
                                         </Col>
                                     </Row>
-                                </LocalForm>>
+                                </LocalForm>
                             </div>
                         </Col>
                     </Row>

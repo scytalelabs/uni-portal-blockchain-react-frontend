@@ -26,12 +26,12 @@ import AdminMarksType from './AdminMarksTypeComponent';
 import AdminCourse from './AdminCourseComponent'
 import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
 import AdminAddNewStudent from './AdminAddNewStudentComponent';
-import AdminTeacherSearch from './AdminTeacherSearchComponent';
-import AdminStudentSearch from './AdminStudentSearchComponent';
+//import AdminTeacherSearch from './AdminTeacherSearchComponent';
+// import AdminStudentSearch from './AdminStudentSearchComponent';
 import AdminStudentEdit from './AdminStudentEditComponent';
 import AdminTeacherEdit from './AdminTeacherEditComponent';
 import AdminAddNewCourse from './AdminAddNewCourseComponent';
-import AdminCourseSearch from './AdminCourseSearchComponent';
+//import AdminCourseSearch from './AdminCourseSearchComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
 import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -41,7 +41,7 @@ import { TransitionGroup,CSSTransition} from 'react-transition-group';
 class Main extends Component{
   constructor(props){
     super(props);
-    console.log(props);
+    //console.log(props);
     }
   render(){
     // const HomePage = ()=>{
@@ -110,13 +110,13 @@ class Main extends Component{
           <Route exact path='/Admin/CourseSection'component={AdminCourseSection}></Route>
           {/* <Route exact path='/Admin/CourseSection/setSection'></Route>  */}
           <Route exact path='/Admin/Student' component={AdminStudent} ></Route>
-          <Route exact path='/Admin/Student/AddStudent' component={AdminAddNewStudent}></Route>
-          <Route exact path='/Admin/Student/Search' component={AdminStudentSearch}></Route>
+          {/* <Route exact path='/Admin/Student/AddStudent' component={AdminAddNewStudent}></Route> */}
+          {/* <Route exact path='/Admin/Student/Search' component={AdminStudentSearch}></Route> */}
           <Route exact path='/Admin/Student/Edit' component={AdminStudentEdit}></Route>
 
           <Route exact path='/Admin/Teacher' component={AdminTeacher}></Route>
           <Route exact path='/Admin/Teacher/AddTeacher' component={AdminAddNewTeacher}></Route>
-          <Route exact path='/Admin/Teacher/Search' component={AdminTeacherSearch}></Route>
+          {/* <Route exact path='/Admin/Teacher/Search' component={AdminTeacherSearch}></Route> */}
           <Route exact path='/Admin/Teacher/Edit' component={AdminTeacherEdit}></Route>
           
           <Route exact path='/Admin/MarksType'component={AdminMarksType}></Route>
@@ -127,7 +127,7 @@ class Main extends Component{
 
           <Route exact path='/Admin/Course' component={AdminCourse}></Route>
           <Route exact path='/Admin/Course/AddCourse' component={AdminAddNewCourse}></Route>
-          <Route exact path='/Admin/Course/Search' component={AdminCourseSearch}></Route>
+          {/* <Route exact path='/Admin/Course/Search' component={AdminCourseSearch}></Route> */}
           <Route exact path='/Admin/Course/edit' component={AdminCourseEdit}></Route>
           
           

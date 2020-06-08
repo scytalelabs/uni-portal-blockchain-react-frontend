@@ -24,7 +24,7 @@ class TeacherSignin extends Component{
        return(
           <div className='bg1'>
 
-            <div class="signinboxteacher" style={{marginTop:'100px'}}>
+            <div class="signinboxteacher" style={{marginTop:'81px',marginBottom:'81px'}}>
             <Row>
               <Col>
               <img src={logo} className="ucp-logo " height='150px' width='150px ' alt="logo" />

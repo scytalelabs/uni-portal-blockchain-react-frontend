@@ -20,7 +20,7 @@
     font-size: 12px;
 }
 .sidebar6{
-    height: 518px;
+    height: 100%;
     width: 220px;
     background-color: white;
     border: 1px solid #707070;
@@ -94,7 +94,6 @@
     background-image: url('./UCP-Logo.gif');
     background-size: 200px;
     background-attachment: fixed;
-    height: 692px;
 
 }
 .signinboxteacher {
@@ -197,18 +196,21 @@
     text-align: left;
 }
 .EditBox{
-    height: 350px;
+    height: max-content;
     width: 800px;
+    padding-bottom: 20px;
     background-color: #3C315F;
     color: azure;
     border: black 2px solid;
     text-align: left;
 }
 .Services1{
-    height: 450px;
+    height: max-content;
     width: 950px;
     background-color: white;
     border-radius: 10px 10px 10px 10px;
+    margin-bottom: 12px;
+    margin-top: 13px;
     border: black 1px solid;
     filter: alpha(opacity=70); /* For IE8 and earlier */
     opacity: 0.70;
@@ -229,7 +231,7 @@
     background-size: 100% 100%;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    height: 645px;
+    
 }
 .bg5{
     background-image: url('./ucp-lahore.jpg');

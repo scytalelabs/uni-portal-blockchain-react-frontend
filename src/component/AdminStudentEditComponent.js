@@ -92,20 +92,30 @@ class AdminStudentEdit extends Component{
     
       constructor(props){
         super(props);
+        
         this.state={
-          search:''
-        }
-        this.handleLogin=this.handleSearch.bind(this);
+            id:props.student.id,
+            name:props.student.name,
+            father_name:props.student.father_name,
+            reg_no:props.student.reg_no,
+            cnic:props.student.cnic,
+            dob:props.student.dob,
+            address:props.student.address,
+            phone_no:props.student.phone_no,
+            email:props.student.email
+          }
+        // this.handleLogin=this.handleSearch.bind(this);
       }
-      handleSearch(values){
-          alert('Current State is: ' + this.state);
-          console.log(this.state);
-      }
+    //   handleSearch(values){
+    //       alert('Current State is: ' + this.state);
+    //       console.log(this.state);
+    //   }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
      render(){
-        const {search}=this.state;
+      //  const {name}=this.state;
+        const{UpdateStudent}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent></AdminNavbarComponent>
@@ -117,53 +127,53 @@ class AdminStudentEdit extends Component{
                         
                         <Col md={{ offset:1 }}>
                         <br></br><br></br>
-                            <div className='Services1'>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                            <div className='Services1'style={{paddingBottom:'10px',marginBottom:'30px'}}>
+                                <LocalForm >
                                 <br></br>
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
-                                            <div className='EditBox'>
+                                            <div className='EditBox'style={{marginBottom:'10px'}}>
                                                 <Row>
                                                     <Col>
                                                     Name:
-                                                    <Control.text model=".name" id="name" name="name" value='Muhammad Adrees' className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".name" id="name" name="name" defaultValue={this.props.student.name} className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Registration No:
-                                                    <Control.text model=".regno" id="regno" name="regno" value='L1F16BSCS0151' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".reg_no" id="reg_no" name="reg_no" defaultValue={this.props.student.reg_no} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Father Name:
-                                                    <Control.text model=".fathername" id="fathername" name="fathername" value='Shakeel Ahmad' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".father_name" id="father_name" name="father_name" defaultValue={this.props.student.father_name} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     CNIC:
-                                                    <Control.text model=".cnic" id="cnic" name="cnic" value="33102-9652772-7" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".cnic" id="cnic" name="cnic" defaultValue={this.props.student.cnic} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Phone #:
-                                                    <Control.text model=".phone" id="phone" name="phone" value="03356611986" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".phone_no" id="phone_no" name="phone_no" defaultValue={this.props.student.phone_no} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     DOB:
-                                                    <Control.text model="." id="dob" name="dob" value="01/01/1998" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".dob" id="dob" name="dob" defaultValue={this.props.student.dob} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Address:
-                                                    <Control.text model=".address" id="address" name="address" value="P323/1 AMIN TOWN FAISALABAD" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".address" id="address" name="address" defaultValue={this.props.student.address} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Email:
-                                                    <Control.text model=".email" id="email" name="email" value='adreees0512@ucp.edu.pk' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".email" id="email" name="email" defaultValue={this.props.student.email} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                             </div>
@@ -172,18 +182,18 @@ class AdminStudentEdit extends Component{
                                     
                                     <Row>
                                         <Col md={{offset:7}}>
-                                            <Link to='/Admin/Student/search'>
+                                            {/* <Link to='/Admin/Student/search'> */}
                                                 <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Discard
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                         <Col md={{offset:0}}>
-                                            <Link to='/Admin/Student/search'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                            
+                                            <Button  type="submit" onClick={()=>UpdateStudent(this.state)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Confirm
                                                 </Button>
-                                            </Link>
+                                            
                                         </Col>
                                     </Row>
                                 </LocalForm>

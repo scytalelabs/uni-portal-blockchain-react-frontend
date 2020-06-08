@@ -36,7 +36,6 @@ class StudentSignin extends Component{
         //   method: 'POST',
         //   headers: { 
         //       'Content-Type': 'application/json',
-        //       'Authorization': 'Bearer my-token'
         //   },
         //   body: JSON.stringify({ 
         //     username: this.state.username,

@@ -112,8 +112,8 @@ class AdminTeacherSection extends Component{
                         </Col>
                         
                         <Col md={{ offset:1 }}>
-                        <br></br><br></br>
-                            <div className='Services1'>
+                        <br></br>
+                            <div className='Services1'style={{paddingBottom:'48px',marginBottom:'48px'}}>
                                 <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
                                 <br></br><br></br>
                                     <Row className='form-group'>            
@@ -136,7 +136,7 @@ class AdminTeacherSection extends Component{
                                             </div>
                                         </Col>
                                     </Row>
-                                </LocalForm>>
+                                </LocalForm>
                             </div>
                         </Col>
                     </Row>

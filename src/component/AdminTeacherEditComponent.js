@@ -91,20 +91,27 @@ class AdminTeacherEdit extends Component{
     
       constructor(props){
         super(props);
+       // console.log("PROPS ARE :"+props.teacher.name);
         this.state={
-          search:''
+          id:props.teacher.id,
+          name:props.teacher.name,
+          father_name:props.teacher.father_name,
+          qualification:props.teacher.qualification,
+          cnic:props.teacher.cnic,
+          dob:props.teacher.dob,
+          address:props.teacher.address,
+          phone_no:props.teacher.phone_no,
+          email:props.teacher.email
         }
-        this.handleLogin=this.handleSearch.bind(this);
-      }
-      handleSearch(values){
-          alert('Current State is: ' + this.state);
-          console.log(this.state);
+
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
+
      render(){
-        const {search}=this.state;
+        const {name}=this.state;
+        const {UpdateTeacher}=this.props;
        return(
            <div className='bg3'>
                 <AdminNavbarComponent></AdminNavbarComponent>
@@ -115,54 +122,54 @@ class AdminTeacherEdit extends Component{
                         </Col>
                         
                         <Col md={{ offset:1 }}>
-                        <br></br><br></br>
-                            <div className='Services1'>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                        <br></br>
+                            <div className='Services1'style={{paddingBottom:'12px',marginBottom:'30px'}}>
+                                <LocalForm >
                                 <br></br>
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
-                                            <div className='EditBox'>
+                                            <div className='EditBox'style={{marginBottom:'32px'}}>
                                                 <Row>
                                                     <Col>
                                                     Name:
-                                                    <Control.text model=".name" id="name" name="name" value='Zaid' className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".name" id="name" name="name" value={name} defaultValue={this.props.teacher.name} className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Qualification:
-                                                    <Control.text model=".qualification" id="qualification" name="qualification" value='BSCS' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".qualification" id="qualification" name="qualification" defaultValue={this.props.teacher.qualification} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Father Name:
-                                                    <Control.text model=".fathername" id="fathername" name="fathername" value='Munir' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".father_name" id="father_name" name="father_name" defaultValue={this.props.teacher.father_name} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     CNIC:
-                                                    <Control.text model=".cnic" id="cnic" name="cnic" value="33102-9652772-7" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".cnic" id="cnic" name="cnic" defaultValue={this.props.teacher.cnic} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Phone #:
-                                                    <Control.text model=".phone" id="phone" name="phone" value="03356611986" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".phone_no" id="phone_no" name="phone_no" defaultValue={this.props.teacher.phone_no} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     DOB:
-                                                    <Control.text model="." id="dob" name="dob" value="01/01/1998" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".dob" id="dob" name="dob" defaultValue={this.props.teacher.dob} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Address:
-                                                    <Control.text model=".address" id="address" name="address" value="house#45,C block ,Sky Lake, Lahore Pakistan" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".address" id="address" name="address" defaultValue={this.props.teacher.address} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Email:
-                                                    <Control.text model=".email" id="email" name="email" value='zaid.munir@ucp.edu.pk' className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".email" id="email" name="email" defaultValue={this.props.teacher.email} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                             </div>
@@ -171,21 +178,22 @@ class AdminTeacherEdit extends Component{
                                     
                                     <Row>
                                         <Col md={{offset:7}}>
-                                            <Link to='/Admin/teacher/search'>
+                                            {/* <Link to='/Admin/teacher/search'> */}
                                                 <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Discard
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                         <Col md={{offset:0}}>
-                                            <Link to='/Admin/Teacher/search'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                            {/* <Link to='/Admin/Teacher/search'> */}
+                                            
+                                                <Button  type="submit" onClick={()=>UpdateTeacher(this.state)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Confirm
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                     </Row>
-                                </LocalForm>
+                                 </LocalForm>
                             </div>
                         </Col>
                     </Row>

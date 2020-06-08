@@ -106,8 +106,8 @@ class MainPage extends Component{
                 <img src={logo} className="App-logo" alt="logo" />
               </Navbar>
             <div style={{backgroundColor: '#EBE4E4'}}>
-                <div className='container' >
-                <br></br><br></br><br></br><br></br><br></br>
+                <div className='container'style={{marginTop:'150px',paddingBottom:'150px'}}> 
+                
                     <div className='row'>
                         <div className='col-12 col-sm-4'>
                             <span className='Student-circle'>
@@ -128,7 +128,6 @@ class MainPage extends Component{
                             <p style={{color:'grey'}}>Administrator Portal</p>
                         </div>
                     </div>
-                    <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
                 </div>
             </div>
         </div>

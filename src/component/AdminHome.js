@@ -64,7 +64,7 @@ function RenderSideBar1(){
 function RenderServices(){
     return(
         <div>
-            <div className='Services'>
+            <div className='Services'style={{marginBottom:'37px'}}>
                 <Row>
                     <Col >
                     <br></br>
@@ -113,7 +113,7 @@ class AdminHome extends Component{
       }      
      render(){
        return(
-           <div className='bg3'>
+           <div className='bg3' >
                <AdminNavbarComponent></AdminNavbarComponent>
                 <Container fluid={true}>
                     <Row>

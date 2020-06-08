@@ -29,7 +29,7 @@ return(
         <div className='body'>
 
         <h3>Set Weightage</h3>
-            <LocalForm >
+            <LocalForm style={{marginBottom:'16px'}}>
                 <Row className='form-group'>
                     <Col><h5>Type</h5></Col>
                     <Col></Col>
