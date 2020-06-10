@@ -92,19 +92,22 @@ class AdminAddNewCourse extends Component{
       constructor(props){
         super(props);
         this.state={
-          search:''
+            id:null,
+            course:null,
+            semester:null,
+            section:null,
+            credit_hours:null,
+            course_code:null
+            
         }
-        this.handleLogin=this.handleSearch.bind(this);
-      }
-      handleSearch(values){
-          alert('Current State is: ' + this.state);
-          console.log(this.state);
+
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
      render(){
-        const {search}=this.state;
+        const {id,course,section,semester,credit_hours,course_code}=this.state;
+        const {addCourse}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent></AdminNavbarComponent>
@@ -117,7 +120,7 @@ class AdminAddNewCourse extends Component{
                         <Col md={{ offset:1 }}>
                         <br></br><br></br>
                             <div className='Services1'style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                                <LocalForm >
                                 <br></br>
                                     
                                     <Row className='form-group'>           
@@ -128,29 +131,29 @@ class AdminAddNewCourse extends Component{
                                                 <Row>
                                                     <Col>
                                                     Course:
-                                                    <Control.text model=".Course" id="Course" name="Course" value={search} placeholder="Enter Course Name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".course" id="course" name="course" value={course} placeholder="Enter Course Name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Semester:
-                                                    <Control.text model=".semester" id="semester" name="semester" value={search} placeholder="Enter Semester(FALL 19)" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".semester" id="semester" name="semester" value={semester} placeholder="Enter Semester(FALL 19)" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                 Section:
-                                                    <Control.text model=".section" id="section" name="section" value={search} placeholder="Enter Section Name" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".section" id="section" name="section" value={section} placeholder="Enter Section Name" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     <Col>
                                                     Credi Hours:
-                                                    <Control.text model=".credithours" id="credithours" name="credithours" value={search} placeholder="Enter Credit Hours" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".credit_hours" id="credit_hours" name="credit_hours" value={credit_hours} placeholder="Enter Credit Hours" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Course Code:
-                                                    <Control.text model=".coursecode" id="coursecode" name="coursecode" value={search} placeholder="Enter Course Code" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".course_code" id="course_code" name="course_code" value={course_code} placeholder="Enter Course Code" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                     
                                                 </Row>
@@ -167,11 +170,11 @@ class AdminAddNewCourse extends Component{
                                             </Link>
                                         </Col>
                                         <Col md={{offset:1}}>
-                                            <Link to='/Admin/Course/AddCourse/Add'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                            {/* <Link to='/Admin/Course/AddCourse/Add'> */}
+                                                <Button  onClick={()=>addCourse(this.state)} type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Add
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                     </Row>
                                 </LocalForm>>

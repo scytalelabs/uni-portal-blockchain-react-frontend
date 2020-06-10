@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import './main.css';
 import { Row, Col ,Button,} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import logo from './logoAdmin.jpg';
 import login from './login.gif';
@@ -16,16 +16,37 @@ const validReg = (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
 class AdminSignin extends Component{
     constructor(props){
       super(props);
+      let loggedin=false;
+      this.state={
+        username:'',
+        password:'',
+        loggedin
+      }
       this.handleLogin=this.handleLogin.bind(this);
     }
     handleLogin(values){
       
-      console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+      const{username,password}=this.state
+      // console.log('Current State is: ' + JSON.stringify(values));
 
-        
+      //   alert('Current State is: ' + JSON.stringify(values));
+        alert('name is: ' + this.state);
+        console.log("Regno is :"+username+" Password is :"+password);
+        localStorage.setItem("token",username)
+        this.setState({
+          loggedin:true
+        })
+    }
+    changeHandler=e=>{
+      this.setState({[e.target.name]:e.target.value})
     }
      render(){
+       
+      const{username,password}=this.state
+      if(this.state.loggedin)
+       {
+         return<Redirect to='/admin'/>
+       }
        return(
           <div className='container'>
             
@@ -53,14 +74,14 @@ class AdminSignin extends Component{
                 <div style={{textAlign:'left'}}>
                     <img   src={login} className="ucp-logo " height='40px' width='100px ' alt="logo" />
                 </div>
-                <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
+                <LocalForm onSubmit={this.handleLogin}>
                   <Row className='form-group' style={{textAlign:'left'}}>
                     
                     <Col>
                       <h4 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Username:</h4>
                     </Col>
                     <Col>
-                      <Control.text model=".username" id="username" name="username" placeholder="User Name" className="form-control" style={{borderRadius:'0px',height:'30px',width:'250px'}}/>  
+                      <Control.text model=".username" id="username" name="username" value={username} placeholder="User Name" className="form-control" style={{borderRadius:'0px',height:'30px',width:'250px'}} onChange={this.changeHandler}/>  
                     </Col>
                   </Row> 
                   
@@ -69,16 +90,16 @@ class AdminSignin extends Component{
                       <h4 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Password:</h4>
                     </Col>
                     <Col>
-                      <Control.text model=".password" id="password" name="password" type='password' placeholder="Password" className="form-control" style={{borderRadius:'0px', height:'30px',width:'250px'}}/>  
+                      <Control.text model=".password" id="password" name="password" type='password' value={password} placeholder="Password" className="form-control" style={{borderRadius:'0px', height:'30px',width:'250px'}} onChange={this.changeHandler}/>  
                     </Col>
                   </Row> 
                   <Row className="form-group">
                     <Col md={{ offset:9 }}>
-                      <Link to='/Admin'>
-                        <Button type="submit" style={{backgroundColor:'#476367',borderRadius: '0px' }}>
+                      {/* <Link to='/Admin'> */}
+                        <Button type="submit" on style={{backgroundColor:'#476367',borderRadius: '0px' }}>
                           GO
                         </Button>
-                      </Link>
+                      {/* </Link> */}
                     </Col>
                   </Row>
                   <Row className="form-group">

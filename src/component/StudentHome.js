@@ -3,7 +3,7 @@ import logo from './UCP-Logo.gif';
 import {Navbar, Container,} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import { Control, LocalForm } from 'react-redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Notification from './studentNotificationComponent'
 import StudentNavbarComponent from './StudentNavbarComponent'
 import './main.css';
@@ -244,12 +244,8 @@ function RendertodaysTimetable(){
 class StudentHome extends Component{
     constructor(props){
       super(props);
-    }
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
-      state={
+      
+      this.state={
         id:null,
         notifications:[
             {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
@@ -262,8 +258,14 @@ class StudentHome extends Component{
             {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
             {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
             {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-        ]
+        ],
     }
+    }
+    handleInfo(values){
+        console.log('Current State is: ' + JSON.stringify(values));
+          alert('Current State is: ' + JSON.stringify(values));   
+      }      
+     
     componentDidMount(){
         console.log(this.props);
         let id=this.props.match.params.std_id;
@@ -272,7 +274,7 @@ class StudentHome extends Component{
     render(){
        return(
            <div className='bg2'>
-               <StudentNavbarComponent></StudentNavbarComponent>
+               <StudentNavbarComponent ></StudentNavbarComponent>
                <h3>{this.state.id}</h3>
                 <Container fluid={true}>
                     <Row>

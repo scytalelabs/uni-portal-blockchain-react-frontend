@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
+import AdminAddNewCourse from './AdminAddNewCourseComponent';
+
 
 
 function RenderAdminServices(){
@@ -96,6 +98,7 @@ class AdminCourse extends Component{
         this.state={
           search:'',
           isEditing:false,
+          isAdding:false,
           courses:[
             {id:1 ,course:"Data Base + lab",semester:"Fall 19",section:"A",credit_hours:"4",course_code:"BSSC001"},
             {id:2 ,course:"CCN + lab",semester:"Fall 18",section:"B",credit_hours:"4",course_code:"BSSC002"},
@@ -107,6 +110,8 @@ class AdminCourse extends Component{
         }
         this.ToggleEditing=this.ToggleEditing.bind(this);
         this.UpdateCourse=this.UpdateCourse.bind(this);
+        this.toggleisAdding=this.toggleisAdding.bind(this);
+        this.addCourse=this.addCourse.bind(this);
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
@@ -114,6 +119,22 @@ class AdminCourse extends Component{
       ToggleEditing(){
         const {isEditing}=this.state;
         this.setState({isEditing:!isEditing})
+      }
+      toggleisAdding(){
+        const {isAdding}=this.state;
+        this.setState({isAdding:!isAdding})
+        
+      }
+      addCourse(courseinfo){
+        alert("NAME IS "+courseinfo.course)
+        courseinfo.id=Math.random();
+        let courses=[... this.state.courses,courseinfo]
+        this.setState({
+            courses,
+        });
+        this.toggleisAdding();
+        
+
       }
       deleteCourse=(id)=>{
           const courses=this.state.courses.filter(course=>{
@@ -145,7 +166,7 @@ class AdminCourse extends Component{
       } 
 
      render(){
-        const {search,isEditing}=this.state;
+        const {search,isEditing,isAdding}=this.state;
         var search_hold=search.toUpperCase();
             var hold=this.state.courses.filter(function(course) { return course.course_code == search_hold;  });
             
@@ -232,6 +253,11 @@ class AdminCourse extends Component{
                  <AdminCourseEdit UpdateCourse={this.UpdateCourse} course={this.state.course}/>
              )
          }
+         else if(isAdding==true){
+            return(
+                <AdminAddNewCourse addCourse={this.addCourse}/>
+            )
+        }
         else{
        return(
            <div className='bg3'>
@@ -245,7 +271,7 @@ class AdminCourse extends Component{
                         <Col md={{ offset:1 }}>
                         <br/>
                             <div className='Services1' style={{paddingBottom:'40px',marginBottom:'42px'}}>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                                <LocalForm >
                                 <br></br><br></br>
                                     <Row className='form-group'>            
                                         <Col md={{offset:1}}>
@@ -268,12 +294,12 @@ class AdminCourse extends Component{
                                     </Row>
                                     <Row>
                                         <Col md={{offset:1}}>
-                                            <Link to='/Admin/Course/AddCourse'>
+                                            {/* <Link to='/Admin/Course/AddCourse'> */}
                                             <br></br>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'50px',paddingRight:'50px'}}>
+                                                <Button type="submit"  onClick={this.toggleisAdding} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'50px',paddingRight:'50px'}}>
                                                     Add New Course
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                     </Row>
                                 </LocalForm>

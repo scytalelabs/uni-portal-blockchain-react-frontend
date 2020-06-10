@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import './main.css';
 import { Row, Col ,Button, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import logo from './UCP-Logo.gif';
 
 
@@ -11,16 +11,39 @@ const required   = (val) => val && val.length;
 const validReg = (val) => /^\w{2,10}\.\w{2,20}$/i.test(val);
 
 class TeacherSignin extends Component{
-    constructor(props){
-      super(props);
-      this.handleLogin=this.handleLogin.bind(this);
+  constructor(props){
+    super(props);
+    let loggedin=false;
+    this.state={
+      id:'',
+      password:'',
+      loggedin
     }
-    handleLogin(values){
-      
-      console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));        
-    }
+    this.handleLogin=this.handleLogin.bind(this);
+  }
+  handleLogin(values){
+    
+    const{id,password}=this.state
+    // console.log('Current State is: ' + JSON.stringify(values));
+
+    //   alert('Current State is: ' + JSON.stringify(values));
+      alert('name is: ' + this.state);
+      console.log("Regno is :"+id+" Password is :"+password);
+      localStorage.setItem("token",id)
+      this.setState({
+        loggedin:true
+      })
+  }
+  changeHandler=e=>{
+    this.setState({[e.target.name]:e.target.value})
+  }
      render(){
+      const {id,password}=this.state;
+      if(this.state.loggedin)
+      {
+        return<Redirect to='/teacher'/>
+      }
+      
        return(
           <div className='bg1'>
 
@@ -30,13 +53,13 @@ class TeacherSignin extends Component{
               <img src={logo} className="ucp-logo " height='150px' width='150px ' alt="logo" />
                 <br></br>
                 <h4><p className='' style={{color:'#FC675F',fontFamily:'"Times New Roman", Times, serif'}}>University of Central Punjab</p></h4>
-                <LocalForm onSubmit={(values)=>this.handleLogin(values)}>
+                <LocalForm onSubmit={this.handleLogin}>
                   <Row className='form-group'>
                     <Col md={{offset:2}} style={{fontSize:'25px'}}>
                       <i className="fa fa-user"></i>
                     </Col>
                     <Col md={{offset:1}}>
-                      <Control.text model=".id" id="id" name="id" className="form-control" 
+                      <Control.text model=".id" id="id" name="id" type="text"className="form-control" value={id} onChange={this.changeHandler}
                                     validators={{required, validReg}} 
                                     style={{backgroundColor:'#B1B3B7',borderRadius: '10px',border:'#F50F0F 1px solid'}}/>  
                     </Col>
@@ -49,7 +72,7 @@ class TeacherSignin extends Component{
                     </Col>
                   
                     <Col md={{offset:1}}>
-                      <Control.text model=".password" id="password" name="password" className="form-control" 
+                      <Control.text model=".password" id="password" name="password" type="password"className="form-control" value={password} onChange={this.changeHandler}
                                     validators={{required}} 
                                     style={{backgroundColor:'#B1B3B7',borderRadius: '10px',border:'#F50F0F 1px solid'}}/>  
                     </Col>
@@ -58,11 +81,11 @@ class TeacherSignin extends Component{
                   </Row> 
                   <Row className="form-group">
                     <Col md={{ offset:5 }}>
-                      <Link to='/teacher'>
+                      {/* <Link to='/teacher'> */}
                         <Button type="submit" style={{backgroundColor:'#FC675F' ,color:'white' }}>
                           LOGIN
                         </Button>
-                      </Link>
+                      {/* </Link> */}
                     </Col>
                   </Row>
                   <Row className="form-group">

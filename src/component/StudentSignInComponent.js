@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import './main.css';
 import { Row, Col ,Button, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { baseUrl} from '../shared/basedUrl';
 import axios from 'axios';
 
@@ -17,20 +17,27 @@ const validReg = (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
 class StudentSignin extends Component{
     constructor(props){
       super(props);
+      let loggedin=false;
       this.state={
         regno:'',
-        password:''
+        password:'',
+        loggedin
       }
       this.handleLogin=this.handleLogin.bind(this);
     }
-    handleLogin(values){
+    handleLogin(e){
       
-      // values.preventDefault();
-      console.log('Current State is: ' + JSON.stringify(values));
+      // e.preventDefault();
+      const{regno,password}=this.state
+      // console.log('Current State is: ' + JSON.stringify(values));
 
-        alert('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + this.state);
-        console.log(this.state);
+      //   alert('Current State is: ' + JSON.stringify(values));
+        alert('RegNo is: ' + this.state);
+        console.log("Regno is :"+regno+" Password is :"+password);
+        localStorage.setItem("token",regno)
+        this.setState({
+          loggedin:true
+        })
 
         // const requestOptions = {
         //   method: 'POST',
@@ -45,13 +52,13 @@ class StudentSignin extends Component{
         // // const data= response.json();
         // console.log(response);
 
-         axios.post(baseUrl+'student/1/login',this.state)
-         .then(response=>{
-           console.log(response)
-         })
-         .catch(error=>{
-           console.log(error)
-         })
+        //  axios.post(baseUrl+'student/1/login',this.state)
+        //  .then(response=>{
+        //    console.log(response)
+        //  })
+        //  .catch(error=>{
+        //    console.log(error)
+        //  })
     }
     changeHandler=e=>{
       this.setState({[e.target.name]:e.target.value})
@@ -64,6 +71,10 @@ class StudentSignin extends Component{
 
 // }
      render(){
+       if(this.state.loggedin)
+       {
+         return<Redirect to='/student'/>
+       }
        const {regno,password}=this.state;
        return(
           <div className='bg4 '>
