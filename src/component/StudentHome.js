@@ -6,7 +6,9 @@ import { Control, LocalForm } from 'react-redux-form';
 import { Link, Redirect } from 'react-router-dom';
 import Notification from './studentNotificationComponent'
 import StudentNavbarComponent from './StudentNavbarComponent'
+import { baseUrl} from '../shared/basedUrl';
 import './main.css';
+import { connect } from 'react-redux';
 
 
 
@@ -244,21 +246,27 @@ function RendertodaysTimetable(){
 class StudentHome extends Component{
     constructor(props){
       super(props);
-      
+      alert("Home PAGE");
+      console.log(this.props);
+    //   axios.get(baseUrl, { headers: {"Authorization" : `Bearer ${token}`} })
+    //     .then(res => {
+    //         console.log(res.data);
+        
+    //     })
       this.state={
         id:null,
-        notifications:[
-            {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-        ],
+        // notifications:[
+        //     {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+        //     {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        //     {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+        //     {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        //     {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+        //     {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+        //     {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        //     {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        //     {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+        //     {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+        // ],
     }
     }
     handleInfo(values){
@@ -267,7 +275,7 @@ class StudentHome extends Component{
       }      
      
     componentDidMount(){
-        console.log(this.props);
+        console.log("PROPS IN STUDENT HOME",this.props);
         let id=this.props.match.params.std_id;
         this.setState({id:id});
     }
@@ -283,7 +291,7 @@ class StudentHome extends Component{
                         </Col>
                         <Col  md={{ offset:1 }}>
                             <br></br>
-                            <Notification notifications={this.state.notifications}></Notification>
+                            <Notification notifications={this.props.notifications}></Notification>
                             <br/>
                             <RendertodaysTimetable></RendertodaysTimetable>
                         </Col>
@@ -293,4 +301,10 @@ class StudentHome extends Component{
        )
      }
     }
-    export default StudentHome;
+    const mapStateoProps=(state)=>{
+        return{
+            notifications:state.notifications
+        }
+        
+    }
+    export default connect(mapStateoProps)(StudentHome);

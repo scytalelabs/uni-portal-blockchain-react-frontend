@@ -111,7 +111,7 @@ class AdminTeacherEdit extends Component{
 
      render(){
         const {name}=this.state;
-        const {UpdateTeacher}=this.props;
+        const {UpdateTeacher,ToggleEditing}=this.props;
        return(
            <div className='bg3'>
                 <AdminNavbarComponent></AdminNavbarComponent>
@@ -179,7 +179,7 @@ class AdminTeacherEdit extends Component{
                                     <Row>
                                         <Col md={{offset:7}}>
                                             {/* <Link to='/Admin/teacher/search'> */}
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                <Button type="submit" onClick={()=>ToggleEditing()}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Discard
                                                 </Button>
                                             {/* </Link> */}

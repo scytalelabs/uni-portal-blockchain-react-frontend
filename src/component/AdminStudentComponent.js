@@ -8,6 +8,8 @@ import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminStudentEdit from './AdminStudentEditComponent'
 import AdminAddNewStudent from './AdminAddNewStudentComponent';
+import { connect } from 'react-redux';
+import {deleteStudent,UpdateStudent,addStudent} from '../redux/ActionCreators'
 
 function RenderAdminServices(){
     return(
@@ -94,17 +96,18 @@ class AdminStudent extends Component{
     
       constructor(props){
         super(props);
+        console.log("Admin Student Components",this.props)
         this.state={
             isEditing:false,
             isAdding:false,
             search:'',
-            students:[
-                {id:1 ,name:"Muhammad Adrees",father_name:"Shakeel Ahmad",phone_no:"03356611986",address:"p323/1 amin town FSD",reg_no:"L1F16BSCS0151",cnic:331029627727,dob:"01/01/1998",email:"adreees0512@gmail.com"},
-                {id:2 ,name:"Zain Yazdan",father_name:"Yazdan Ahmad",phone_no:"03346611986",address:"ICHRA",reg_no:"L1F16BSCS0157",cnic:331029627727,dob:"03/01/1996",email:"zainyadan@gmail.com"},
-                {id:3 ,name:"Hammad Mubeen",father_name:"Mubeen Mohsin",phone_no:"03346611986",address:"MARAGZAAR",reg_no:"L1F16BSCS0145",cnic:331029627727,dob:"17/08/1998",email:"hammad123@gmail.com"},
-                {id:4 ,name:"Muhammad Arsal",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"arsalshaikh65@gmail.com"},
-                {id:5 ,name:"Muhammad Ghulam Fakhar ud din Shakeel",father_name:"Aslam Shakeel",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"efyudi@gmail.com"},
-            ],
+            // students:[
+            //     {id:1 ,name:"Muhammad Adrees",father_name:"Shakeel Ahmad",phone_no:"03356611986",address:"p323/1 amin town FSD",reg_no:"L1F16BSCS0151",cnic:331029627727,dob:"01/01/1998",email:"adreees0512@gmail.com"},
+            //     {id:2 ,name:"Zain Yazdan",father_name:"Yazdan Ahmad",phone_no:"03346611986",address:"ICHRA",reg_no:"L1F16BSCS0157",cnic:331029627727,dob:"03/01/1996",email:"zainyadan@gmail.com"},
+            //     {id:3 ,name:"Hammad Mubeen",father_name:"Mubeen Mohsin",phone_no:"03346611986",address:"MARAGZAAR",reg_no:"L1F16BSCS0145",cnic:331029627727,dob:"17/08/1998",email:"hammad123@gmail.com"},
+            //     {id:4 ,name:"Muhammad Arsal",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"arsalshaikh65@gmail.com"},
+            //     {id:5 ,name:"Muhammad Ghulam Fakhar ud din Shakeel",father_name:"Aslam Shakeel",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"efyudi@gmail.com"},
+            // ],
             student:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null}
 
         }
@@ -133,46 +136,48 @@ class AdminStudent extends Component{
         
       }
       addStudent(studentinfo){
-        console.log("NAME IS "+studentinfo.name)
-        studentinfo.id=Math.random();
-        let students=[... this.state.students,studentinfo]
-        this.setState({
-            students,
-        });
+        this.props.addStudent(studentinfo);
+        // console.log("NAME IS "+studentinfo.name)
+        // studentinfo.id=Math.random();
+        // let students=[... this.state.students,studentinfo]
+        // this.setState({
+        //     students,
+        // });
         this.toggleisAdding();
         
 
       }
       deleteStudent=(id)=>{
-        const students=this.state.students.filter(student=>{
-            return student.id!==id
-        })
-        this.setState({
-            students
-        })
+          this.props.deleteStudent(id);
+        // const students=this.state.students.filter(student=>{
+        //     return student.id!==id
+        // })
+        // this.setState({
+        //     students
+        // })
     }
       UpdateStudent(updatedstudent){
         // console.log("UPPDATED Student IS" +updatedstudent.father_name);
+        this.props.UpdateStudent(updatedstudent);
+        // this.setState(state => {
+        //     const list = state.students.map(student => 
+        //         {
+        //             if(student.id==updatedstudent.id)
+        //             {
+        //                 student.id=updatedstudent.id;
+        //                 student.name=updatedstudent.name;
+        //                 student.father_name=updatedstudent.father_name;
+        //                 student.dob=updatedstudent.dob;
+        //                 student.email=updatedstudent.email;
+        //                 student.phone_no=updatedstudent.phone_no;
+        //                 student.cnic=updatedstudent.cnic;
+        //                 student.address=updatedstudent.address;
+        //                 student.reg_no=updatedstudent.reg_no;
+        //             }
+        //         }
+        //         );
 
-        this.setState(state => {
-            const list = state.students.map(student => 
-                {
-                    if(student.id==updatedstudent.id)
-                    {
-                        student.id=updatedstudent.id;
-                        student.name=updatedstudent.name;
-                        student.father_name=updatedstudent.father_name;
-                        student.dob=updatedstudent.dob;
-                        student.email=updatedstudent.email;
-                        student.phone_no=updatedstudent.phone_no;
-                        student.cnic=updatedstudent.cnic;
-                        student.address=updatedstudent.address;
-                        student.reg_no=updatedstudent.reg_no;
-                    }
-                }
-                );
-
-          });
+        //   });
         this.ToggleEditing();
       } 
 
@@ -180,7 +185,7 @@ class AdminStudent extends Component{
 
         const {search,isEditing,isAdding}=this.state;
         var search_hold=search.toUpperCase();
-        var hold=this.state.students.filter(function(student) { return student.reg_no ==search_hold;  });
+        var hold=this.props.students.filter(function(student) { return student.reg_no ===search_hold;  });
         // console.log(hold);
         // console.log("length is :"+hold.length)
         if(search!=="" && hold.length==1 && search_hold == hold[0].reg_no && isEditing==false)
@@ -274,12 +279,12 @@ class AdminStudent extends Component{
              ) }
              else if(isEditing==true){
                  return(
-                     <AdminStudentEdit UpdateStudent={this.UpdateStudent} student={this.state.student}/>
+                     <AdminStudentEdit UpdateStudent={this.UpdateStudent}  ToggleEditing={this.ToggleEditing} student={this.state.student}/>
                  )
              }
              else if(isAdding==true){
                  return(
-                     <AdminAddNewStudent addStudent={this.addStudent}/>
+                     <AdminAddNewStudent addStudent={this.addStudent} toggleisAdding={this.toggleisAdding}/>
                  )
              }
         else{
@@ -335,4 +340,16 @@ class AdminStudent extends Component{
          }
      }
     }
-    export default AdminStudent;
+    const mapStatetoProps=(state)=>{
+        return{
+            students:state.students
+        }   
+    }
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            deleteStudent:(id)=>{dispatch(deleteStudent(id))},
+            addStudent:(studentinfo)=>{dispatch(addStudent(studentinfo))},
+            UpdateStudent:(updatedstudent)=>{dispatch(UpdateStudent(updatedstudent))}
+        }
+    }
+    export default connect(mapStatetoProps,mapDispatchtoProps)(AdminStudent);

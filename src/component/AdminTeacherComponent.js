@@ -7,6 +7,8 @@ import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminTeacherEdit from './AdminTeacherEditComponent';
 import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
+import { connect } from 'react-redux';
+import { deleteTeacher, addTeacher, UpdateTeacher } from '../redux/ActionCreators';
 
 
 function RenderAdminServices(){
@@ -98,13 +100,13 @@ class AdminTeacher extends Component{
             isEditing:false,
             isAdding:false,
             search:'',
-            teachers:[
-                {id:1 ,name:"Zaid Munir",father_name:"Munir Ahmad",phone_no:"03356611986",address:"house#45,C block ,Sky Lake, Lahore Pakistan",reg_no:"L1F16BSCS0151",cnic:331029627727,dob:"01/01/1998",email:"zaid.munir@ucp.edu.pk",qualification:"MSCS"},
-                {id:2 ,name:"Usman Younas",father_name:"Younas ahmad",phone_no:"03346611986",address:"ICHRA",reg_no:"L1F16BSCS0157",cnic:331029627727,dob:"03/01/1996",email:"Usman.younas@gmail.com",qualification:"MPHIL "},
-                {id:3 ,name:"Mohsin Sami",father_name:"Mubeen Mohsin",phone_no:"03346611986",address:"MARAGZAAR",reg_no:"L1F16BSCS0145",cnic:331029627727,dob:"17/08/1998",email:"mohsing.sami@gmail.com",qualification:"PHD"},
-                {id:4 ,name:"Haris",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"Muhammad.haris@gmail.com",qualification:"BSSE"},
-                {id:5 ,name:"Sadaf Baloch",father_name:"Muhammad Baloch",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"sadaf.balouch@gmail.com",qualification:"BSCS"},
-            ],
+            // teachers:[
+            //     {id:1 ,name:"Zaid Munir",father_name:"Munir Ahmad",phone_no:"03356611986",address:"house#45,C block ,Sky Lake, Lahore Pakistan",reg_no:"L1F16BSCS0151",cnic:331029627727,dob:"01/01/1998",email:"zaid.munir@ucp.edu.pk",qualification:"MSCS"},
+            //     {id:2 ,name:"Usman Younas",father_name:"Younas ahmad",phone_no:"03346611986",address:"ICHRA",reg_no:"L1F16BSCS0157",cnic:331029627727,dob:"03/01/1996",email:"Usman.younas@gmail.com",qualification:"MPHIL "},
+            //     {id:3 ,name:"Mohsin Sami",father_name:"Mubeen Mohsin",phone_no:"03346611986",address:"MARAGZAAR",reg_no:"L1F16BSCS0145",cnic:331029627727,dob:"17/08/1998",email:"mohsing.sami@gmail.com",qualification:"PHD"},
+            //     {id:4 ,name:"Haris",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"Muhammad.haris@gmail.com",qualification:"BSSE"},
+            //     {id:5 ,name:"Sadaf Baloch",father_name:"Muhammad Baloch",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"sadaf.balouch@gmail.com",qualification:"BSCS"},
+            // ],
             teacher:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null,qualification:null}
         }
         // this.handleLogin=this.handleSearch.bind(this);
@@ -127,60 +129,19 @@ class AdminTeacher extends Component{
         
       }
       addTeacher(teacherinfo){
-        console.log("NAME IS "+teacherinfo.name)
-        teacherinfo.id=Math.random();
-        let teachers=[... this.state.teachers,teacherinfo]
-        this.setState({
-            teachers,
-        });
+        
+        this.props.addTeacher(teacherinfo);
         this.toggleisAdding();
       }
       UpdateTeacher(updatedteacher){
-        // console.log("UPPDATED TEACHER IS" +updatedteacher.father_name);
-        
-        this.setState(state => {
-            const list = state.teachers.map(teacher => 
-                {
-                    if(teacher.id==updatedteacher.id)
-                    {
-                        teacher.id=updatedteacher.id;
-                        teacher.name=updatedteacher.name;
-                        teacher.father_name=updatedteacher.father_name;
-                        teacher.dob=updatedteacher.dob;
-                        teacher.email=updatedteacher.email;
-                        teacher.phone_no=updatedteacher.phone_no;
-                        teacher.cnic=updatedteacher.cnic;
-                        teacher.address=updatedteacher.address;
-                        teacher.qualification=updatedteacher.qualification;
-                    }
-                }
-                );
-
-          });
-        // console.log("UPPDATED TEACHER id" +hold[0].id);
-        // console.log("UPPDATED TEACHER name" +hold[0].name);
+          console.log("UPDATED TEACHER IS ",updatedteacher);
+          this.props.UpdateTeacher(updatedteacher);
+       
         this.ToggleEditing();
-        // this.setState({
-            
-        // });
-        // }
-        // this.setState
-        //     ({
-                
-        //         })
-        //     });
-        // 
-        
-        // const teacher=this.state.teachers.filter(function(teacher) { return teacher.id ==id;  });
         
       } 
       deleteTeacher=(id)=>{
-        const teachers=this.state.teachers.filter(teacher=>{
-            return teacher.id!==id
-        })
-        this.setState({
-            teachers
-        })
+        this.props.deleteTeacher(id);
     }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
@@ -188,9 +149,8 @@ class AdminTeacher extends Component{
      render(){
             const {isEditing,search,isAdding}=this.state;
             var search_hold=search.toUpperCase();
-            var hold=this.state.teachers.filter(function(teacher) { return teacher.reg_no ==search_hold;});
-            // console.log(hold);
-            // console.log("length is :"+hold.length)
+            console.log("TEACHERS PROPS ARE",this.props.teachers);
+            var hold=this.props.teachers.filter(function(teacher) { return teacher.reg_no ===search_hold});
             if(search!=="" && hold.length==1 && search_hold == hold[0].reg_no && isEditing==false)
             {
                 this.state.teacher.id=hold[0].id;
@@ -281,17 +241,13 @@ class AdminTeacher extends Component{
             </div>
         )   }
         else if(isEditing==true){
-            // alert("HELLLOOO"+this.state.teacher.name)
-            // console.log("TEACHER IS"+this.state.teacher)
             return(
-                <AdminTeacherEdit UpdateTeacher={this.UpdateTeacher} teacher={this.state.teacher}/>
+                <AdminTeacherEdit UpdateTeacher={this.UpdateTeacher} ToggleEditing={this.ToggleEditing} teacher={this.state.teacher}/>
             )
         }
         else if(isAdding==true){
-            // alert("HELLLOOO"+this.state.student.name)
-            // console.log("STUDENT IS"+this.state.student)
              return(
-                 <AdminAddNewTeacher addTeacher={this.addTeacher}/>
+                 <AdminAddNewTeacher addTeacher={this.addTeacher} toggleisAdding={this.toggleisAdding}/>
              )
          }
         else{
@@ -347,4 +303,16 @@ class AdminTeacher extends Component{
         }
     }
 }
-    export default AdminTeacher;
+const mapStatetoProps=(state)=>{
+    return{
+        teachers:state.teachers
+    }   
+}
+const mapDispatchtoProps=(dispatch)=>{
+    return{
+        deleteTeacher:(id)=>{dispatch(deleteTeacher(id))},
+        addTeacher:(teacherinfo)=>{dispatch(addTeacher(teacherinfo))},
+        UpdateTeacher:(updatedteacher)=>{dispatch(UpdateTeacher(updatedteacher))}
+    }
+}
+export default connect(mapStatetoProps,mapDispatchtoProps)(AdminTeacher);

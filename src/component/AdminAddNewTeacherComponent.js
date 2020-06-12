@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
-import {Container} from 'reactstrap';
-import { Row, Col ,Button} from 'reactstrap';
+import { Row, Col ,Button,Container} from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import './main.css';
@@ -110,7 +109,7 @@ class AdminAddNewTeacher extends Component{
       } 
      render(){
         const {id,name,father_name,phone_no,address,reg_no,cnic,dob,email,qualification}=this.state;
-        const {addTeacher}=this.props;
+        const {addTeacher,toggleisAdding}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent></AdminNavbarComponent>
@@ -121,10 +120,9 @@ class AdminAddNewTeacher extends Component{
                         </Col>
                         
                         <Col md={{ offset:1 }}>
-                            <div className='Services1'>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+                        <div className='Services1' style={{paddingBottom:'12px',paddingTop:'12px'}}>
+                                <LocalForm>
                                 <br></br>
-                                    
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
                                             <div className='EditBox'>
@@ -181,19 +179,15 @@ class AdminAddNewTeacher extends Component{
                                         </Col>
                                     </Row>
                                     <Row>
-                                    <Col md={{offset:7}}>
-                                            <Link to='/Admin/Teacher'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Discard
-                                                </Button>
-                                            </Link>
+                                        <Col md={{offset:7}}>
+                                            <Button type="submit" onClick={()=>toggleisAdding()}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                Discard
+                                            </Button>
                                         </Col>
                                         <Col md={{offset:1}}>
-                                            {/* <Link to='/Admin/Teacher/AddTeacher/Add'> */}
-                                                <Button type="submit" onClick={()=>addTeacher(this.state)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Add
-                                                </Button>
-                                            {/* </Link> */}
+                                            <Button type="submit" onClick={()=>addTeacher(this.state)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                Add
+                                            </Button>
                                         </Col>
                                     </Row>
                                 </LocalForm>

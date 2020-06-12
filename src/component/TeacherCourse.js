@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
-import {Navbar, Container} from 'reactstrap';
+import {Navbar, Container, Alert} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
@@ -132,27 +132,62 @@ function RenderSideBar2(){
             </div>
     )
 }
+// let total=false;
+// function Total(totalf){
+//     console.log("total flag IS", total);
+//     if(total.total==true)
+//     {
+//         return (
+//         <Alert color="danger" style={{marginRight:'50px'}}>
+//         Total Should be 100
+//         </Alert>
+//         ) 
+//     }
+//     else{
+//         return(<div></div>)
+//     }
+// }
 
 class TeacherCourse extends Component{
     constructor(props){
       super(props);
+      this.setTypeWeightage=this.setTypeWeightage.bind(this);
+      
     }
+    
     state={
-        types:[
-            {id:1,data:"Assignment"},
-            {id:2,data:"Quiz"},
-            {id:3,data:"Mid-Term"},
-            {id:4,data:"Class Participation"},
-            {id:5,data:"Final-Term"},
-            {id:6,data:"Project"},
-            {id:7,data:"Project Presentation"}
-        ]
+        Assignment:10,
+        Quiz:20,
+        Mid_Term:25,
+        Class_Participation:5,
+        Final_Term:30,
+        Project:10,
+        Project_Presentation:5,
+
     }
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));
-      }
+    setTypeWeightage(Weightage)
+        {
+             console.log("HELOO",Weightage);
+            let total=parseInt(Weightage.Assignment)+parseInt(Weightage.Quiz)+parseInt(Weightage.Mid_Term)+parseInt(Weightage.Mid_Term)+parseInt(Weightage.Class_Participation)+parseInt(Weightage.Project)+parseInt(Weightage.Project_Presentation)
+
+            if(total===100)
+            {
+                alert("Total is 100");
+                this.setState({
+                    Assignment:Weightage.Assignment,
+                    Quiz:Weightage.Quiz,
+                    Mid_Term:Weightage.Mid_Term,
+                    Class_Participation:Weightage.Class_Participation,
+                    Final_Term:Weightage.Final_Term,
+                    Project:Weightage.Project,
+                    Project_Presentation:Weightage.Project_Presentation,
+                })
+                total=false;
+            }
+            
+        }
      render(){
+        const {Assignment,Quiz,Mid_Term,Class_Participation,Final_Term,Project,Project_Presentation}=this.state;
        return(
            <div className='bg5'>
                <TeacherNavbarComponent></TeacherNavbarComponent>
@@ -160,7 +195,9 @@ class TeacherCourse extends Component{
                     <Row>
                         <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        <Col> <br/><br/><RenderSetWeightage types={this.state.types}></RenderSetWeightage></Col>
+                        <Col> <br/><br/>
+                        {/* <Total total></Total> */}
+                        <RenderSetWeightage setTypeWeightage={this.setTypeWeightage} Assignment={Assignment} Quiz={Quiz} Mid_Term={Mid_Term} Class_Participation={Class_Participation} Final_Term={Final_Term} Project={Project} Project_Presentation={Project_Presentation}></RenderSetWeightage></Col>
                     </Row>
                 </Container>
 
@@ -170,4 +207,5 @@ class TeacherCourse extends Component{
        )
      }
     }
+
     export default TeacherCourse;

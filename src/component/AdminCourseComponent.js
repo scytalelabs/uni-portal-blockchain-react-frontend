@@ -8,6 +8,8 @@ import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
 import AdminAddNewCourse from './AdminAddNewCourseComponent';
+import { connect } from 'react-redux';
+import { deleteCourse, addCourse, UpdateCourse } from '../redux/ActionCreators';
 
 
 
@@ -99,13 +101,13 @@ class AdminCourse extends Component{
           search:'',
           isEditing:false,
           isAdding:false,
-          courses:[
-            {id:1 ,course:"Data Base + lab",semester:"Fall 19",section:"A",credit_hours:"4",course_code:"BSSC001"},
-            {id:2 ,course:"CCN + lab",semester:"Fall 18",section:"B",credit_hours:"4",course_code:"BSSC002"},
-            {id:3 ,course:"Persian",semester:"Fall 17",section:"C",credit_hours:"3",course_code:"BSSC003"},
-            {id:4 ,course:"Game Development",semester:"Fall 16",section:"D",credit_hours:"3",course_code:"BSSC004"},
-            {id:5 ,course:"OOAD + lab",semester:"Fall 15",section:"E",credit_hours:"4",course_code:"BSSC005"},   
-          ],
+        //   courses:[
+        //     {id:1 ,course:"Data Base + lab",semester:"Fall 19",section:"A",credit_hours:"4",course_code:"BSSC001"},
+        //     {id:2 ,course:"CCN + lab",semester:"Fall 18",section:"B",credit_hours:"4",course_code:"BSSC002"},
+        //     {id:3 ,course:"Persian",semester:"Fall 17",section:"C",credit_hours:"3",course_code:"BSSC003"},
+        //     {id:4 ,course:"Game Development",semester:"Fall 16",section:"D",credit_hours:"3",course_code:"BSSC004"},
+        //     {id:5 ,course:"OOAD + lab",semester:"Fall 15",section:"E",credit_hours:"4",course_code:"BSSC005"},   
+        //   ],
           course:{id:null ,course:null,semester:null,section:null,credit_hours:null,course_code:null}
         }
         this.ToggleEditing=this.ToggleEditing.bind(this);
@@ -126,51 +128,49 @@ class AdminCourse extends Component{
         
       }
       addCourse(courseinfo){
-        alert("NAME IS "+courseinfo.course)
-        courseinfo.id=Math.random();
-        let courses=[... this.state.courses,courseinfo]
-        this.setState({
-            courses,
-        });
+        // alert("NAME IS "+courseinfo.course)
+        // courseinfo.id=Math.random();
+        // let courses=[... this.state.courses,courseinfo]
+        // this.setState({
+        //     courses,
+        // });
+        this.props.addCourse(courseinfo);
         this.toggleisAdding();
         
 
       }
       deleteCourse=(id)=>{
-          const courses=this.state.courses.filter(course=>{
-              return course.id!==id
-          })
-          this.setState({
-              courses
-          })
+        
+        this.props.deleteCourse(id);
       }
       UpdateCourse(updatedcourse){
+          this.props.UpdateCourse(updatedcourse);
 
-        this.setState(state => {
-            const list = state.courses.map(course => 
-                {
-                    if(course.id==updatedcourse.id)
-                    {
-                        course.course_code=updatedcourse.course_code;
-                        course.course=updatedcourse.course;
-                        course.semester=updatedcourse.semester;
-                        course.section=updatedcourse.section;
-                        course.credit_hours=updatedcourse.credit_hours;
+        // this.setState(state => {
+        //     const list = state.courses.map(course => 
+        //         {
+        //             if(course.id===updatedcourse.id)
+        //             {
+        //                 course.course_code=updatedcourse.course_code;
+        //                 course.course=updatedcourse.course;
+        //                 course.semester=updatedcourse.semester;
+        //                 course.section=updatedcourse.section;
+        //                 course.credit_hours=updatedcourse.credit_hours;
                         
-                    }
-                }
-                );
+        //             }
+        //         }
+        //         );
 
-          });
+        //   });
         this.ToggleEditing();
       } 
 
      render(){
         const {search,isEditing,isAdding}=this.state;
         var search_hold=search.toUpperCase();
-            var hold=this.state.courses.filter(function(course) { return course.course_code == search_hold;  });
+            var hold=this.props.courses.filter(function(course) { return course.course_code === search_hold;  });
             
-            if(search!=="" && hold.length==1 && search_hold == hold[0].course_code && isEditing==false)
+            if(search!=="" && hold.length===1 && search_hold === hold[0].course_code && isEditing===false)
             {
                 this.state.course.id=hold[0].id;
                 this.state.course.course_code=hold[0].course_code;
@@ -248,14 +248,14 @@ class AdminCourse extends Component{
                 </Container>
             </div>
         )   }
-        else if(isEditing==true){
+        else if(isEditing===true){
              return(
-                 <AdminCourseEdit UpdateCourse={this.UpdateCourse} course={this.state.course}/>
+                 <AdminCourseEdit UpdateCourse={this.UpdateCourse} ToggleEditing={this.ToggleEditing} course={this.state.course}/>
              )
          }
-         else if(isAdding==true){
+         else if(isAdding===true){
             return(
-                <AdminAddNewCourse addCourse={this.addCourse}/>
+                <AdminAddNewCourse addCourse={this.addCourse} toggleisAdding={this.toggleisAdding}/>
             )
         }
         else{
@@ -312,4 +312,16 @@ class AdminCourse extends Component{
      }
     }
     }
-    export default AdminCourse;
+    const mapStatetoProps=(state)=>{
+        return{
+            courses:state.courses
+        }   
+    }
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            deleteCourse:(id)=>{dispatch(deleteCourse(id))},
+            addCourse:(courseinfo)=>{dispatch(addCourse(courseinfo))},
+            UpdateCourse:(updatedcourse)=>{dispatch(UpdateCourse(updatedcourse))}
+        }
+    }
+    export default connect(mapStatetoProps,mapDispatchtoProps)(AdminCourse);

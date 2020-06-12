@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import './main.css';
 import { Row, Col ,Button, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { baseUrl} from '../shared/basedUrl';
 import axios from 'axios';
 
@@ -32,14 +32,11 @@ class StudentSignin extends Component{
       // console.log('Current State is: ' + JSON.stringify(values));
 
       //   alert('Current State is: ' + JSON.stringify(values));
-        alert('RegNo is: ' + this.state);
-        console.log("Regno is :"+regno+" Password is :"+password);
+        // alert('RegNo is: ' + this.state);
+        // console.log("Regno is :"+regno+" Password is :"+password);
         localStorage.setItem("token",regno)
-        this.setState({
-          loggedin:true
-        })
 
-        // const requestOptions = {
+// const requestOptions = {
         //   method: 'POST',
         //   headers: { 
         //       'Content-Type': 'application/json',
@@ -48,17 +45,28 @@ class StudentSignin extends Component{
         //     username: this.state.username,
         //   password:this.state.password})
         // };
+        
         // const response= fetch(baseUrl+'student/1/login',requestOptions);
         // // const data= response.json();
         // console.log(response);
 
-        //  axios.post(baseUrl+'student/1/login',this.state)
-        //  .then(response=>{
-        //    console.log(response)
-        //  })
-        //  .catch(error=>{
-        //    console.log(error)
-        //  })
+        const data={
+          username:regno,
+          password:password
+        }
+
+         axios.post(baseUrl+'student/1/login',data)
+         .then(response=>{
+           console.log("RESPONSE :",response);
+           if(response.data.status===true)
+           this.setState({
+            loggedin:true
+          })
+         })
+         .catch(error=>{
+          
+           console.log(error)
+         })
     }
     changeHandler=e=>{
       this.setState({[e.target.name]:e.target.value})

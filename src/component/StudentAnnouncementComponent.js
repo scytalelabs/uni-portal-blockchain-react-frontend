@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {Container} from 'reactstrap';
 import { Row, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import Notification from './StudentAnnouncementDisplayComponent';
 import './main.css';
@@ -171,6 +172,7 @@ function RenderSideBar2(){
 class Announcements extends Component{
     constructor(props){
       super(props);
+      alert("NOTIFACATION PAGE");
       console.log(this.props);
     }
     
@@ -178,20 +180,20 @@ class Announcements extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));
     }
-    state={
-        notifications:[
-            {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-            {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-            {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-        ]
-    }
+    // state={
+    //     notifications:[
+    //         {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+    //         {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+    //         {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+    //         {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+    //         {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+    //         {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+    //         {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+    //         {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+    //         {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
+    //         {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
+    //     ]
+    // }
      render(){
        return(
            <div className='bg4'>
@@ -201,7 +203,7 @@ class Announcements extends Component{
                         <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
 
-                        <Col> <br/><br/><Notification notifications={this.state.notifications}></Notification></Col>
+                        <Col> <br/><br/><Notification notifications={this.props.notifications}></Notification></Col>
                     </Row>
                 </Container>
 
@@ -211,4 +213,10 @@ class Announcements extends Component{
        )
      }
     }
-    export default Announcements;
+    const mapStateoProps=(state)=>{
+        return{
+            notifications:state.notifications
+        }
+        
+    }
+    export default connect(mapStateoProps)(Announcements);

@@ -115,7 +115,7 @@ class AdminStudentEdit extends Component{
       } 
      render(){
       //  const {name}=this.state;
-        const{UpdateStudent}=this.props;
+        const{UpdateStudent,ToggleEditing}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent></AdminNavbarComponent>
@@ -182,18 +182,14 @@ class AdminStudentEdit extends Component{
                                     
                                     <Row>
                                         <Col md={{offset:7}}>
-                                            {/* <Link to='/Admin/Student/search'> */}
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Discard
-                                                </Button>
-                                            {/* </Link> */}
+                                            <Button type="submit" onClick={()=>ToggleEditing()} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                Discard
+                                            </Button>
                                         </Col>
                                         <Col md={{offset:0}}>
-                                            
                                             <Button  type="submit" onClick={()=>UpdateStudent(this.state)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Confirm
-                                                </Button>
-                                            
+                                            </Button>
                                         </Col>
                                     </Row>
                                 </LocalForm>

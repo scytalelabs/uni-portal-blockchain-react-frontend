@@ -102,7 +102,7 @@ class AdminCourseEdit extends Component{
         this.setState({[e.target.name]:e.target.value})
       } 
      render(){
-        const{UpdateCourse}=this.props;
+        const{UpdateCourse,ToggleEditing}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent></AdminNavbarComponent>
@@ -120,7 +120,7 @@ class AdminCourseEdit extends Component{
                                 <Row className='form-group'>           
                                         <Col md={{offset:1}}>
                                             <div className='EditBox'style={{marginBottom:'30px'}}>
-                                                <h3>ADD COURSE</h3>
+                                                <h3>EDIT COURSE</h3>
                                             <br></br>
                                                 <Row>
                                                     <Col>
@@ -156,11 +156,11 @@ class AdminCourseEdit extends Component{
                                     </Row>
                                     <Row>
                                         <Col md={{offset:7}}>
-                                            <Link to='/Admin/course/search'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                            {/* <Link to='/Admin/course'> */}
+                                                <Button type="submit" onClick={()=>ToggleEditing()} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Discard
                                                 </Button>
-                                            </Link>
+                                            {/* </Link> */}
                                         </Col>
                                         <Col md={{offset:0}}>
                                             {/* <Link to='/Admin/course/search'> */}

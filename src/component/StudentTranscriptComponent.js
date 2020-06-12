@@ -7,6 +7,7 @@ import { Control, LocalForm} from 'react-redux-form';
 import TranscriptData from './StudentTranscriptDisplayComponent'
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
+import { connect } from 'react-redux';
 
 
 
@@ -119,54 +120,54 @@ function RenderSideBar1(){
 class Transcript extends Component{
     constructor(props){
       super(props);
+      console.log("Transcrips Props",this.props)
     }
-    state={
-        transcriptheadinginfo:[
-            {id:1 ,credit_attempted:"Credit Attempted",credit_accepted_toward_degree_completion:"Credit Accepted toward degree Completion",credit_earned:"Credit Earned",cgpa:"CGPA"}
-        ],
-        transcriptheadingdata:[
-            {id:1 ,credit_attempted:0,credit_accepted_toward_degree_completion:0,credit_earned:0,cgpa:0}
-        ],
-        terminfo:[
-            {id:1 ,title:"Fall 16"},
-            {id:2 ,title:"Spring 17"},
-            {id:3 ,title:"Fall 17"},
-            {id:4 ,title:"Spring 18"},
-            {id:5 ,title:"Fall 19"}
-        ],
-        termheading:[
-            {id:1 ,courseid:"Course ID",course_title:"Course Title",course_credit:"Course Credit",grade:"Grade"}
-        ],
-        termdata:[
-            {tid:1,id:1,courseid:"BSCS01",course_title:"DataBase",course_credit:3,grade:"A"},
-            {tid:1,id:2,courseid:"BSCS02",course_title:"Pak Studies",course_credit:3,grade:"A"},
-            {tid:1,id:3,courseid:"BSCS03",course_title:"Numerical Computing",course_credit:3,grade:"A"},
-            {tid:1,id:4,courseid:"BSCS04",course_title:"DataBase Lab",course_credit:1,grade:"A"},
-            {tid:1,id:5,courseid:"BSCS05",course_title:"Logical Thinking",course_credit:3,grade:"A"},
-            {tid:2,id:1,courseid:"BSCS11",course_title:"Data Science",course_credit:3,grade:"A"},
-            {tid:2,id:2,courseid:"BSCS12",course_title:"CloudComputing",course_credit:3,grade:"B+"},
-            {tid:2,id:3,courseid:"BSCS13",course_title:"Operating System",course_credit:3,grade:"A"},
-            {tid:2,id:4,courseid:"BSCS14",course_title:"Operating System Lab",course_credit:1,grade:"B"},
-            {tid:2,id:5,courseid:"BSCS15",course_title:"English I",course_credit:3,grade:"A-"},
-            {tid:3,id:1,courseid:"BSCS21",course_title:"Data Science",course_credit:3,grade:"A"},
-            {tid:3,id:2,courseid:"BSCS22",course_title:"CloudComputing",course_credit:3,grade:"B+"},
-            {tid:3,id:3,courseid:"BSCS23",course_title:"Artificial Intelligence",course_credit:3,grade:"A"},
-            {tid:3,id:4,courseid:"BSCS24",course_title:"Artificial Intelligence Lab",course_credit:1,grade:"B"},
-            {tid:3,id:5,courseid:"BSCS25",course_title:"English II",course_credit:3,grade:"A-"},
-            {tid:4,id:1,courseid:"BSCS31",course_title:"Data Science",course_credit:3,grade:"A"},
-            {tid:4,id:2,courseid:"BSCS32",course_title:"CloudComputing",course_credit:3,grade:"B+"},
-            {tid:4,id:3,courseid:"BSCS33",course_title:"Introduction to computr Science",course_credit:3,grade:"A"},
-            {tid:4,id:4,courseid:"BSCS34",course_title:"Introduction to computr Science Lab",course_credit:1,grade:"B"},
-            {tid:4,id:5,courseid:"BSCS35",course_title:"English II",course_credit:3,grade:"A-"},
-            {tid:5,id:1,courseid:"BSCS41",course_title:"Programming Fundamentals",course_credit:3,grade:"A"},
-            {tid:5,id:2,courseid:"BSCS42",course_title:"CloudComputing",course_credit:3,grade:"B+"},
-            {tid:5,id:3,courseid:"BSCS43",course_title:"Object Oriented and Paradigm",course_credit:3,grade:"A"},
-            {tid:5,id:4,courseid:"BSCS44",course_title:"Object Oriented and Paradigm Lab",course_credit:1,grade:"B"},
-            {tid:5,id:5,courseid:"BSCS45",course_title:"Multivariat Calculus",course_credit:3,grade:"A-"}
+    // state={
+        // transcriptheadinginfo:[
+        //     {id:1 ,credit_attempted:"Credit Attempted",credit_accepted_toward_degree_completion:"Credit Accepted toward degree Completion",credit_earned:"Credit Earned",cgpa:"CGPA"}
+        // ],
+        // transcriptheadingdata:[
+        //     {id:1 ,credit_attempted:0,credit_accepted_toward_degree_completion:0,credit_earned:0,cgpa:0}
+        // ],
+        // terminfo:[
+        //     {id:1 ,title:"Fall 16"},
+        //     {id:2 ,title:"Spring 17"},
+        //     {id:3 ,title:"Fall 17"},
+        //     {id:4 ,title:"Spring 18"},
+        //     {id:5 ,title:"Fall 19"}
+        // ],
+        // termheading:[
+        //     {id:1 ,courseid:"Course ID",course_title:"Course Title",course_credit:"Course Credit",grade:"Grade"}
+        // ],
+        // termdata:[
+        //     {tid:1,id:1,courseid:"BSCS01",course_title:"DataBase",course_credit:3,grade:"A"},
+        //     {tid:1,id:2,courseid:"BSCS02",course_title:"Pak Studies",course_credit:3,grade:"A"},
+        //     {tid:1,id:3,courseid:"BSCS03",course_title:"Numerical Computing",course_credit:3,grade:"A"},
+        //     {tid:1,id:4,courseid:"BSCS04",course_title:"DataBase Lab",course_credit:1,grade:"A"},
+        //     {tid:1,id:5,courseid:"BSCS05",course_title:"Logical Thinking",course_credit:3,grade:"A"},
+        //     {tid:2,id:1,courseid:"BSCS11",course_title:"Data Science",course_credit:3,grade:"A"},
+        //     {tid:2,id:2,courseid:"BSCS12",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+        //     {tid:2,id:3,courseid:"BSCS13",course_title:"Operating System",course_credit:3,grade:"A"},
+        //     {tid:2,id:4,courseid:"BSCS14",course_title:"Operating System Lab",course_credit:1,grade:"B"},
+        //     {tid:2,id:5,courseid:"BSCS15",course_title:"English I",course_credit:3,grade:"A-"},
+        //     {tid:3,id:1,courseid:"BSCS21",course_title:"Data Science",course_credit:3,grade:"A"},
+        //     {tid:3,id:2,courseid:"BSCS22",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+        //     {tid:3,id:3,courseid:"BSCS23",course_title:"Artificial Intelligence",course_credit:3,grade:"A"},
+        //     {tid:3,id:4,courseid:"BSCS24",course_title:"Artificial Intelligence Lab",course_credit:1,grade:"B"},
+        //     {tid:3,id:5,courseid:"BSCS25",course_title:"English II",course_credit:3,grade:"A-"},
+        //     {tid:4,id:1,courseid:"BSCS31",course_title:"Data Science",course_credit:3,grade:"A"},
+        //     {tid:4,id:2,courseid:"BSCS32",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+        //     {tid:4,id:3,courseid:"BSCS33",course_title:"Introduction to computr Science",course_credit:3,grade:"A"},
+        //     {tid:4,id:4,courseid:"BSCS34",course_title:"Introduction to computr Science Lab",course_credit:1,grade:"B"},
+        //     {tid:4,id:5,courseid:"BSCS35",course_title:"English II",course_credit:3,grade:"A-"},
+        //     {tid:5,id:1,courseid:"BSCS41",course_title:"Programming Fundamentals",course_credit:3,grade:"A"},
+        //     {tid:5,id:2,courseid:"BSCS42",course_title:"CloudComputing",course_credit:3,grade:"B+"},
+        //     {tid:5,id:3,courseid:"BSCS43",course_title:"Object Oriented and Paradigm",course_credit:3,grade:"A"},
+        //     {tid:5,id:4,courseid:"BSCS44",course_title:"Object Oriented and Paradigm Lab",course_credit:1,grade:"B"},
+        //     {tid:5,id:5,courseid:"BSCS45",course_title:"Multivariat Calculus",course_credit:3,grade:"A-"}
+        // ]
 
-        ]
-
-    }
+    // }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));
@@ -179,7 +180,7 @@ class Transcript extends Component{
                 <Container fluid={true}>
                     <Row>
                         <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
-                        <Col><TranscriptData transcriptheadinginfo={this.state.transcriptheadinginfo} transcriptheadingdata={this.state.transcriptheadingdata} terminfo={this.state.terminfo} termheading={this.state.termheading} termdata={this.state.termdata} ></TranscriptData></Col>
+                        <Col><TranscriptData transcriptheadinginfo={this.props.transcriptheadinginfo} transcriptheadingdata={this.props.transcriptheadingdata} terminfo={this.props.terminfo} termheading={this.props.termheading} termdata={this.props.termdata} ></TranscriptData></Col>
                     </Row>
                 </Container>
 
@@ -189,4 +190,14 @@ class Transcript extends Component{
        )
      }
     }
-    export default Transcript;
+    const mapStateoProps=(state)=>{
+        return{
+            transcriptheadinginfo:state.transcriptheadinginfo,
+            transcriptheadingdata:state.transcriptheadingdata,
+            terminfo:state.terminfo,
+            termheading:state.termheading,
+            termdata:state.termdata
+        }
+        
+    }
+    export default connect(mapStateoProps)(Transcript);

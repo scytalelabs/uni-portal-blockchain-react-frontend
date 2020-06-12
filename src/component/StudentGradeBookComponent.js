@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import Gradebookdata from './StudentViewGradesComponents';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
+import { connect } from 'react-redux';
+// import { compose } from 'redux';
 
 function RenderCourses(){
     return(
@@ -168,37 +170,34 @@ function RenderSideBar2(){
 class GradeBook extends Component{
     constructor(props){
       super(props);
+      console.log("Grade Book Props are :",this.props);
     }
-state={
-    gradebook:[
-        {id:1 ,title:"Assignment",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-        {id:2 ,title:"Quiz",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-        {id:3 ,title:"Class Participation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-        {id:4 ,title:"Mid-Term",weightage:"25%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-        {id:5 ,title:"Final Term",weightage:"35%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-        {id:6 ,title:"Project Presentation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"}
-    ],
-    gradebookmarks:[
-        {fid:1, id:1 ,date:"29-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-        {fid:1, id:2 ,date:"30-4-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-        {fid:1, id:3 ,date:"1-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-        {fid:1, id:4 ,date:"5-5-2019 12:00:00 AM",total_marks:"4",obtained_marks:"40"},
-        {fid:2, id:1 ,date:"25-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-        {fid:2, id:2 ,date:"5-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-        {fid:2, id:3 ,date:"12-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-        {fid:3, id:1 ,date:"16-5-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-        {fid:3, id:2 ,date:"19-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-        {fid:3, id:3 ,date:"25-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-        {fid:4, id:1 ,date:"25-4-201912:00:00 AM",total_marks:"1",obtained_marks:"40"},
-        {fid:5, id:1 ,date:"15-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-        {fid:6, id:1 ,date:"12-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"}
-    ]
-}
+// state={
+    // gradebook:[
+    //     {id:1 ,title:"Assignment",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+    //     {id:2 ,title:"Quiz",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+    //     {id:3 ,title:"Class Participation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+    //     {id:4 ,title:"Mid-Term",weightage:"25%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+    //     {id:5 ,title:"Final Term",weightage:"35%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
+    //     {id:6 ,title:"Project Presentation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"}
+    // ],
+    // gradebookmarks:[
+    //     {fid:1, id:1 ,date:"29-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+    //     {fid:1, id:2 ,date:"30-4-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+    //     {fid:1, id:3 ,date:"1-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+    //     {fid:1, id:4 ,date:"5-5-2019 12:00:00 AM",total_marks:"4",obtained_marks:"40"},
+    //     {fid:2, id:1 ,date:"25-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+    //     {fid:2, id:2 ,date:"5-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+    //     {fid:2, id:3 ,date:"12-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+    //     {fid:3, id:1 ,date:"16-5-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+    //     {fid:3, id:2 ,date:"19-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
+    //     {fid:3, id:3 ,date:"25-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
+    //     {fid:4, id:1 ,date:"25-4-201912:00:00 AM",total_marks:"1",obtained_marks:"40"},
+    //     {fid:5, id:1 ,date:"15-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
+    //     {fid:6, id:1 ,date:"12-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"}
+    // ]
+// }
 
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));
-      }
      render(){
        return(
            <div className='bg4'>
@@ -207,7 +206,7 @@ state={
                     <Row>
                         <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        <Col ><Col ><Gradebookdata gradebook={this.state.gradebook} gradebookmarks={this.state.gradebookmarks}></Gradebookdata></Col></Col>
+                        <Col ><Col ><Gradebookdata gradebook={this.props.gradebook} gradebookmarks={this.props.gradebookmarks}></Gradebookdata></Col></Col>
                     </Row>
                 </Container>
 
@@ -217,4 +216,12 @@ state={
        )
      }
     }
-    export default GradeBook;
+
+    const mapStateoProps=(state)=>{
+        return{
+            gradebook:state.gradebook,
+            gradebookmarks:state.gradebookmarks,
+        }
+        
+    }
+    export default connect(mapStateoProps)(GradeBook);

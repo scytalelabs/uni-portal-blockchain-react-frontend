@@ -31,7 +31,7 @@ function RenderGradebookMarks({id,markslist}){
 
 const Gradebookdata =({gradebook,gradebookmarks})=>{
 
-    console.log(gradebookmarks);
+    // console.log(gradebookmarks);
 
     const gradebooklist=gradebook.length?(gradebook.map(gradebookitem=>{
         return(
@@ -43,7 +43,7 @@ const Gradebookdata =({gradebook,gradebookmarks})=>{
                     <div style={{borderRadius:'30px 30px 30px 30px',height:'25px',width:'50px',backgroundColor:'#CEDAF1',border:'1px solid #707070' ,paddingLeft:'10px' ,paddingRight:'10px'}}>{gradebookitem.weightage}</div>
                     </Col>
                     <Col style={{marginRight:'15px'}}>
-                    <div style={{textAlign:'right'}}><i class="fa fa-chevron-down"></i> </div>
+                    <div style={{textAlign:'right'}}><i class=" fa fa-chevron-down"></i> </div>
                     </Col>
                 </Row>
                 <Row style={{border:'1px solid #707070',textAlign:'center',backgroundColor:'#CEDAF1',marginRight:'15px'}}>

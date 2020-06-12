@@ -14,7 +14,7 @@ class StudentNavbarComponent extends Component{
       let dropdownOpen=false;
       if(token==null)
       {
-        alert("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        // alert("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
           loggedin=false;
       }
       this.state={

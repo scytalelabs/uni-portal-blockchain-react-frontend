@@ -112,7 +112,7 @@ class AdminAddNewStudent extends Component{
 
      render(){
         const {id,name,father_name,phone_no,address,reg_no,cnic,dob,email}=this.state;
-        const {addStudent}=this.props;
+        const {addStudent,toggleisAdding}=this.props;
        return(
            <div className='bg3'>
               <AdminNavbarComponent></AdminNavbarComponent>
@@ -124,12 +124,12 @@ class AdminAddNewStudent extends Component{
                         
                         <Col md={{ offset:1 }}>
                         <br></br>
-                            <div className='Services1' style={{paddingBottom:'14px',paddingTop:'14px'}}>
+                            <div className='Services1' style={{paddingBottom:'28px',paddingTop:'18px'}}>
                                 <LocalForm>
                                 <br></br>
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
-                                            <div className='EditBox'style={{marginBottom:'10px'}}>
+                                            <div className='EditBox'style={{marginBottom:'16px'}}>
                                                 <Row>
                                                     <Col>
                                                     Name:
@@ -177,19 +177,15 @@ class AdminAddNewStudent extends Component{
                                         </Col>
                                     </Row>
                                     <Row>
-                                    <Col md={{offset:7}}>
-                                            <Link to='/Admin/Student'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Discard
-                                                </Button>
-                                            </Link>
+                                        <Col md={{offset:7}}>
+                                            <Button type="submit" onClick={()=>toggleisAdding()}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                Discard
+                                            </Button>
                                         </Col>
                                         <Col md={{offset:1}}>
-                                            {/* <Link to='/Admin/Student/AddStudent/Add'> */}
-                                                <Button  onClick={()=>addStudent(this.state)}  type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Add
-                                                </Button>
-                                            {/* </Link> */}
+                                            <Button  onClick={()=>addStudent(this.state)}  type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                Add
+                                            </Button>
                                         </Col>
                                     </Row>
                                 </LocalForm>
