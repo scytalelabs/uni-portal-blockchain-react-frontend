@@ -7,6 +7,7 @@ import { Control, LocalForm} from 'react-redux-form';
 import './main.css';
 import { baseUrl} from '../shared/basedUrl';
 import StudentNavbarComponent from './StudentNavbarComponent';
+import axios from 'axios';
 
 
 function RenderCourses(){
@@ -114,8 +115,9 @@ function RenderSideBar1(){
 
 
 
-function Renderpersonalinformation(){
-    return(
+function Renderpersonalinformation(StudentInfo){
+    console.log("IN FUNCTIION",StudentInfo.StudentInfo);
+        return(
         <div className='PersonalInformation' style={{fontFamily:'"Times New Roman", Times, serif'}}>
             <h3>Student Information</h3>
 
@@ -123,27 +125,27 @@ function Renderpersonalinformation(){
                 <h5 style={{backgroundColor:'#CEDAF1'}}>Personal Information</h5>
                 <Row>
                     <Col>Student Name</Col>
-                    <Col>Muhammad Adrees</Col>
+                    <Col>{StudentInfo.StudentInfo.name}</Col>
                 </Row>
                 <Row>
                     <Col>Father Name</Col>
-                    <Col>Shakeel Ahmad</Col>
+                    <Col>{StudentInfo.StudentInfo.father_name}</Col>
                 </Row>
                 <Row>
                     <Col>Registration Number</Col>
-                    <Col>L1F16BSCS0151</Col>
+                    <Col>{StudentInfo.StudentInfo.reg_no}</Col>
                 </Row>
                 <Row>
                     <Col>Email</Col>
-                    <Col>adreees0512@ucp.edu.pk</Col>
+                    <Col>{StudentInfo.StudentInfo.email}</Col>
                 </Row>
                 <Row>
                     <Col>Phone Number</Col>
-                    <Col>0335-6611986 &nbsp;&nbsp;&nbsp;<i className='fa fa-edit'></i></Col>
+                    <Col>{StudentInfo.StudentInfo.phone_no} &nbsp;&nbsp;&nbsp;<i className='fa fa-edit'></i></Col>
                 </Row>
                 <Row>
-                    <Col>City</Col>
-                    <Col>Lahore</Col>
+                    <Col>Address</Col>
+                    <Col>{StudentInfo.StudentInfo.address}</Col>
                 </Row>
                 <hr></hr>
                 <h5 style={{backgroundColor:'#CEDAF1'}}>Academic Information</h5>
@@ -175,23 +177,23 @@ function Renderpersonalinformation(){
                 <h5 style={{backgroundColor:'#CEDAF1'}}>E-mail Status</h5>
                 <Row>
                     <Col>Registration ID:</Col>
-                    <Col>L1F16BSCS0151</Col>
+                    <Col>{StudentInfo.StudentInfo.reg_no}</Col>
                 </Row>
                 <Row>
                     <Col>Request Received Date:</Col>
                     <Col>3-11-2016 9:38:34 AM</Col>
                 </Row>
                 <Row>
-                    <Col>Request Status:</Col>
-                    <Col>19-10-2016 7:48:05 AM</Col>
+                    <Col>Approved Email Address:</Col>
+                    <Col>{StudentInfo.StudentInfo.email}</Col>
                 </Row>
                 <Row>
-                    <Col>Approved Email Address:</Col>
-                    <Col>adreees0512@ucp.edu.pk</Col>
+                    <Col>User Name</Col>
+                    <Col>{StudentInfo.StudentInfo.username}</Col>
                 </Row>
                 <Row>
                     <Col>Password:</Col>
-                    <Col>ucp12345</Col>
+                    <Col>{StudentInfo.StudentInfo.password}</Col>
                 </Row>
 
             </div>
@@ -201,27 +203,65 @@ function Renderpersonalinformation(){
 class personalinformation extends Component{
     constructor(props){
       super(props);
+      this.state={
+        StudentInfo:{  
+            id: "",
+            reg_no: "",
+            uid:"",
+            name:"",
+            cnic: "",
+            dob: "",
+            phone_no:"",
+            address: "",
+            father_name: "",
+            email: "",
+            username: "",
+            password: ""
+        },
+      isLoading: false,
+          
+      }
     }
+    
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));
       }
-      async componentDidMount(){
-
-        const response=await fetch(baseUrl+'student/l1f16bscs0151/personal_info');
-        const data=await response.json();
-        console.log(data);
-
-  }
+    componentDidMount() {
+        this.setState({
+            isLoading:true
+        })
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        console.log("TOKEN IS ",token);
+        console.log("REEGNO IS",regno);
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'student/'+regno+'/personal_info')
+        .then( res => {
+            this.setState({
+                StudentInfo:res.data[0],
+                isLoading:false
+            })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+}
 
      render(){
+        const { isLoading } = this.state;
+
+        if (isLoading) {
+            return <p>Loading ...</p>;
+          }
+          
        return(
            <div className='bg4'>
                <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}>
                     <Row>
                         <Col  md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>        
-                        <Col  ><Renderpersonalinformation></Renderpersonalinformation></Col>
+                        <Col  ><Renderpersonalinformation StudentInfo={this.state.StudentInfo}></Renderpersonalinformation></Col>
                     </Row>
                 </Container>    
             </div>

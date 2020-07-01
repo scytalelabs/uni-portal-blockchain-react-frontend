@@ -4,61 +4,10 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+import StudentSidebar1 from './StudentSidebar1Component';
 
-function RenderCourses(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
-                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-                    <Col  md={{offset:1}} >
-                        <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-                    </Col>
-                </Row>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            OOAD(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            OOAD LAB(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE LAB(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        COMPUTER ARCHITECTURE(F)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        VIEW ALL COURSES
-                        </Col>
-                    </Row>
-                </Link>
-                </div>
-    )
-}
 
 function RenderStudentServices(){
     return(
@@ -93,55 +42,42 @@ function RenderStudentServices(){
         </div>
     )
 }
-function RenderSideBar1(){
-    return(    
-        
-            <div className='sidebar1'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
-            </div>
-    )
-}
-
 
 function RenderCoursesData(){
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
                 
-                <Link to='/student/course/Announcement'>
+                <Link to={'/student/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             Announcement 
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseOutline'>
+                <Link to={'/student/course/CourseOutline/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Outline
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseMaterial'>
+                <Link to={'/student/course/CourseMaterial/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Material <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/GradeBook'>
+                <Link to={'/student/course/GradeBook/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Grade Book
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/LeaveStatus'>
+                <Link to={'/student/course/LeaveStatus/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                         Leave Status
@@ -213,18 +149,39 @@ function RenderCourseMaterial(){
 class CourseMaterial extends Component{
     constructor(props){
       super(props);
+      this.state={
+          courses:[]
+      }
     }
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+       
+      componentDidMount(){
+
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        const semester=localStorage.getItem('semester');
+        axios.defaults.headers.common['Authorization']=token;
+
+          
+        axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }   
      render(){
        return(
            <div className='bg4'>
                <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}> 
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><StudentSidebar1 courses={this.state.courses}></StudentSidebar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
                         <Col ><RenderCourseMaterial></RenderCourseMaterial></Col>
                     </Row>

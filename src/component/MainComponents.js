@@ -19,7 +19,7 @@ import TeacherViewList from './TeacherViewListComponent'
 import TeacherAddList from './TeacherAddListComponent';
 import AdminStudentSection from './AdminStudentSectionComponent'
 import AdminTeacherSection from './AdminTeacherSectionComponent';
-import AdminCourseSection from './AdminCourseSectionComponent';
+// import AdminCourseSection from './AdminCourseSectionComponent';
 import AdminTeacher from './AdminTeacherComponent';
 import AdminStudent from './AdminStudentComponent';
 import AdminMarksType from './AdminMarksTypeComponent';
@@ -34,9 +34,8 @@ import AdminAddNewCourse from './AdminAddNewCourseComponent';
 //import AdminCourseSearch from './AdminCourseSearchComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
 import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-
-import { TransitionGroup,CSSTransition} from 'react-transition-group';
+import AdminSemester from './AdminSemesterComponent';
+import AdminSection from './AdminSectionComponent';
 
 class Main extends Component{
   constructor(props){
@@ -89,25 +88,25 @@ class Main extends Component{
           <Route exact path='/Admin' component={AdminHome}></Route>
 
           
-          <Route exact path='/student/course' component={StudentCourse}></Route>
-          <Route exact path='/student/course/Announcement' component={Announcement}></Route>
-          <Route exact path='/student/course/CourseOutline' component={CourseOutline}></Route>
-          <Route exact path='/student/course/CourseMaterial' component={CourseMaterial}></Route>
-          <Route exact path='/student/course/GradeBook' component={GradeBook}></Route>
+          <Route exact path='/student/course/Announcement/:course/:section' component={Announcement}></Route>
+          <Route exact path='/student/course/CourseOutline/:course/:section' component={CourseOutline}></Route>
+          <Route exact path='/student/course/CourseMaterial/:course/:section' component={CourseMaterial}></Route>
+          <Route exact path='/student/course/GradeBook/:course/:section' component={GradeBook}></Route>
           <Route exact path='/student/transcript' component={Transcript}></Route>
           <Route exact path='/student/personalinformation' component={personalinformation}></Route>
+          <Route path='/student/course/:course/:section' component={StudentCourse}></Route>
 
-          <Route exact path='/teacher/course' component={TeacherCourse}></Route>
-          <Route exact path='/teacher/course/SetWeightage' component={TeacherCourse}></Route>
-          <Route exact path='/teacher/course/ViewList' component={TeacherViewList}></Route>
+          <Route path='/teacher/course/SetWeightage/:id' component={TeacherCourse}></Route>
+          <Route exact path='/teacher/course/ViewList/:id' component={TeacherViewList}></Route>
           <Route exact path='/teacher/course/ViewList/AddList' component={TeacherAddList}></Route>
+          <Route path="/teacher/course/:course/:section" component={TeacherCourse}></Route>
           <Route exact path='/teacher/personalinformation' component={Teacherpersonalinformation}></Route>
 
           <Route exact path='/Admin/StudentSection'component={AdminStudentSection}></Route>
           {/* <Route exact path='/Admin/StudentSection/setSection'></Route> */}
           <Route exact path='/Admin/TeacherSection'component={AdminTeacherSection}></Route>
           {/* <Route exact path='/Admin/TeacherSection/setSection'></Route> */}
-          <Route exact path='/Admin/CourseSection'component={AdminCourseSection}></Route>
+          {/* <Route exact path='/Admin/CourseSection'component={AdminCourseSection}></Route> */}
           {/* <Route exact path='/Admin/CourseSection/setSection'></Route>  */}
           <Route exact path='/Admin/Student' component={AdminStudent} ></Route>
           {/* <Route exact path='/Admin/Student/AddStudent' component={AdminAddNewStudent}></Route> */}
@@ -130,6 +129,9 @@ class Main extends Component{
           {/* <Route exact path='/Admin/Course/Search' component={AdminCourseSearch}></Route> */}
           <Route exact path='/Admin/Course/edit' component={AdminCourseEdit}></Route>
           
+          <Route exact path='/Admin/Semester' component={AdminSemester}></Route>
+
+          <Route exact path='/Admin/Section' component={AdminSection}></Route>
           
           
 

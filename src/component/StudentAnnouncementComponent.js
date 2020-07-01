@@ -7,145 +7,49 @@ import {connect} from 'react-redux';
 import Notification from './StudentAnnouncementDisplayComponent';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
+import { getAnnouncement } from '../redux/ActionCreators';
+import StudentSidebar1 from './StudentSidebar1Component';
+import axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
 
 
-function RenderCourses(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-                    <Col  md={{offset:1}} >
-                        <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-                    </Col>
-                </Row>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            OOAD(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            OOAD LAB(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE LAB(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        COMPUTER ARCHITECTURE(F)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        VIEW ALL COURSES
-                        </Col>
-                    </Row>
-                </Link>
-                </div>
-    )
-}
-
-function RenderStudentServices(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                    <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
-                        <Col  md={{offset:1}} >
-                            <i className="fa fa-user"></i>{' '}Student Services<br/>
-                        </Col>
-                    </Row>
-                <Link to='/student/personalinformation'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            PERSONAL INFORMATION
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/transcript'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            TRANSCRIPT
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/leavereport'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            LEAVE STATUS REPORT
-                        </Col>
-                    </Row>
-                </Link>
-        </div>
-    )
-}
-function RenderSideBar1(){
-    return(
-
-            <div className='sidebar'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
-            </div>
-    )
-}
 
 
 function RenderCoursesData(){
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
 
-                <Link to='/student/course/Announcement'>
+                <Link to={'/student/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             Announcement <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseOutline'>
+                <Link to={'/student/course/CourseOutline/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Outline
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseMaterial'>
+                <Link to={'/student/course/CourseMaterial/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Material
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/GradeBook'>
+                <Link to={'/student/course/GradeBook/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Grade Book
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/LeaveStatus'>
+                <Link to={'/student/course/LeaveStatus/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                         Leave Status
@@ -173,34 +77,70 @@ class Announcements extends Component{
     constructor(props){
       super(props);
       alert("NOTIFACATION PAGE");
-      console.log(this.props);
+      this.state={
+        courses:[]
+    }
+      this.getAnnouncement=this.getAnnouncement.bind(this);
+    //   console.log(this.props);
     }
     
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));
+    getAnnouncement(announcementinfo){
+
+        this.props.getAnnouncement(announcementinfo);
     }
-    // state={
-    //     notifications:[
-    //         {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //     ]
-    // }
+    
+    componentDidMount(){
+        console.log("PROPS IN STUDENT HOME",this.props);
+        // console.log("responce IN STUDENT HOME",response);
+
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        const semester=localStorage.getItem('semester');
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+
+        const announcementinfo={
+            semester:semester,
+            regno:regno,
+            section:section,
+            course:course
+        }
+    
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+"student/"+announcementinfo.regno+"/"+announcementinfo.semester+"/"+announcementinfo.course+"/"+announcementinfo.section+"/announcements")
+        .then(response=>{
+            console.log("RESPONSE :",response);
+                this.getAnnouncement(response.data);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+       
+
+    }
      render(){
+        console.log("ANN PROPS ARE", this.props);
+
+        // console.log("NOTIFICATION PROPS ARE", this.props.notifications);
        return(
            <div className='bg4'>
               <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}>
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><StudentSidebar1 courses={this.state.courses}></StudentSidebar1></Col>
+                        
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
 
                         <Col> <br/><br/><Notification notifications={this.props.notifications}></Notification></Col>
@@ -219,4 +159,9 @@ class Announcements extends Component{
         }
         
     }
-    export default connect(mapStateoProps)(Announcements);
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            getAnnouncement:(announcementinfo)=>{dispatch(getAnnouncement(announcementinfo))},
+        }
+    }
+    export default connect(mapStateoProps,mapDispatchtoProps)(Announcements);

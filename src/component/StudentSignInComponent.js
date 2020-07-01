@@ -59,9 +59,18 @@ class StudentSignin extends Component{
          .then(response=>{
            console.log("RESPONSE :",response);
            if(response.data.status===true)
-           this.setState({
-            loggedin:true
-          })
+           {
+            console.log("TOKEN IN RESPONSE IS ",response.data.data.token);
+            this.setState({
+              loggedin:true
+            })
+            
+            localStorage.setItem("bearer_token",response.data.data.token);
+            localStorage.setItem("semester",response.data.data.semester);
+            localStorage.setItem("regno",regno);
+            localStorage.setItem("reg_no",response.data.data.reg_no);
+           }
+           
          })
          .catch(error=>{
           

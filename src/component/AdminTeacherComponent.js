@@ -2,14 +2,16 @@ import React,{Component} from 'react';
 import { Row, Col ,Button, Container, } from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
-
+import SimpleBar from 'simplebar-react';
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminTeacherEdit from './AdminTeacherEditComponent';
 import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
 import { connect } from 'react-redux';
-import { deleteTeacher, addTeacher, UpdateTeacher } from '../redux/ActionCreators';
-
+import { deleteTeacher, addTeacher, UpdateTeacher,SetTeacher} from '../redux/ActionCreators';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+import 'simplebar/dist/simplebar.min.css';
 
 function RenderAdminServices(){
     return(
@@ -74,6 +76,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -107,13 +123,14 @@ class AdminTeacher extends Component{
             //     {id:4 ,name:"Haris",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"Muhammad.haris@gmail.com",qualification:"BSSE"},
             //     {id:5 ,name:"Sadaf Baloch",father_name:"Muhammad Baloch",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"sadaf.balouch@gmail.com",qualification:"BSCS"},
             // ],
-            teacher:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null,qualification:null}
+            teacher:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null,qualification:null,username:null,password:null}
         }
         // this.handleLogin=this.handleSearch.bind(this);
         this.ToggleEditing=this.ToggleEditing.bind(this);
         this.toggleisAdding=this.toggleisAdding.bind(this);
         this.UpdateTeacher=this.UpdateTeacher.bind(this);
         this.addTeacher=this.addTeacher.bind(this);
+        this.SetTeacher=this.SetTeacher.bind(this);
       }
     //   handleSearch(){
     //       alert('Current State is: ' + this.state);
@@ -140,12 +157,37 @@ class AdminTeacher extends Component{
         this.ToggleEditing();
         
       } 
-      deleteTeacher=(id)=>{
-        this.props.deleteTeacher(id);
+      deleteTeacher=(regno)=>{
+        this.props.deleteTeacher(regno);
     }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
+
+      SetTeacher(teachers){
+          this.props.SetTeacher(teachers);
+    }
+      componentDidMount(){
+
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        console.log("TOKEN IS ",token);
+        console.log("REEGNO IS",regno);
+
+        axios.defaults.headers.common['Authorization']=token;
+        console.log("TOKEN IS in header", axios.defaults.headers.common['Authorization'])
+        axios.get(baseUrl+'admin/1/teachers')
+        .then( res => {
+            console.log(res);
+            this.SetTeacher(res.data);
+
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+
      render(){
             const {isEditing,search,isAdding}=this.state;
             var search_hold=search.toUpperCase();
@@ -163,6 +205,8 @@ class AdminTeacher extends Component{
                 this.state.teacher.reg_no=hold[0].reg_no;
                 this.state.teacher.cnic=hold[0].cnic;
                 this.state.teacher.dob=hold[0].dob;
+                this.state.teacher.username=hold[0].username;
+                this.state.teacher.password=hold[0].password;
 
             return(
             <div className='bg3'>
@@ -191,8 +235,9 @@ class AdminTeacher extends Component{
                                     </Row>
                                     <Row >
                                         <Col md={{offset:2}}>
-                                            
+                                        
                                             <div className='EmptyBox'style={{marginBottom:'12px'}}>
+                                            <SimpleBar style={{ maxHeight: 250 }}>
                                             <br></br>
                                                 <Row>
                                                     <Col>Name: {hold[0].name}</Col>
@@ -210,17 +255,30 @@ class AdminTeacher extends Component{
                                                 </Row>
                                                 <br></br>
                                                 <Row>
-                                                    <Col>Address : {hold[0].address}</Col>
+                                                    <Col>Regno : {hold[0].reg_no}</Col>
                                                     <Col>Email : {hold[0].email}</Col>
                                                 </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>Username : {hold[0].username}</Col>
+                                                    <Col>Password : {hold[0].password}</Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>Address : {hold[0].address}</Col>
+                                                </Row>
+                                                <br></br>
+                                                </SimpleBar>
                                             </div>
+                                            
                                         </Col>
                                     </Row>
+                                    
                                     <br></br>
                                     <Row>
                                         <Col md={{offset:7}}>
                                             <Link to='/Admin/teacher'>
-                                                <Button type="submit" onClick={()=>this.deleteTeacher(hold[0].id)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                <Button type="submit" onClick={()=>this.deleteTeacher(hold[0].reg_no)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Delete
                                                 </Button>
                                             </Link>
@@ -310,9 +368,10 @@ const mapStatetoProps=(state)=>{
 }
 const mapDispatchtoProps=(dispatch)=>{
     return{
-        deleteTeacher:(id)=>{dispatch(deleteTeacher(id))},
+        deleteTeacher:(regno)=>{dispatch(deleteTeacher(regno))},
         addTeacher:(teacherinfo)=>{dispatch(addTeacher(teacherinfo))},
-        UpdateTeacher:(updatedteacher)=>{dispatch(UpdateTeacher(updatedteacher))}
+        UpdateTeacher:(updatedteacher)=>{dispatch(UpdateTeacher(updatedteacher))},
+        SetTeacher:(students)=>{dispatch(SetTeacher(students))},
     }
 }
 export default connect(mapStatetoProps,mapDispatchtoProps)(AdminTeacher);

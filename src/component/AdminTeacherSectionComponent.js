@@ -2,9 +2,17 @@ import React,{Component} from 'react';
 import { Row, Col ,Button, Container, } from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
+
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 
+import { connect } from 'react-redux';
+import { deleteTeacherSection,addTeacherSection,SetTeacherSection} from '../redux/ActionCreators';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+import 'simplebar/dist/simplebar.min.css';
+import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
+import AdminAddNewTeacherSection from './AddNewTeacherSectionComponent';
 
 function RenderAdminServices(){
     return(
@@ -18,21 +26,21 @@ function RenderAdminServices(){
                 <Link to='/Admin/StudentSection'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            STUDENT 
+                            STUDENT
                         </Col>
                     </Row>
                 </Link>
                 <Link to='/Admin/TeacherSection'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            TEACHER <span>&#x276F;</span>
+                            TEACHER  <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
                 <Link to='/Admin/CourseSection'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            COURSE
+                            COURSE 
                         </Col>
                     </Row>
                 </Link>
@@ -51,7 +59,7 @@ function RenderAdminServices(){
                 <Link to='/Admin/Teacher'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            TEACHER
+                            TEACHER 
                         </Col>
                     </Row>
                 </Link>
@@ -66,6 +74,20 @@ function RenderAdminServices(){
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             COURSE
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
                         </Col>
                     </Row>
                 </Link>
@@ -85,55 +107,126 @@ function RenderSideBar1(){
             </div>
     )
 }
-class AdminTeacherSection extends Component{
+
+
+class AdminStudentSection extends Component{
+    
       constructor(props){
         super(props);
         this.state={
-          search:''
+            isAdding:false,
+            search:'',
+
+            teacherSectioninfo:{id:null,Teachername:null,reg_no:null,semester:null,course:null,section:null}
         }
-        this.handleLogin=this.handleSearch.bind(this);
+        this.toggleisAdding=this.toggleisAdding.bind(this);
+        this.addTeacherSection=this.addTeacherSection.bind(this);
+        this.SetTeacherSection=this.SetTeacherSection.bind(this);
+        
       }
-      handleSearch(values){
-          alert('Current State is: ' + this.state);
-          console.log(this.state);
+      toggleisAdding(){
+        const {isAdding}=this.state;
+        this.setState({isAdding:!isAdding})
+        
       }
+      addTeacherSection(teacherSectioninfo){
+        
+        this.props.addTeacherSection(teacherSectioninfo);
+        this.toggleisAdding();
+      }
+      deleteTeacherSection=(reg_no)=>{
+        this.props.deleteTeacherSection(reg_no);
+    }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
+
+      SetTeacherSection(sectiondata){
+          this.props.SetTeacherSection(sectiondata);
+    }
+    search(search)
+    {
+        const token=localStorage.getItem('bearer_token');
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'admin/1/assign_section/teachers/'+search)
+        .then( res => {
+            this.props.SetTeacherSection(res.data[0]);
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
      render(){
-        const {search}=this.state;
-       return(
-           <div className='bg3'>
-               <AdminNavbarComponent></AdminNavbarComponent>
-               <Container fluid={true}>
-                    <Row>
-                        <Col  md={{ offset:0 }}>
-                            <RenderSideBar1></RenderSideBar1>
-                        </Col>
-                        
-                        <Col md={{ offset:1 }}>
-                        <br></br>
-                            <div className='Services1'style={{paddingBottom:'48px',marginBottom:'48px'}}>
-                                <LocalForm onSubmit={(values)=>this.handleSearch(values)}>
+            const {search,isAdding}=this.state;
+            var search_hold=search.toUpperCase();
+            console.log("LENGTHHH",this.props.teacherSectioninfo)
+
+            if(search!=="" && this.props.teacherSectioninfo!==undefined && search_hold == this.props.teacherSectioninfo.reg_no)
+            {
+                this.state.teacherSectioninfo.Teachername=this.props.teacherSectioninfo.Teachername;
+                this.state.teacherSectioninfo.reg_no=this.props.teacherSectioninfo.reg_no;
+                this.state.teacherSectioninfo.semester=this.props.teacherSectioninfo.semester;
+                this.state.teacherSectioninfo.course=this.props.teacherSectioninfo.course;
+                this.state.teacherSectioninfo.section=this.props.teacherSectioninfo.section;
+
+            return(
+            <div className='bg3'>
+                <AdminNavbarComponent></AdminNavbarComponent>
+                    <Container fluid={true}>
+                        <Row>
+                            <Col  md={{ offset:0 }}>
+                                <RenderSideBar1></RenderSideBar1>
+                            </Col>
+                            <Col md={{ offset:1 }}>
                                 <br></br><br></br>
+                                <div className='Services1'style={{paddingBottom:'14px',marginBottom:'32px'}}>
+                                    <LocalForm >
+                                    <br></br><br></br>
                                     <Row className='form-group'>            
                                         <Col md={{offset:1}}>
-                                        <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Teacher ID here to Change Section" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                            <Control.text model=".search" id="search" name="search" defaultValue={search} placeholder="Enter Teacher ID here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
                                         </Col>
                                         <Col md={{ offset:1 }}>
-                                            <Link to='/Admin/TeacherSection/setSection'>
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
-                                                    SEARCH
-                                                </Button>
-                                            </Link>
+                                            {/* <Link to='/Admin/teacher/Search' > */}
+                                            <Button type="submit" onClick={()=>this.search(search)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                                SEARCH
+                                            </Button>
+                                              {/* </Link> */}
                                         </Col>
                                     </Row>
                                     <Row >
                                         <Col md={{offset:2}}>
-                                            <br></br><br></br>
-                                            <div className='EmptyBox'>
-                                                No Result
+                                        
+                                            <div className='EmptyBox'style={{marginBottom:'12px'}}>
+                                            <br></br>
+                                            <br></br>
+                                                <Row>
+                                                    <Col>Name: {this.props.teacherSectioninfo.Teachername}</Col>
+                                                    <Col>Semester: {this.props.teacherSectioninfo.semester}</Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>Course: {this.props.teacherSectioninfo.course}</Col>
+                                                    <Col>Section: {this.props.teacherSectioninfo.section}</Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>Registration No: {this.props.teacherSectioninfo.reg_no}</Col>
+                                                </Row>
+                                                <br></br>
                                             </div>
+                                            
+                                        </Col>
+                                    </Row>
+                                    
+                                    <br></br>
+                                    <Row>
+                                        <Col md={{offset:7}}>
+                                            {/* <Link to='/Admin/teacher'> */}
+                                                <Button type="submit" onClick={()=>this.deleteTeacherSection(this.props.teacherSectioninfo.reg_no)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                    Delete
+                                                </Button>
+                                            {/* </Link> */}
                                         </Col>
                                     </Row>
                                 </LocalForm>
@@ -142,7 +235,75 @@ class AdminTeacherSection extends Component{
                     </Row>
                 </Container>
             </div>
-       )
-     }
+        )   }
+        else if(isAdding==true){
+             return(
+                 <AdminAddNewTeacherSection addTeacherSection={this.addTeacherSection} toggleisAdding={this.toggleisAdding}/>
+             )
+         }
+        else{
+            return(
+                <div className='bg3'>
+                    <AdminNavbarComponent></AdminNavbarComponent>
+                    <Container fluid={true}>
+                        <Row>
+                            <Col  md={{ offset:0 }}>
+                                <RenderSideBar1></RenderSideBar1>
+                            </Col>                    
+                            <Col md={{ offset:1 }}>
+                            <br></br><br></br>
+                            <div className='Services1' style={{paddingBottom:'14px',marginBottom:'32px'}}>
+                                    <LocalForm >
+                                    <br></br><br></br>
+                                        <Row className='form-group'>            
+                                            <Col md={{offset:1}}>
+                                            <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Teacher ID here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                            </Col>
+                                            <Col md={{ offset:1 }}>
+                                                {/* <Link to='/Admin/Teacher/Search'> */}
+                                                    <Button type="submit" onClick={()=>this.search(search)} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                                        SEARCH
+                                                    </Button>
+                                                {/* </Link> */}
+                                            </Col>
+                                        </Row>
+                                        <Row >
+                                            <Col md={{offset:2}}>    
+                                                <div className='EmptyBox'style={{marginBottom:'12px'}}>
+                                                    No Result
+                                                </div>
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col md={{offset:1}}>
+                                                {/* <Link to='/Admin/Teacher/AddTeacher'> */}
+                                                <br></br>
+                                                    <Button type="submit" onClick={this.toggleisAdding } style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                                        Assign Section
+                                                    </Button>
+                                                {/* </Link> */}
+                                            </Col>
+                                        </Row>
+                                    </LocalForm>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Container>
+                </div>
+            )
+        }
     }
-    export default AdminTeacherSection;
+}
+const mapStatetoProps=(state)=>{
+    return{
+        teacherSectioninfo :state.teacherSectioninfo
+    }   
+}
+const mapDispatchtoProps=(dispatch)=>{
+    return{
+        deleteTeacherSection:(reg_no)=>{dispatch(deleteTeacherSection(reg_no))},
+        addTeacherSection:(teacherSectioninfo)=>{dispatch(addTeacherSection(teacherSectioninfo))},
+        SetTeacherSection:(sectiondata)=>{dispatch(SetTeacherSection(sectiondata))},
+    }
+}
+export default connect(mapStatetoProps,mapDispatchtoProps)(AdminStudentSection);

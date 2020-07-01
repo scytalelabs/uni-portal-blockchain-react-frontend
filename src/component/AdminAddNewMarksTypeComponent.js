@@ -46,12 +46,12 @@ function RenderAdminServices(){
             </Link>
             <Link to='/Admin/MarksType'>
                 <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}}  >MARKS TYPE</Col>
+                    <Col  md={{offset:1}}  >MARKS TYPE<span>&#x276F;</span></Col>
                 </Row>
             </Link>
             <Link to='/Admin/Course'>
                 <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}}  >COURSE <span>&#x276F;</span></Col>
+                    <Col  md={{offset:1}}  >COURSE </Col>
                 </Row>
             </Link>
             <Link to='/Admin/Semester'>
@@ -68,6 +68,7 @@ function RenderAdminServices(){
                     </Col>
                 </Row>
             </Link>
+            
         </div>
     )
 }
@@ -81,14 +82,12 @@ function RenderSideBar1(){
             </div>
     )
 }
-class AdminAddNewCourse extends Component{   
+class AdminAddNewMarksType extends Component{   
       constructor(props){
         super(props);
         this.state={
             id:null,
-            name:null,
-            credithours:null,
-            code:null,
+            type_name:null,
 
         }
       }
@@ -96,8 +95,8 @@ class AdminAddNewCourse extends Component{
         this.setState({[e.target.name]:e.target.value})
       } 
      render(){
-        const {name,credithours,code}=this.state;
-        const {addCourse,toggleisAdding}=this.props;
+        const {type_name}=this.state;
+        const {addMarksType,toggleisAdding}=this.props;
        return(
            <div className='bg3'>
                <AdminNavbarComponent/>
@@ -108,36 +107,20 @@ class AdminAddNewCourse extends Component{
                         </Col>
                         <Col md={{ offset:1 }}>
                         <br></br><br></br>
-                            <div className='Services1'style={{paddingBottom:'12px',paddingTop:'12px'}}>
+                            <div className='Services1'style={{paddingBottom:'110px',paddingTop:'110px'}}>
                                 <LocalForm >
                                 <br></br>      
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
                                             <div className='EditBox'style={{marginBottom:'11px'}}>
-                                                <h3>ADD COURSE</h3>
+                                                <h3>Add Assessment Type</h3>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
-                                                        Course:
-                                                        <Control.text model=".name" id="name" name="name" value={name} placeholder="Enter Course Name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
+                                                        Assessment Type:
+                                                        <Control.text model=".type_name" id="type_name" name="type_name" value={type_name} placeholder="Enter type_name" className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
-                                                <br></br>
-                                                <Row>
-                                                    <Col>
-                                                        Credi Hours:
-                                                        <Control.text model=".credithours" id="credithours" name="credithours" value={credithours} placeholder="Enter Credit Hours" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                    </Col>
-                                                </Row>
-                                                <br></br>
-                                                <Row>
-                                                    <Col>
-                                                        Course Code:
-                                                        <Control.text model=".code" id="code" name="code" value={code} placeholder="Enter Course Code" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                    </Col>
-
-                                                </Row>
-                                                <br></br>
                                             </div>
                                         </Col>
                                     </Row>
@@ -148,7 +131,7 @@ class AdminAddNewCourse extends Component{
                                             </Button>
                                         </Col>
                                         <Col md={{offset:1}}>
-                                            <Button  onClick={()=>addCourse(this.state)} type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                            <Button  onClick={()=>addMarksType(this.state)} type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                 Add
                                             </Button>
                                         </Col>
@@ -162,4 +145,4 @@ class AdminAddNewCourse extends Component{
        )
      }
     }
-    export default AdminAddNewCourse;
+    export default AdminAddNewMarksType;

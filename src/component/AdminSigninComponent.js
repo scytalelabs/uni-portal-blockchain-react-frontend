@@ -6,6 +6,8 @@ import { Link, Redirect } from 'react-router-dom';
 
 import logo from './logoAdmin.jpg';
 import login from './login.gif';
+import axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
 
 
 const required   = (val) => val && val.length;
@@ -33,15 +35,33 @@ class AdminSignin extends Component{
         alert('name is: ' + this.state);
         console.log("Regno is :"+username+" Password is :"+password);
         localStorage.setItem("token",username)
-        this.setState({
-          loggedin:true
-        })
+        const data={
+          username:username,
+          password:password
+        }
+
+         axios.post(baseUrl+'admin/1/login',data)
+         .then(response=>{
+           console.log("RESPONSE :",response);
+           if(response.data.status===true)
+           {
+            this.setState({
+              loggedin:true
+            })
+            localStorage.setItem("bearer_token",response.data.token);
+            localStorage.setItem("regno",username);
+           }
+           
+         })
+         .catch(error=>{
+          
+           console.log(error)
+         })
     }
     changeHandler=e=>{
       this.setState({[e.target.name]:e.target.value})
     }
      render(){
-       
       const{username,password}=this.state
       if(this.state.loggedin)
        {
@@ -49,7 +69,6 @@ class AdminSignin extends Component{
        }
        return(
           <div className='container'>
-            
             <Row>
               <Col md={{offset:1}}><br/><img src={logo} className="" height='100px' width='160px ' alt="logo" /></Col>
               <Col><br/><br/><br/><hr/></Col>
@@ -59,7 +78,6 @@ class AdminSignin extends Component{
                 <p style={{color:'red'}}><strong>HOME</strong></p>
               </Col>
             </Row>
-            
             <Row>
               <Col md={{offset:2}} className="AdminSigninPage" style={{backgroundColor:'#B1B3B7', borderRadius:'25% 0% 0% 0%'}}>
               <br/>
@@ -67,7 +85,7 @@ class AdminSignin extends Component{
                 <p style={{color:'#646464'}}>Please login to access UCP Online Services:</p>
                 <p style={{color:'red'}}>Note: Always logoff after using UCP online Services.</p>
               </Col>
-              <Col Col  md={{offset:0}} className="AdminSigninPage" style={{backgroundColor:'#3C315F',borderRadius:'0% 0% 25% 0%'}}>
+              <Col  md={{offset:0}} className="AdminSigninPage" style={{backgroundColor:'#3C315F',borderRadius:'0% 0% 25% 0%'}}>
                 <hr/>
                 <h3 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Administrator/Teacher services</h3>
                 <hr/>
@@ -76,7 +94,6 @@ class AdminSignin extends Component{
                 </div>
                 <LocalForm onSubmit={this.handleLogin}>
                   <Row className='form-group' style={{textAlign:'left'}}>
-                    
                     <Col>
                       <h4 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Username:</h4>
                     </Col>
@@ -96,7 +113,7 @@ class AdminSignin extends Component{
                   <Row className="form-group">
                     <Col md={{ offset:9 }}>
                       {/* <Link to='/Admin'> */}
-                        <Button type="submit" on style={{backgroundColor:'#476367',borderRadius: '0px' }}>
+                        <Button type="submit" style={{backgroundColor:'#476367',borderRadius: '0px' }}>
                           GO
                         </Button>
                       {/* </Link> */}
@@ -108,7 +125,6 @@ class AdminSignin extends Component{
                     </Col>
                   </Row>
                 </LocalForm>
-
               </Col>
             </Row>
           </div>

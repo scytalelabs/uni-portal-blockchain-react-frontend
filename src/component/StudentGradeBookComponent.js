@@ -6,153 +6,54 @@ import Gradebookdata from './StudentViewGradesComponents';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
 import { connect } from 'react-redux';
-// import { compose } from 'redux';
-
-function RenderCourses(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-                    <Col  md={{offset:1}} >
-                        <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-                    </Col>
-                </Row>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            OOAD(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            OOAD LAB(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE LAB(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        COMPUTER ARCHITECTURE(F)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        VIEW ALL COURSES
-                        </Col>
-                    </Row>
-                </Link>
-                </div>
-    )
-}
-
-function RenderStudentServices(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                    <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
-                        <Col  md={{offset:1}} >
-                            <i className="fa fa-user"></i>{' '}Student Services<br/>
-                        </Col>
-                    </Row>
-                <Link to='/student/personalinformation'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            PERSONAL INFORMATION
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/transcript'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            TRANSCRIPT
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/leavereport'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            LEAVE STATUS REPORT
-                        </Col>
-                    </Row>
-                </Link>
-        </div>
-    )
-}
-function RenderSideBar1(){
-    return(
-
-            <div className='sidebar1'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
-            </div>
-    )
-}
-
+import Axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
+import StudentSidebar1 from './StudentSidebar1Component';
+import { getGradeBook,getOutline } from '../redux/ActionCreators';
 
 function RenderCoursesData(){
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                <Link to='/student/course/Announcement'>
+                
+                <Link to={'/student/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            Announcement
+                            Announcement 
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseOutline'>
+                <Link to={'/student/course/CourseOutline/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Outline
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseMaterial'>
+                <Link to={'/student/course/CourseMaterial/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
-                            Course Material
+                            Course Material 
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/GradeBook'>
+                <Link to={'/student/course/GradeBook/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
-                            Grade Book <span>&#x276F;</span>
+                            Grade Book  <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/LeaveStatus'>
+                <Link to={'/student/course/LeaveStatus/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                         Leave Status
                         </Col>
                     </Row>
                 </Link>
-
-
+                
+                
                 </div>
     )
 }
@@ -170,43 +71,85 @@ function RenderSideBar2(){
 class GradeBook extends Component{
     constructor(props){
       super(props);
-      console.log("Grade Book Props are :",this.props);
+      this.getGradeBook=this.getGradeBook.bind(this);
+      this.getOutline=this.getOutline.bind(this);
+    //   console.log("Grade Book Props are :",this.props);
     }
-// state={
-    // gradebook:[
-    //     {id:1 ,title:"Assignment",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-    //     {id:2 ,title:"Quiz",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-    //     {id:3 ,title:"Class Participation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-    //     {id:4 ,title:"Mid-Term",weightage:"25%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-    //     {id:5 ,title:"Final Term",weightage:"35%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"},
-    //     {id:6 ,title:"Project Presentation",weightage:"10%",date:"Date",total_marks:"Total Marks",obtained_marks:"Obtained Marks"}
-    // ],
-    // gradebookmarks:[
-    //     {fid:1, id:1 ,date:"29-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-    //     {fid:1, id:2 ,date:"30-4-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-    //     {fid:1, id:3 ,date:"1-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-    //     {fid:1, id:4 ,date:"5-5-2019 12:00:00 AM",total_marks:"4",obtained_marks:"40"},
-    //     {fid:2, id:1 ,date:"25-4-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-    //     {fid:2, id:2 ,date:"5-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-    //     {fid:2, id:3 ,date:"12-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-    //     {fid:3, id:1 ,date:"16-5-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-    //     {fid:3, id:2 ,date:"19-5-2019 12:00:00 AM",total_marks:"2",obtained_marks:"40"},
-    //     {fid:3, id:3 ,date:"25-5-2019 12:00:00 AM",total_marks:"3",obtained_marks:"40"},
-    //     {fid:4, id:1 ,date:"25-4-201912:00:00 AM",total_marks:"1",obtained_marks:"40"},
-    //     {fid:5, id:1 ,date:"15-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"},
-    //     {fid:6, id:1 ,date:"12-6-2019 12:00:00 AM",total_marks:"1",obtained_marks:"40"}
-    // ]
-// }
+    state={
+    courses:[] 
+    }
+    getGradeBook(gradebookinfo){
 
+        this.props.getGradeBook(gradebookinfo);
+    }
+    getOutline(outlineinfo){
+
+        this.props.getOutline(outlineinfo);
+    }
+    componentDidMount(){
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        const semester=localStorage.getItem('semester');
+        Axios.defaults.headers.common['Authorization']=token;
+
+          
+        Axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+
+        const gradebookinfo={
+            semester:semester,
+            regno:regno,
+            section:section,
+            course:course
+        }
+    
+        Axios.defaults.headers.common['Authorization']=token;
+        Axios.get(baseUrl+"student/"+gradebookinfo.regno+"/"+gradebookinfo.semester+"/"+gradebookinfo.course+"/"+gradebookinfo.section+"/gradebook")
+        .then(response=>{
+            console.log("RESPONSE :",response);
+                this.getGradeBook(response.data);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+
+          const outlineinfo={
+            semester:semester,
+            regno:regno,
+            section:section,
+            course:course
+        }
+        Axios.defaults.headers.common['Authorization']=token;
+        Axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
+        .then(response=>{
+            console.log("RESPONSE :",response);
+                this.getOutline(response.data);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    }  
      render(){
        return(
            <div className='bg4'>
                <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}>
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><StudentSidebar1 courses={this.state.courses}></StudentSidebar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        <Col ><Col ><Gradebookdata gradebook={this.props.gradebook} gradebookmarks={this.props.gradebookmarks}></Gradebookdata></Col></Col>
+                        <Col ><Col ><Gradebookdata gradebook={this.props.gradebook} outline={this.props.outline} ></Gradebookdata></Col></Col>
+                        {/* gradebookmarks={this.props.gradebookmarks} */}
                     </Row>
                 </Container>
 
@@ -220,8 +163,13 @@ class GradeBook extends Component{
     const mapStateoProps=(state)=>{
         return{
             gradebook:state.gradebook,
-            gradebookmarks:state.gradebookmarks,
+            outline:state.outline
         }
-        
     }
-    export default connect(mapStateoProps)(GradeBook);
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            getGradeBook:(gradebookinfo)=>{dispatch(getGradeBook(gradebookinfo))},
+            getOutline:(outlineinfo)=>{dispatch(getOutline(outlineinfo))},
+        }
+    }
+    export default connect(mapStateoProps,mapDispatchtoProps)(GradeBook);

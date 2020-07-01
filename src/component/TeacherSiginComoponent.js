@@ -4,6 +4,8 @@ import { Row, Col ,Button, Label} from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link, Redirect } from 'react-router-dom';
 import logo from './UCP-Logo.gif';
+import axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
 
 
 
@@ -21,7 +23,7 @@ class TeacherSignin extends Component{
     }
     this.handleLogin=this.handleLogin.bind(this);
   }
-  handleLogin(values){
+  handleLogin(){
     
     const{id,password}=this.state
     // console.log('Current State is: ' + JSON.stringify(values));
@@ -30,13 +32,39 @@ class TeacherSignin extends Component{
       alert('name is: ' + this.state);
       console.log("Regno is :"+id+" Password is :"+password);
       localStorage.setItem("token",id)
-      this.setState({
-        loggedin:true
-      })
+      // this.setState({
+      //   loggedin:true
+      // })
+
+      const data={
+        username:id,
+        password:password
+      }
+
+       axios.post(baseUrl+'teacher/1/login',data)
+       .then(response=>{
+         console.log("RESPONSE :",response);
+         if(response.data.status===true)
+         {
+          this.setState({
+            loggedin:true
+          })
+          localStorage.setItem("bearer_token",response.data.data.token);
+          localStorage.setItem("semester",response.data.data.semester);
+          localStorage.setItem("regno",response.data.data.reg_no);
+         }
+         
+       })
+       .catch(error=>{
+        
+         console.log(error)
+       })
+
   }
   changeHandler=e=>{
     this.setState({[e.target.name]:e.target.value})
   }
+
      render(){
       const {id,password}=this.state;
       if(this.state.loggedin)

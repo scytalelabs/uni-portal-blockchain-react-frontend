@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
 import logo from './UCP-Logo.gif';
 import {Navbar, DropdownItem, DropdownMenu, DropdownToggle, ButtonDropdown,} from 'reactstrap';
-import { Row, Col} from 'reactstrap';
-import { Control, LocalForm} from 'react-redux-form';
 import './main.css';
 import { Redirect } from 'react-router-dom';
 

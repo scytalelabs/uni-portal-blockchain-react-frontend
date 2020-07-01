@@ -9,7 +9,9 @@ import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
 import AdminAddNewCourse from './AdminAddNewCourseComponent';
 import { connect } from 'react-redux';
-import { deleteCourse, addCourse, UpdateCourse } from '../redux/ActionCreators';
+import { deleteCourse, addCourse, UpdateCourse ,SetCourses} from '../redux/ActionCreators';
+import axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
 
 
 
@@ -75,6 +77,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -108,12 +124,13 @@ class AdminCourse extends Component{
         //     {id:4 ,course:"Game Development",semester:"Fall 16",section:"D",credit_hours:"3",course_code:"BSSC004"},
         //     {id:5 ,course:"OOAD + lab",semester:"Fall 15",section:"E",credit_hours:"4",course_code:"BSSC005"},   
         //   ],
-          course:{id:null ,course:null,semester:null,section:null,credit_hours:null,course_code:null}
+          course:{id:null,name:null,credithours:null,code:null}
         }
         this.ToggleEditing=this.ToggleEditing.bind(this);
         this.UpdateCourse=this.UpdateCourse.bind(this);
         this.toggleisAdding=this.toggleisAdding.bind(this);
         this.addCourse=this.addCourse.bind(this);
+        this.SetCourses=this.SetCourses.bind(this);
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
@@ -139,45 +156,46 @@ class AdminCourse extends Component{
         
 
       }
-      deleteCourse=(id)=>{
+      deleteCourse=(code)=>{
         
-        this.props.deleteCourse(id);
+        this.props.deleteCourse(code);
       }
       UpdateCourse(updatedcourse){
           this.props.UpdateCourse(updatedcourse);
-
-        // this.setState(state => {
-        //     const list = state.courses.map(course => 
-        //         {
-        //             if(course.id===updatedcourse.id)
-        //             {
-        //                 course.course_code=updatedcourse.course_code;
-        //                 course.course=updatedcourse.course;
-        //                 course.semester=updatedcourse.semester;
-        //                 course.section=updatedcourse.section;
-        //                 course.credit_hours=updatedcourse.credit_hours;
-                        
-        //             }
-        //         }
-        //         );
-
-        //   });
         this.ToggleEditing();
       } 
+      SetCourses(courses){
+        // console.log("courses ARE",courses);
+        // console.log("PROPS ARE",this.props);
+          this.props.SetCourses(courses);
+    }
+      componentDidMount(){
+
+        const token=localStorage.getItem('bearer_token');
+        // console.log("TOKEN IS IN COURSES",token);
+
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'admin/1/courses')
+        .then( res => {
+            console.log("COURSES",res);
+            this.SetCourses(res.data);
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
 
      render(){
         const {search,isEditing,isAdding}=this.state;
         var search_hold=search.toUpperCase();
-            var hold=this.props.courses.filter(function(course) { return course.course_code === search_hold;  });
-            
-            if(search!=="" && hold.length===1 && search_hold === hold[0].course_code && isEditing===false)
+        //    console.log("PROPSSSS",this.props.courses)
+            var hold=this.props.courses.filter(function(course) { return course.code === search_hold;  });
+            // console.log("SEARCH",hold)
+            if(search!=="" && hold.length===1 && search_hold === hold[0].code && isEditing===false)
             {
-                this.state.course.id=hold[0].id;
-                this.state.course.course_code=hold[0].course_code;
-                this.state.course.course=hold[0].course;
-                this.state.course.semester=hold[0].semester;
-                this.state.course.section=hold[0].section;
-                this.state.course.credit_hours=hold[0].credit_hours;
+                this.state.course.code=hold[0].code;
+                this.state.course.name=hold[0].name;
+                this.state.course.credithours=hold[0].credithours;
             return(
             <div className='bg3'>
                 <AdminNavbarComponent></AdminNavbarComponent>
@@ -209,17 +227,15 @@ class AdminCourse extends Component{
                                             <br></br>
                                             <br></br>
                                                 <Row md={{offset:1}}>
-                                                    <Col> Course:{hold[0].course}</Col>
-                                                    <Col> Semester:{hold[0].semester}</Col>
+                                                    <Col> Course:{hold[0].name}</Col>
                                                 </Row>
-                                                <br></br>
+                                                <hr></hr>
                                                 <Row>
-                                                    <Col> Section:{hold[0].section}</Col>
-                                                    <Col> Credit Hours:{hold[0].credit_hours}</Col>
+                                                    <Col> Credit Hours:{hold[0].credithours}</Col>
                                                 </Row>
-                                                <br></br>
+                                                <hr></hr>
                                                 <Row>
-                                                    <Col> Course Code: {hold[0].course_code}</Col>
+                                                    <Col> Course Code: {hold[0].code}</Col>
                                                 </Row>
                                             </div>
                                         </Col>
@@ -228,7 +244,7 @@ class AdminCourse extends Component{
                                     <Row>
                                         <Col md={{offset:7}}>
                                             {/* <Link to='/Admin/course'> */}
-                                                <Button type="submit" onClick={()=>this.deleteCourse(hold[0].id) }style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                <Button type="submit" onClick={()=>this.deleteCourse(hold[0].code) }style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Delete
                                                 </Button>
                                             {/* </Link> */}
@@ -319,9 +335,10 @@ class AdminCourse extends Component{
     }
     const mapDispatchtoProps=(dispatch)=>{
         return{
-            deleteCourse:(id)=>{dispatch(deleteCourse(id))},
+            deleteCourse:(code)=>{dispatch(deleteCourse(code))},
             addCourse:(courseinfo)=>{dispatch(addCourse(courseinfo))},
-            UpdateCourse:(updatedcourse)=>{dispatch(UpdateCourse(updatedcourse))}
+            UpdateCourse:(updatedcourse)=>{dispatch(UpdateCourse(updatedcourse))},
+            SetCourses:(students)=>{dispatch(SetCourses(students))},
         }
     }
     export default connect(mapStatetoProps,mapDispatchtoProps)(AdminCourse);

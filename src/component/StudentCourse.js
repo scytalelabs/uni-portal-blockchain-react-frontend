@@ -4,8 +4,12 @@ import { Row, Col} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Notification from './StudentAnnouncementDisplayComponent';
 import './main.css';
+import { getAnnouncement } from '../redux/ActionCreators';
 import StudentNavbarComponent from './StudentNavbarComponent';
 import { connect } from 'react-redux';
+import StudentSidebar1 from './StudentSidebar1Component';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
 
 
 
@@ -114,38 +118,40 @@ function RenderSideBar1(){
 
 
 function RenderCoursesData(){
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
 
-                <Link to='/student/course/Announcement'>
+                <Link to={'/student/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             Announcement <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseOutline'>
+                <Link to={'/student/course/CourseOutline/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Outline
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseMaterial'>
+                <Link to={'/student/course/CourseMaterial/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Material
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/GradeBook'>
+                <Link to={'/student/course/GradeBook/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Grade Book
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/LeaveStatus'>
+                <Link to={'/student/course/LeaveStatus/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                         Leave Status
@@ -172,34 +178,67 @@ function RenderSideBar2(){
 class StudentCourse extends Component{
     constructor(props){
       super(props);
+      this.getAnnouncement=this.getAnnouncement.bind(this);
     }
-    // state={
-    //     notifications:[
-    //         {id:1 ,date:"12-03-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:2 ,date:"14-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:3 ,date:"16-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:4 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:5 ,date:"14-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:6 ,date:"01-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:7 ,date:"19-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:8 ,date:"20-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //         {id:9 ,date:"26-04-2019 ",title:"Makeup Class",content:  "AssalamoAlaikum, People, you have a Makeup class on Saturday 13th April 2019 at 09:40 am in 003"},
-    //         {id:10 ,date:"30-04-2019 ",title:"Quiz 1",content:  "AssalamoAlaikum, People, you have a Quiz on Saturday 16th April 2019 at 09:40 am in 103"},
-    //     ]
-    // }
+    
+    state={
+        course:[]
+    }
 
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));
-      }
+    getAnnouncement(announcementinfo){
+
+        this.props.getAnnouncement(announcementinfo);
+    }
+    
+      componentDidMount(){
+
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        const semester=localStorage.getItem('semester');
+        axios.defaults.headers.common['Authorization']=token;
+
+          
+        axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+        const announcementinfo={
+            semester:semester,
+            regno:regno,
+            section:section,
+            course:course
+        }
+    
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+"student/"+announcementinfo.regno+"/"+announcementinfo.semester+"/"+announcementinfo.course+"/"+announcementinfo.section+"/announcements")
+        .then(response=>{
+            console.log("RESPONSE :",response);
+                this.getAnnouncement(response.data);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    }
      render(){
+        // console.log("ACH G",this.props.match.params);
+        localStorage.setItem("course",this.props.match.params.course);
+        localStorage.setItem("section",this.props.match.params.section);
        return(
            <div className='bg4'>
 
                <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}> 
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><StudentSidebar1 courses={this.state.courses}></StudentSidebar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
 
                         <Col> <br/><br/><Notification notifications={this.props.notifications}></Notification></Col>
@@ -215,7 +254,11 @@ class StudentCourse extends Component{
     const mapStateoProps=(state)=>{
         return{
             notifications:state.notifications
-        }
-        
+        }   
     }
-    export default connect(mapStateoProps)(StudentCourse);
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            getAnnouncement:(announcementinfo)=>{dispatch(getAnnouncement(announcementinfo))},
+        }
+    }
+    export default connect(mapStateoProps,mapDispatchtoProps)(StudentCourse);

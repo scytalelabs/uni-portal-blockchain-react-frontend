@@ -136,7 +136,7 @@
 
 }
 .Announcements{
-    height: auto;
+    height: 460px;
     width: 80%;
     display: inline-block;
     padding-bottom: 17px;
@@ -341,13 +341,13 @@
 }
 .AddList{
     height: 94%;
-    width: 900px;
+    width: 800px;
+    padding-top: 20px;
     display: inline-block;
     background-color: white;
     text-align: left;
     padding-left: 30px;
     border: black 1px solid;
-
 }
 .AdminSigninPage{
     height: 360px;

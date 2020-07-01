@@ -4,6 +4,8 @@ import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
+import 'simplebar/dist/simplebar.min.css';
+import SimpleBar from 'simplebar-react';
 
 
 function RenderAdminServices(){
@@ -69,6 +71,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -101,7 +117,9 @@ class AdminTeacherEdit extends Component{
           dob:props.teacher.dob,
           address:props.teacher.address,
           phone_no:props.teacher.phone_no,
-          email:props.teacher.email
+          email:props.teacher.email,
+          password:props.teacher.password,
+          username:props.teacher.username
         }
 
       }
@@ -129,6 +147,7 @@ class AdminTeacherEdit extends Component{
                                     <Row className='form-group'>           
                                         <Col md={{offset:1}}>
                                             <div className='EditBox'style={{marginBottom:'32px'}}>
+                                            <SimpleBar style={{ maxHeight: 320 }}>
                                                 <Row>
                                                     <Col>
                                                     Name:
@@ -172,6 +191,18 @@ class AdminTeacherEdit extends Component{
                                                     <Control.text model=".email" id="email" name="email" defaultValue={this.props.teacher.email} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>
+                                                    Username:
+                                                    <Control.text model=".username" id="username" name="username" defaultValue={this.props.teacher.username} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    <Col>
+                                                    Password:
+                                                    <Control.text model=".password" id="password" name="password" defaultValue={this.props.teacher.password} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                </Row>
+                                                </SimpleBar>
                                             </div>
                                         </Col>
                                     </Row>

@@ -1,98 +1,10 @@
 import React,{Component} from 'react';
-import { Row, Col,Container } from 'reactstrap';
+import { Row, Col,Container, CardColumns } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
+import TeacherSidebar1 from './TeacherSidebar1Component';
 
-function RenderCourses(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-
-                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-                    <Col  md={{offset:1}} >
-                        <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-                    </Col>
-                </Row>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}}  >
-                        OOAD(C)
-                    </Col>
-                </Row>
-                </Link>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}} >
-                        OOAD LAB(C)
-                    </Col>
-                </Row>
-                </Link>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}} >
-                        DATABASE(E)
-                    </Col>
-                </Row>
-                </Link>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}} >
-                        DATABASE LAB(E)
-                    </Col>
-                </Row>
-                </Link>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}} >
-                    COMPUTER ARCHITECTURE(F)
-                    </Col>
-                </Row>
-                </Link>
-                <Link to='/teacher/course'>
-                <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                    <Col  md={{offset:1}} >
-                    VIEW ALL COURSES
-                    </Col>
-                </Row>
-                </Link>
-                
-                </div>
-    )
-}
-
-function RenderTeacherServices(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
-                    <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
-                        <Col  md={{offset:1}} >
-                            <i className="fa fa-user"></i>{' '}Teacher Services<br/>
-                        </Col>
-                    </Row>
-                <Link to='/teacher/personalinformation'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            PERSONAL INFORMATION
-                        </Col>
-                    </Row>
-                </Link>
-                
-        </div>
-    )
-}
-function RenderSideBar1(){
-    return(    
-            <div className='sidebar'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderTeacherServices></RenderTeacherServices>
-            </div>
-    )
-}
 function RendertodaysTimetable(){
     return(
         <div>
@@ -214,6 +126,14 @@ function RendertodaysTimetable(){
 class TeacherHome extends Component{
     constructor(props){
       super(props);
+      this.state={
+          courses:[
+              {id:1,course:"CCN",section:"C"},
+              {id:2,course:"OOAD",section:"A"},
+              {id:3,course:"CC",section:"B"},
+              {id:4,course:"DB",section:"E"},
+          ]
+      }
     }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
@@ -225,8 +145,8 @@ class TeacherHome extends Component{
                <TeacherNavbarComponent></TeacherNavbarComponent>
                <Container fluid={true}>
                     <Row>
-                        <Col  md={{ offset:0 }}><RenderSideBar1></RenderSideBar1></Col>
-                        <Col  md={{ offset:1 }}><RendertodaysTimetable></RendertodaysTimetable></Col>
+                        <Col  md={{ offset:0 }}><TeacherSidebar1 courses={this.state.courses}></TeacherSidebar1></Col>
+                        <Col  md={{ offset:1 }}><RendertodaysTimetable ></RendertodaysTimetable></Col>
                     </Row>
                 </Container>
                 

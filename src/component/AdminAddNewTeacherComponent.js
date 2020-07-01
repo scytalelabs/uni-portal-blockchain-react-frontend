@@ -69,6 +69,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -101,14 +115,16 @@ class AdminAddNewTeacher extends Component{
             cnic:null,
             dob:null,
             email:null,
-            qualification:null
+            qualification:null,
+            username:null,
+            password:null
         }
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       } 
      render(){
-        const {id,name,father_name,phone_no,address,reg_no,cnic,dob,email,qualification}=this.state;
+        const {id,name,father_name,phone_no,address,reg_no,cnic,dob,email,qualification,username,password}=this.state;
         const {addTeacher,toggleisAdding}=this.props;
        return(
            <div className='bg3'>
@@ -120,7 +136,7 @@ class AdminAddNewTeacher extends Component{
                         </Col>
                         
                         <Col md={{ offset:1 }}>
-                        <div className='Services1' style={{paddingBottom:'12px',paddingTop:'12px'}}>
+                        <div className='Services1' style={{paddingBottom:'18px',paddingTop:'16px'}}>
                                 <LocalForm>
                                 <br></br>
                                     <Row className='form-group'>           
@@ -136,7 +152,6 @@ class AdminAddNewTeacher extends Component{
                                                     <Control.text model=".qualification" id="qualification" name="qualification" value={qualification} placeholder="Enter Qualification" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
-                                                <br></br>
                                                 <Row>
                                                     <Col>
                                                     Father Name:
@@ -147,7 +162,6 @@ class AdminAddNewTeacher extends Component{
                                                     <Control.text model=".cnic" id="cnic" name="cnic" value={cnic} placeholder="Enter CNIC Number" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
-                                                <br></br>
                                                 <Row>
                                                     <Col>
                                                     Phone #:
@@ -155,10 +169,9 @@ class AdminAddNewTeacher extends Component{
                                                     </Col>
                                                     <Col>
                                                     DOB:
-                                                    <Control.text model="." id="dob" name="dob" value={dob} placeholder="Enter Date of Birth" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model="." id="dob" name="dob" type="date" value={dob} placeholder="Enter Date of Birth" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
-                                                <br></br>
                                                 <Row>
                                                     <Col>
                                                     Address:
@@ -166,13 +179,23 @@ class AdminAddNewTeacher extends Component{
                                                     </Col>
                                                     <Col>
                                                     Email:
-                                                    <Control.text model=".email" id="email" name="email" value={email} placeholder="Enter Date of Birth" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".email" id="email" name="email" type="email" value={email} placeholder="Enter Email" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <Row>
                                                     <Col>
                                                     Registration No:
-                                                    <Control.text model=".reg_no" id="reg_no" name="reg_no" value={reg_no} placeholder="Enter Address" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".reg_no" id="reg_no" name="reg_no" value={reg_no} placeholder="Enter Regidtrstion No" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    <Col>
+                                                    Username:
+                                                    <Control.text model=".username" id="username" name="username" value={username} placeholder="Enter username Here For Login" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                    Password:
+                                                    <Control.text model=".password" id="password" name="password" value={password} placeholder="Enter password" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                             </div>

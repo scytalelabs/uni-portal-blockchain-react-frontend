@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+import TeacherSidebar1 from './TeacherSidebar1Component';
 
 
 
@@ -101,7 +104,7 @@ function RenderSideBar1(){
 
 
 
-function Renderpersonalinformation(){
+function Renderpersonalinformation(teacherinfo){
     return(
         <div className='PersonalInformation' style={{fontFamily:'"Times New Roman", Times, serif'}}>
             <h3>Teacher Information</h3>
@@ -110,35 +113,35 @@ function Renderpersonalinformation(){
                 <h5 style={{backgroundColor:'#CEDAF1'}}>Personal Information</h5>
                 <Row>
                     <Col>Name</Col>
-                    <Col>Zaid Munir</Col>
+                    <Col>{teacherinfo.teacherinfo.name}</Col>
                 </Row>
                 <Row>
                     <Col>Father Name</Col>
-                    <Col>Munir</Col>
+                    <Col>{teacherinfo.teacherinfo.father_name}</Col>
                 </Row>
                 <Row>
                     <Col>Registration Number</Col>
-                    <Col>BSCS0151</Col>
+                    <Col>{teacherinfo.teacherinfo.reg_no}</Col>
                 </Row>
                 <Row>
                     <Col>Email</Col>
-                    <Col>Zaid.munir@ucp.edu.pk</Col>
+                    <Col>{teacherinfo.teacherinfo.email}</Col>
                 </Row>
                 <Row>
                     <Col>CNIC:</Col>
-                    <Col>33102-9752772-7</Col>
+                    <Col>{teacherinfo.teacherinfo.cnic}</Col>
                 </Row>
                 <Row>
                     <Col>Phone Number</Col>
-                    <Col>0335-6611986 &nbsp;&nbsp;&nbsp;<i className='fa fa-edit'></i></Col>
+                    <Col>{teacherinfo.teacherinfo.phone_no} &nbsp;&nbsp;&nbsp;<i className='fa fa-edit'></i></Col>
                 </Row>
                 <Row>
                     <Col>Address</Col>
-                    <Col>p323/1 amin town Kashmir road Faisalabad</Col>
+                    <Col>{teacherinfo.teacherinfo.address}</Col>
                 </Row>
                 <Row>
                     <Col>DOB:</Col>
-                    <Col>01/01/1998</Col>
+                    <Col>{teacherinfo.teacherinfo.dob}</Col>
                 </Row>
                 
                 <hr></hr>
@@ -156,23 +159,24 @@ function Renderpersonalinformation(){
                 <h5 style={{backgroundColor:'#CEDAF1'}}>E-mail Status</h5>
                 <Row>
                     <Col>Registration ID:</Col>
-                    <Col>BSCS0151</Col>
+                    <Col>{teacherinfo.teacherinfo.reg_no}</Col>
                 </Row>
                 <Row>
                     <Col>Request Received Date:</Col>
                     <Col>3-11-2016 9:38:34 AM</Col>
                 </Row>
                 <Row>
-                    <Col>Request Status:</Col>
-                    <Col>19-10-2016 7:48:05 AM</Col>
+                    <Col>Approved Email Address:</Col>
+                    <Col>{teacherinfo.teacherinfo.email}</Col>
                 </Row>
                 <Row>
-                    <Col>Approved Email Address:</Col>
-                    <Col>Zaid.Munir@ucp.edu.pk</Col>
+                    <Col>User Name:</Col>
+                    <Col>{teacherinfo.teacherinfo.username}</Col>
                 </Row>
+                
                 <Row>
                     <Col>Password:</Col>
-                    <Col>ucp12345</Col>
+                    <Col>{teacherinfo.teacherinfo.password}</Col>
                 </Row>
                 
             </div>
@@ -183,19 +187,69 @@ function Renderpersonalinformation(){
 class Teacherpersonalinformation extends Component{
     constructor(props){
       super(props);
+      this.state={
+        teacherinfo:{  
+            id:"",
+            reg_no:"",
+            qualification:"",
+            uid:"",
+            name:"",
+            cnic: "",
+            dob:"",
+            phone_no:"",
+            address: "",
+            father_name:"",
+            email: "",
+            username: "",
+            password: ""
+        },
+      isLoading: false,
+      courses:[
+            {id:1,course:"CCN",section:"C"},
+            {id:2,course:"OOAD",section:"A"},
+            {id:3,course:"CC",section:"B"},
+            {id:4,course:"DB",section:"E"},
+        ]
+      }
+
     }
     handleInfo(values){
         console.log('Current State is: ' + JSON.stringify(values));
           alert('Current State is: ' + JSON.stringify(values));   
       }      
+      componentDidMount() {
+        this.setState({
+            isLoading:true
+        })
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        console.log("TOKEN IS ",token);
+        console.log("REEGNO IS",regno);
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'teacher/'+regno+'/personal_info')
+        .then( res => {
+            this.setState({
+                teacherinfo:res.data[0],
+                isLoading:false
+            })
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+}
      render(){
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return <p>Loading ...</p>;
+          }
+          
        return(
            <div className='bg5'>
                <TeacherNavbarComponent></TeacherNavbarComponent>
                <Container fluid={true}>
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>   
-                        <Col ><Renderpersonalinformation></Renderpersonalinformation></Col>
+                        <Col  md={{ offset:0 }}><TeacherSidebar1 courses={this.state.courses}></TeacherSidebar1></Col>
+                        <Col ><Renderpersonalinformation teacherinfo={this.state.teacherinfo}></Renderpersonalinformation></Col>
                     </Row>
                 </Container>
            </div>

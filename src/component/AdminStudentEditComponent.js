@@ -70,6 +70,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -102,7 +116,9 @@ class AdminStudentEdit extends Component{
             dob:props.student.dob,
             address:props.student.address,
             phone_no:props.student.phone_no,
-            email:props.student.email
+            email:props.student.email,
+            password:props.student.password,
+            username:props.student.username
           }
         // this.handleLogin=this.handleSearch.bind(this);
       }
@@ -174,6 +190,17 @@ class AdminStudentEdit extends Component{
                                                     <Col>
                                                     Email:
                                                     <Control.text model=".email" id="email" name="email" defaultValue={this.props.student.email} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>
+                                                    username:
+                                                    <Control.text model=".username" id="username" name="username" defaultValue={this.props.student.username} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    </Col>
+                                                    <Col>
+                                                    Password:
+                                                    <Control.text model=".password" id="password" name="password" defaultValue={this.props.student.password} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                             </div>

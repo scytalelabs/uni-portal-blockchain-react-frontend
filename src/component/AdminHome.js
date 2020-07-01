@@ -42,6 +42,25 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
+                        <Col  md={{offset:1}} >
+                            <i className="fa fa-user"></i>{' '}Admin Services<br/>
+                        </Col>
+                </Row>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}>
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
                 
                 
         </div>

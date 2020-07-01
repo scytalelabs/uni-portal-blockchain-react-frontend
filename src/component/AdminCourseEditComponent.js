@@ -69,6 +69,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -89,13 +103,11 @@ class AdminCourseEdit extends Component{
     
       constructor(props){
         super(props);
+        console.log("PROPS ARE",props);
         this.state={
-            id:props.course.id,
-            course_code:props.course.course_code,
-            course:props.course.course,
-            semester:props.course.semester,
-            section:props.course.section,
-            credit_hours:props.course.credit_hours,
+            code:props.course.code,
+            name:props.course.name,
+            credithours:props.course.credithours,
           }
       }
       changeHandler=e=>{
@@ -125,29 +137,21 @@ class AdminCourseEdit extends Component{
                                                 <Row>
                                                     <Col>
                                                     Course:
-                                                    <Control.text model=".course" id="course" name="course" defaultValue={this.props.course.course}  className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
-                                                    </Col>
-                                                    <Col>
-                                                    Semester:
-                                                    <Control.text model=".semester" id="semester" name="semester" defaultValue={this.props.course.semester}  className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".name" id="name" name="name" defaultValue={this.props.course.name}  className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
-                                                Section:
-                                                    <Control.text model=".section" id="section" name="section" defaultValue={this.props.course.section}  className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
-                                                    </Col>
-                                                    <Col>
                                                     Credit Hours:
-                                                    <Control.text model=".credit_hours" id="credit_hours" name="credit_hours" defaultValue={this.props.course.credit_hours} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".credithours" id="credithours" name="credithours" defaultValue={this.props.course.credithours} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
                                                 <Row>
                                                     <Col>
                                                     Course Code:
-                                                    <Control.text model=".course_code" id="course_code" name="course_code" defaultValue={this.props.course.course_code} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".code" id="code" name="code" defaultValue={this.props.course.code} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>

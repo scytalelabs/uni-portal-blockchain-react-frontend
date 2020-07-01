@@ -3,146 +3,47 @@ import { Row, Col ,Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
-
-
-
-function RenderCourses(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
-                <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-                    <Col  md={{offset:1}} >
-                        <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-                    </Col>
-                </Row>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            OOAD(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            OOAD LAB(C)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            DATABASE LAB(E)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        COMPUTER ARCHITECTURE(F)
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/course'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                        VIEW ALL COURSES
-                        </Col>
-                    </Row>
-                </Link>
-                </div>
-    )
-}
-
-function RenderStudentServices(){
-    return(
-        <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
-                    <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
-                        <Col  md={{offset:1}} >
-                            <i className="fa fa-user"></i>{' '}Student Services<br/>
-                        </Col>
-                    </Row>
-                <Link to='/student/personalinformation'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}}  >
-                            PERSONAL INFORMATION
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/transcript'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            TRANSCRIPT
-                        </Col>
-                    </Row>
-                </Link>
-                <Link to='/student/leavereport'>
-                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-                        <Col  md={{offset:1}} >
-                            LEAVE STATUS REPORT
-                        </Col>
-                    </Row>
-                </Link>       
-        </div>
-    )
-}
-function RenderSideBar1(){
-    return(    
-        
-            <div className='sidebar1'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
-            </div>
-    )
-}
-
+import Axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
+import StudentSidebar1 from './StudentSidebar1Component';
+import { connect } from 'react-redux';
+import { getOutline } from '../redux/ActionCreators';
 
 function RenderCoursesData(){
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
                 
-                <Link to='/student/course/Announcement'>
+                <Link to={'/student/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             Announcement 
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseOutline'>
+                <Link to={'/student/course/CourseOutline/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Course Outline <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/CourseMaterial'>
+                <Link to={'/student/course/CourseMaterial/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
-                            Course Material
+                            Course Material 
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/GradeBook'>
+                <Link to={'/student/course/GradeBook/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             Grade Book
                         </Col>
                     </Row>
                 </Link>
-                <Link to='/student/course/LeaveStatus'>
+                <Link to={'/student/course/LeaveStatus/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                         Leave Status
@@ -154,9 +55,23 @@ function RenderCoursesData(){
                 </div>
     )
 }
+function RenderOutlineinfo(outline){
+    console.log("CHECK KRO",outline.outline)
+    return(
+    outline.outline.map(info=>{
+        return(
+            <Row>
+                <Col style={{border:'1px solid #707070'}}>{info.Type}</Col>
+                <Col style={{border:'1px solid #707070'}}>{info.weightage}</Col>
+                <Col style={{border:'1px solid #707070',marginRight:'20px'}}>{info.no_of_selected}</Col>
+            </Row>
+        );
+    })
+    )
+
+}
 function RenderSideBar2(){
     return(    
-        
             <div className='sidebar1'>
                 <br></br>
                 <br></br>
@@ -164,7 +79,13 @@ function RenderSideBar2(){
             </div>
     )
 }
-function RenderOutline(){
+function RenderOutline(outline){
+    
+    if(outline.outline==null)
+    {
+        return(   <p>LOADING...</p>)
+    }
+    
     return(
         <div className='CourseOutline' style={{fontFamily:'"Times New Roman", Times, serif'}}>
             <h3>Course Outline</h3>
@@ -176,38 +97,9 @@ function RenderOutline(){
             <Row style={{textAlign:'center'}}>
                 <Col style={{border:'1px solid #707070'}}>Exam Type</Col>
                 <Col style={{border:'1px solid #707070'}}>Percentage</Col>
-                <Col style={{border:'1px solid #707070'}}>Consider Top</Col>
+                <Col style={{border:'1px solid #707070',marginRight:'20px'}}>Consider Top</Col>
             </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Quiz</Col>
-                <Col style={{border:'1px solid #707070'}}>10%</Col>
-                <Col style={{border:'1px solid #707070'}}>8</Col>
-            </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Assignment</Col>
-                <Col style={{border:'1px solid #707070'}}>10%</Col>
-                <Col style={{border:'1px solid #707070'}}>Take Average of all</Col>
-            </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Project</Col>
-                <Col style={{border:'1px solid #707070'}}>10%</Col>
-                <Col style={{border:'1px solid #707070'}}>Take Average of all</Col>
-            </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Mid-term</Col>
-                <Col style={{border:'1px solid #707070'}}>25%</Col>
-                <Col style={{border:'1px solid #707070'}}>Take Average of all</Col>
-            </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Final-term</Col>
-                <Col style={{border:'1px solid #707070'}}>35%</Col>
-                <Col style={{border:'1px solid #707070'}}>Take Average of all</Col>
-            </Row>
-            <Row >
-                <Col style={{border:'1px solid #707070'}}>Class Participation</Col>
-                <Col style={{border:'1px solid #707070'}}>10%</Col>
-                <Col style={{border:'1px solid #707070'}}>Take Average of all</Col>
-            </Row>
+                <RenderOutlineinfo outline={outline.outline}></RenderOutlineinfo>
             <hr/>
            <u> Plagiarism and Intellectual Property Policy:</u>
             <p>Reproduction of the writing or literary work or concepts or inventions of another person as one's own product without writing proper 
@@ -232,21 +124,62 @@ function RenderOutline(){
 class CourseOutline extends Component{
     constructor(props){
       super(props);
+      this.state={
+        courses:[]
+      }
+      this.getOutline=this.getOutline.bind(this);
     }
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+    getOutline(outlineinfo){
+
+        this.props.getOutline(outlineinfo);
+    }
+    componentDidMount(){
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('regno');
+        const semester=localStorage.getItem('semester');
+        Axios.defaults.headers.common['Authorization']=token;
+
+          
+        Axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+        const outlineinfo={
+            semester:semester,
+            regno:regno,
+            section:section,
+            course:course
+        }
+    
+        Axios.defaults.headers.common['Authorization']=token;
+        Axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
+        .then(response=>{
+            console.log("RESPONSE :",response);
+                this.getOutline(response.data);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+       
+    }     
      render(){
        return(
            <div className='bg4'>
                <StudentNavbarComponent></StudentNavbarComponent>
                 <Container fluid={true}> 
                     <Row>
-                        <Col md={{offset:0}}><RenderSideBar1></RenderSideBar1></Col>
+                        <Col md={{offset:0}}><StudentSidebar1 courses={this.state.courses}></StudentSidebar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        
-                        <Col ><RenderOutline></RenderOutline></Col>
+                        <Col ><RenderOutline outline={this.props.outline}></RenderOutline></Col>
                     </Row>
                 </Container>
                 
@@ -256,4 +189,15 @@ class CourseOutline extends Component{
        )
      }
     }
-    export default CourseOutline;
+    const mapStateoProps=(state)=>{
+        return{
+            outline:state.outline
+        }
+        
+    }
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            getOutline:(outlineinfo)=>{dispatch(getOutline(outlineinfo))},
+        }
+    }
+    export default connect(mapStateoProps,mapDispatchtoProps)(CourseOutline);

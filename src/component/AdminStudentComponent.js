@@ -9,7 +9,10 @@ import AdminNavbarComponent from './AdminNavBarComponent';
 import AdminStudentEdit from './AdminStudentEditComponent'
 import AdminAddNewStudent from './AdminAddNewStudentComponent';
 import { connect } from 'react-redux';
-import {deleteStudent,UpdateStudent,addStudent} from '../redux/ActionCreators'
+import {deleteStudent,UpdateStudent,addStudent,SetStudent} from '../redux/ActionCreators'
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+
 
 function RenderAdminServices(){
     return(
@@ -74,6 +77,20 @@ function RenderAdminServices(){
                         </Col>
                     </Row>
                 </Link>
+                <Link to='/Admin/Semester'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SEMESTER
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to='/Admin/Section'>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            SECTION
+                        </Col>
+                    </Row>
+                </Link>
         </div>
     )
 }
@@ -108,7 +125,7 @@ class AdminStudent extends Component{
             //     {id:4 ,name:"Muhammad Arsal",father_name:"shaikh sahab",phone_no:"03326611986",address:"SABZAZAAR",reg_no:"L1F16BSCS0154",cnic:331029627727,dob:"07/01/1998",email:"arsalshaikh65@gmail.com"},
             //     {id:5 ,name:"Muhammad Ghulam Fakhar ud din Shakeel",father_name:"Aslam Shakeel",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"efyudi@gmail.com"},
             // ],
-            student:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null}
+            student:{id:null,name:null,father_name:null,phone_no:null,address:null,reg_no:null,cnic:null,dob:null,email:null,username:null,password:null}
 
         }
         // this.handleLogin=this.handleSearch.bind(this);
@@ -116,6 +133,7 @@ class AdminStudent extends Component{
         this.UpdateStudent=this.UpdateStudent.bind(this);
         this.toggleisAdding=this.toggleisAdding.bind(this);
         this.addStudent=this.addStudent.bind(this);
+        this.SetStudent=this.SetStudent.bind(this);
       }
     //   handleSearch(values){
     //       alert('Current State is: ' + this.state.search);
@@ -137,49 +155,43 @@ class AdminStudent extends Component{
       }
       addStudent(studentinfo){
         this.props.addStudent(studentinfo);
-        // console.log("NAME IS "+studentinfo.name)
-        // studentinfo.id=Math.random();
-        // let students=[... this.state.students,studentinfo]
-        // this.setState({
-        //     students,
-        // });
         this.toggleisAdding();
         
 
       }
-      deleteStudent=(id)=>{
-          this.props.deleteStudent(id);
-        // const students=this.state.students.filter(student=>{
-        //     return student.id!==id
-        // })
-        // this.setState({
-        //     students
-        // })
+      deleteStudent=(regno)=>{
+          this.props.deleteStudent(regno);
     }
       UpdateStudent(updatedstudent){
-        // console.log("UPPDATED Student IS" +updatedstudent.father_name);
         this.props.UpdateStudent(updatedstudent);
-        // this.setState(state => {
-        //     const list = state.students.map(student => 
-        //         {
-        //             if(student.id==updatedstudent.id)
-        //             {
-        //                 student.id=updatedstudent.id;
-        //                 student.name=updatedstudent.name;
-        //                 student.father_name=updatedstudent.father_name;
-        //                 student.dob=updatedstudent.dob;
-        //                 student.email=updatedstudent.email;
-        //                 student.phone_no=updatedstudent.phone_no;
-        //                 student.cnic=updatedstudent.cnic;
-        //                 student.address=updatedstudent.address;
-        //                 student.reg_no=updatedstudent.reg_no;
-        //             }
-        //         }
-        //         );
-
-        //   });
         this.ToggleEditing();
       } 
+
+      SetStudent(students){
+          console.log("STUDENTS ARE",students);
+          console.log("PROPS ARE",this.props);
+            this.props.SetStudent(students);
+      }
+      componentDidMount(){
+
+        const token=localStorage.getItem('bearer_token');
+        console.log("TOKEN IS ",token);
+
+        axios.defaults.headers.common['Authorization']=token;
+        console.log("TOKEN IS in header", axios.defaults.headers.common['Authorization'])
+        axios.get(baseUrl+'admin/1/students')
+        .then( res => {
+            console.log("SETUDENTSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",res);
+            this.SetStudent(res.data);
+
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
+
+
+
 
      render(){
 
@@ -199,6 +211,9 @@ class AdminStudent extends Component{
             this.state.student.reg_no=hold[0].reg_no;
             this.state.student.cnic=hold[0].cnic;
             this.state.student.dob=hold[0].dob;
+            this.state.student.username=hold[0].username;
+            this.state.student.password=hold[0].password;
+
 
             // console.log("Student state is"+this.state.student.name);
 
@@ -250,6 +265,11 @@ class AdminStudent extends Component{
                                                     <Col>Address : {hold[0].address}</Col>
                                                     <Col>Email : {hold[0].email}</Col>
                                                 </Row>
+                                                <br></br>
+                                                <Row>
+                                                    <Col>username : {hold[0].username}</Col>
+                                                    <Col>Password : {hold[0].password}</Col>
+                                                </Row>
                                             </div>
                                         </Col>
                                     </Row>
@@ -257,7 +277,7 @@ class AdminStudent extends Component{
                                     <Row>
                                         <Col md={{offset:7}}>
                                             {/* <Link to='/Admin/Student'> */}
-                                                <Button type="submit"  onClick={()=>this.deleteStudent(hold[0].id)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                <Button type="submit"  onClick={()=>this.deleteStudent(hold[0].reg_no)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Delete
                                                 </Button>
                                             {/* </Link> */}
@@ -347,9 +367,10 @@ class AdminStudent extends Component{
     }
     const mapDispatchtoProps=(dispatch)=>{
         return{
-            deleteStudent:(id)=>{dispatch(deleteStudent(id))},
+            deleteStudent:(regno)=>{dispatch(deleteStudent(regno))},
             addStudent:(studentinfo)=>{dispatch(addStudent(studentinfo))},
-            UpdateStudent:(updatedstudent)=>{dispatch(UpdateStudent(updatedstudent))}
+            UpdateStudent:(updatedstudent)=>{dispatch(UpdateStudent(updatedstudent))},
+            SetStudent:(students)=>{dispatch(SetStudent(students))},
         }
     }
     export default connect(mapStatetoProps,mapDispatchtoProps)(AdminStudent);

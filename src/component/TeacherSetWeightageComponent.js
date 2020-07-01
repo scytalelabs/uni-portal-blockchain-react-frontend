@@ -1,23 +1,30 @@
 import React, { Component } from 'react'
 import SimpleBar from 'simplebar-react';
 import {Control, LocalForm } from 'react-redux-form';
-import { Row, Col, Button, Container, Alert } from 'reactstrap';
+import { Row, Col, Button, Container} from 'reactstrap';
 import 'simplebar/dist/simplebar.min.css';
 
 class RenderSetWeightage extends Component{
     constructor(props){
       super(props);
-      console.log("SET WEIGHTAGE",this.props);
+    //   console.log("SET WEIGHTAGE",this.props);
+        const  {Weightages}=this.props;
+        const course= Weightages.filter(list=>{
+            return list.cid==this.props.id
+        })
+    this.state={
+        id:course[0].id,
+        cid:course[0].cid,
+        Assignment:course[0].Assignment,
+        Quiz:course[0].Quiz,
+        Mid_Term:course[0].Mid_Term,
+        Class_Participation:course[0].Class_Participation,
+        Final_Term:course[0].Final_Term,
+        Project:course[0].Project,
+        Project_Presentation:course[0].Project_Presentation,
     }
-    state={
-        Assignment:this.props.Assignment,
-        Quiz:this.props.Quiz,
-        Mid_Term:this.props.Mid_Term,
-        Class_Participation:this.props.Class_Participation,
-        Final_Term:this.props.Final_Term,
-        Project:this.props.Project,
-        Project_Presentation:this.props.Project_Presentation,
-    }
+}
+    
     // let sum=0;
 
     // for(let num of types)
@@ -29,12 +36,11 @@ class RenderSetWeightage extends Component{
     changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
       }
+      
     render(){
-        const {Assignment,Quiz,Mid_Term,Class_Participation,Final_Term,Project,Project_Presentation}=this.state;
         const {setTypeWeightage}=this.props;
-        console.log("STATE IS",this.state);
-        
-        
+            const {id,cid,Assignment,Quiz,Mid_Term,Class_Participation,Final_Term,Project,Project_Presentation}=this.state;
+            
             return(
 
                 <div className='SetWeightage'style={{fontFamily:'"Times New Roman", Times, serif'}}>
@@ -55,7 +61,7 @@ class RenderSetWeightage extends Component{
                                         <Col>
                                             <Row>
                                                 <Col></Col>
-                                                <Col ><Control.text model={".Assignment"} id='Assignment' type='number' name='Assignment' defaultValue={Assignment} className="form-control" onChange={this.changeHandler}/> </Col>
+                                                <Col ><Control.text model={".Assignment"} id='Assignment' type='number' name='Assignment' defaultValue={this.state.Assignment} className="form-control" onChange={this.changeHandler}/> </Col>
                                                 <Col></Col>
                                             </Row>
                                         </Col>

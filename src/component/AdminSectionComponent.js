@@ -7,10 +7,10 @@ import { Link } from 'react-router-dom';
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
 import { connect } from 'react-redux';
-import { deleteMarksType, addMarksType ,SetMarksType} from '../redux/ActionCreators';
+import { deleteSection, addSection ,SetSection} from '../redux/ActionCreators';
 import axios from 'axios';
 import { baseUrl } from '../shared/basedUrl';
-import AdminAddNewMarksType from './AdminAddNewMarksTypeComponent';
+import AdminAddNewSection from './AdminAddNewSection';
 
 
 function RenderAdminServices(){
@@ -64,7 +64,7 @@ function RenderAdminServices(){
                 <Link to='/Admin/MarksType'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            MARKS TYPE  <span>&#x276F;</span>
+                            MARKS TYPE 
                         </Col>
                     </Row>
                 </Link>
@@ -85,7 +85,7 @@ function RenderAdminServices(){
                 <Link to='/Admin/Section'>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            SECTION
+                            SECTION <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
@@ -107,18 +107,18 @@ function RenderSideBar1(){
 }
 
 
-class AdminMarksType extends Component{
+class AdminSection extends Component{
     
       constructor(props){
         super(props);
         this.state={
           search:'',
           isAdding:false,
-          marks_type:{id:null,type_name:null}
+          section:{section: null,semester: null,course: null,credithours:null,courseCode: null},
         }
         this.toggleisAdding=this.toggleisAdding.bind(this);
-        this.addMarksType=this.addMarksType.bind(this);
-        this.SetMarksType=this.SetMarksType.bind(this);
+        this.addSection=this.addSection.bind(this);
+        this.SetSection=this.SetSection.bind(this);
       }
       changeHandler=e=>{
         this.setState({[e.target.name]:e.target.value})
@@ -128,26 +128,25 @@ class AdminMarksType extends Component{
         this.setState({isAdding:!isAdding})
         
       }
-      addMarksType(markstypeinfo){
-        this.props.addMarksType(markstypeinfo);
+      addSection(sectioninfo){
+        this.props.addSection(sectioninfo);
         this.toggleisAdding();
       }
-      deleteMarksType=(type_name)=>{
+      deleteSection=(section)=>{
         
-        this.props.deleteMarksType(type_name);
+        this.props.deleteSection(section);
       }
-      SetMarksType(types){
-          this.props.SetMarksType(types);
+      SetSection(semester){
+          this.props.SetSection(semester);
     }
       componentDidMount(){
 
         const token=localStorage.getItem('bearer_token');
-
         axios.defaults.headers.common['Authorization']=token;
-        axios.get(baseUrl+'admin/1/assessment_type')
+        axios.get(baseUrl+'admin/1/sections')
         .then( res => {
-            console.log("TYPES",res);
-            this.SetMarksType(res.data);
+            console.log("sections:",res);
+            this.SetSection(res.data);
         })
         .catch(error=>{
             console.log(error)
@@ -157,16 +156,41 @@ class AdminMarksType extends Component{
      render(){
         const {search,isAdding}=this.state;
         var search_hold=search
-        console.log("PROPSSSS",this.props)
-        console.log("SEARCHHOLD",search_hold)
-            var hold=this.props.marks_type.filter(function(type) { 
-                console.log("type.type_name",type.type_name)
-                return type.type_name == search_hold;  });
+        // console.log("PROPSSSS",this.props)
+        // console.log("SEARCHHOLD",search_hold)
+            var hold=this.props.section.filter(function(type) { 
+                console.log("type.type_name",type.section)
+                return type.section == search_hold;  });
 
-             console.log("SEARCH",hold[0])
-            if(search!=="" && hold.length===1 && search_hold === hold[0].type_name )
+             console.log("SEARCH",hold[1])
+                this.state.searched_section=hold;
+             console.log("SEARCH HOLD",this.state.searched_section)
+            if(search!=="" && hold.length===1 && search_hold === hold[0].section )
             {
-                this.state.marks_type.type_name=hold[0].type_name;
+                // this.state.section.section=hold[0].section,
+                // this.state.section.semester=hold[0].semester,
+                // this.state.section.course=hold[0].course,
+                // this.state.section.credithours=hold[0].credithours,
+                // this.state.section.courseCode=hold[0].courseCode
+                // const rendersection = []
+
+                // for (const [index, data] of hold.entries()) {
+                //     rendersection.push(
+                //         <div key={index}>
+                
+                //         </div>
+                    // <li >{value}</li>
+                //     )
+                // }
+                // const  rendersection = hold.map((data) => {
+                    // return (
+                    //     <div key={data.courseCode}>
+                    //         HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
+                           
+                    //     </div>
+                    // );
+                // })
+        
             return(
             <div className='bg3'>
                 <AdminNavbarComponent></AdminNavbarComponent>
@@ -182,7 +206,7 @@ class AdminMarksType extends Component{
                                     <br></br><br></br>
                                     <Row className='form-group'>            
                                         <Col md={{offset:1}}>
-                                            <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Marks Type to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                            <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Section to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
                                         </Col>
                                         <Col md={{ offset:1 }}>
                                             <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
@@ -191,28 +215,48 @@ class AdminMarksType extends Component{
                                         </Col>
                                     </Row>
                                     <Row >
+                                        <h5>
                                         <Col md={{offset:2}}>
                                             <div className='EmptyBox'style={{marginBottom:'12px'}}>
                                             <br></br>
+                                            <Row md={{offset:1}}>
+                                                <Col> Course:</Col>
+                                                <Col> {hold[0].course}</Col>
+                                                <Col></Col>
+                                            </Row>
                                             <br></br>
+                                            <Row md={{offset:1}}>
+                                                <Col> Course Code:</Col>
+                                                <Col> {hold[0].courseCode}</Col>
+                                                <Col></Col>
+                                            </Row>
                                             <br></br>
+                                            <Row md={{offset:1}}>
+                                                <Col> Section:</Col>
+                                                <Col> {hold[0].section}</Col>
+                                                <Col></Col>
+                                            </Row>
                                             <br></br>
-                                            <h3>
-                                                <Row md={{offset:1}}>
-                                                    <Col> Type:</Col>
-                                                    <Col> {hold[0].type_name}</Col>
-                                                    <Col> </Col>
-                                                    <Col> </Col>
-                                                </Row>
-                                                </h3>
+                                            <Row md={{offset:1}}>
+                                                <Col> Semester:</Col>
+                                                <Col> {hold[0].semester}</Col>
+                                                <Col></Col>
+                                            </Row>
+                                            <br></br>
+                                            <Row md={{offset:1}}>
+                                                <Col> Credit Hours:</Col>
+                                                <Col> {hold[0].credithours}</Col>
+                                                <Col></Col>
+                                            </Row>
                                             </div>
                                         </Col>
+                                        </h5>
                                     </Row>
                                     <br></br>
                                     <Row>
                                         <Col md={{offset:7}}>
                                             {/* <Link to='/Admin/course'> */}
-                                                <Button type="submit" onClick={()=>this.deleteMarksType(hold[0].type_name) }style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
+                                                <Button type="submit" onClick={()=>this.deleteSection(hold[0].section) }style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
                                                     Delete
                                                 </Button>
                                             {/* </Link> */}
@@ -227,7 +271,7 @@ class AdminMarksType extends Component{
         )   }
          else if(isAdding===true){
             return(
-                <AdminAddNewMarksType addMarksType={this.addMarksType} toggleisAdding={this.toggleisAdding}/>
+                <AdminAddNewSection addSection={this.addSection} toggleisAdding={this.toggleisAdding}/>
             )
         }
         else{
@@ -247,14 +291,12 @@ class AdminMarksType extends Component{
                                 <br></br><br></br>
                                     <Row className='form-group'>            
                                         <Col md={{offset:1}}>
-                                        <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter MarkType name Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                        <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Section name Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
                                         </Col>
                                         <Col md={{ offset:1 }}>
-                                            {/* <Link to='/Admin/Course/Search'> */}
-                                                <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
-                                                    SEARCH
-                                                </Button>
-                                            {/* </Link> */}
+                                            <Button type="submit" style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'100px',paddingRight:'100px'}}>
+                                                SEARCH
+                                            </Button>
                                         </Col>
                                     </Row>
                                     <Row >
@@ -269,7 +311,7 @@ class AdminMarksType extends Component{
                                             {/* <Link to='/Admin/Course/AddCourse'> */}
                                             <br></br>
                                                 <Button type="submit"  onClick={this.toggleisAdding} style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'50px',paddingRight:'50px'}}>
-                                                    Add New Marks Type
+                                                    Add New Section
                                                 </Button>
                                             {/* </Link> */}
                                         </Col>
@@ -286,14 +328,14 @@ class AdminMarksType extends Component{
     }
     const mapStatetoProps=(state)=>{
         return{
-            marks_type:state.marks_type
+            section:state.section
         }   
     }
     const mapDispatchtoProps=(dispatch)=>{
         return{
-            deleteMarksType:(type_name)=>{dispatch(deleteMarksType(type_name))},
-            addMarksType:(markstypeinfo)=>{dispatch(addMarksType(markstypeinfo))},
-            SetMarksType:(types)=>{dispatch(SetMarksType(types))},
+            deleteSection:(section)=>{dispatch(deleteSection(section))},
+            addSection:(sectioninfo)=>{dispatch(addSection(sectioninfo))},
+            SetSection:(section)=>{dispatch(SetSection(section))},
         }
     }
-    export default connect(mapStatetoProps,mapDispatchtoProps)(AdminMarksType);
+    export default connect(mapStatetoProps,mapDispatchtoProps)(AdminSection);
