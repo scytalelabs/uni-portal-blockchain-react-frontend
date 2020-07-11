@@ -19,13 +19,17 @@ import TeacherViewList from './TeacherViewListComponent'
 import TeacherAddList from './TeacherAddListComponent';
 import AdminStudentSection from './AdminStudentSectionComponent'
 import AdminTeacherSection from './AdminTeacherSectionComponent';
+
 // import AdminCourseSection from './AdminCourseSectionComponent';
 import AdminTeacher from './AdminTeacherComponent';
 import AdminStudent from './AdminStudentComponent';
 import AdminMarksType from './AdminMarksTypeComponent';
 import AdminCourse from './AdminCourseComponent'
-import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
-import AdminAddNewStudent from './AdminAddNewStudentComponent';
+// import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
+// import AdminAddNewStudent from './AdminAddNewStudentComponent';
+import TeacherAnnouncements from './TeacherAnnouncementComponent'
+import TeacherMakeAnnouncement from './TeacherMakeAnnouncementComponent'
+import RenderSetWeightage from './TeacherSetWeightageComponent';
 //import AdminTeacherSearch from './AdminTeacherSearchComponent';
 // import AdminStudentSearch from './AdminStudentSearchComponent';
 import AdminStudentEdit from './AdminStudentEditComponent';
@@ -33,9 +37,21 @@ import AdminTeacherEdit from './AdminTeacherEditComponent';
 import AdminAddNewCourse from './AdminAddNewCourseComponent';
 //import AdminCourseSearch from './AdminCourseSearchComponent';
 import AdminCourseEdit from './AdminCourseEditComponent';
-import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
 import AdminSemester from './AdminSemesterComponent';
 import AdminSection from './AdminSectionComponent';
+
+import DeanSignin from './DeanSigninComponent.js';
+import DeanHome from './DeanHomeComponent';
+
+import { BrowserRouter,Route,Redirect,Switch } from 'react-router-dom';
+import DeanVerifyAssessmentBySection from './DeanVerifyAssessmentBySectionComponent';
+import DeanVerifyAssessmentByCourse from './DeanVerifyAssessmentByCourseComponent';
+import DeanVerifyAssessmentBySemester from './DeanVerifyAssessmentBySemesterComponent';
+import DeanDisapproveAssessment from './DeanDisapproveAssessmentComponent';
+import DeanVerifyGradeBySemester from './DeanVerifyGradeBySemesterComponen';
+import DeanVerifyGradeBySection from './DeanVerifyGradeBySectionComponent';
+import DeanVerifyGradeByCourse from './DeanVerifyGradeByCourseComponent';
+
 
 class Main extends Component{
   constructor(props){
@@ -43,39 +59,6 @@ class Main extends Component{
     //console.log(props);
     }
   render(){
-    // const HomePage = ()=>{
-    //   return(
-    //     <Home dish={this.props.dishes.dishes.filter((dish)=> dish.featured)[0]}
-    //     dishesLoading={this.props.dishes.isLoading}
-    //     dishesErrMess={this.props.dishes.errMess}
-    //     promotion={this.props.promotions.promotions.filter((promos)=> promos.featured)[0]}
-    //     promosLoading={this.props.promotions.isLoading}
-    //     promosErrMess={this.props.promotions.errMess}
-    //     leader={this.props.leaders.filter((leader)=> leader.featured)[0]}
-    //     />
-    //     );
-    // }
-    // const DishWithId=( {match})=>{
-    //   if(match!=null)
-    //   {
-    //       return(
-    //         <div > 
-    //           { <Detail DishSelected={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-    //                   isLoading={this.props.dishes.isLoading}
-    //                   errMess={this.props.dishes.errMess}
-    //                   comments={this.props.comments.comments.filter((comment)=>comment.dishId === parseInt(match.params.dishId,10))}
-    //                   errMess={this.props.comments.errMess}
-    //                   postComment={this.props.postComment}/> }
-    //         </div>     
-    //       );
-    //   }
-    //   else{
-    //       return(
-    //           <div></div>
-    //       );
-    //   }
-    // }
-
       
     return (
       <BrowserRouter>
@@ -86,6 +69,7 @@ class Main extends Component{
           {/* <Route exact path='/:std_id' component={StudentHome}></Route> */}
           <Route exact path='/teacher' component={TeacherHome}></Route>
           <Route exact path='/Admin' component={AdminHome}></Route>
+          <Route exact path='/Dean' component={DeanHome}></Route>
 
           
           <Route exact path='/student/course/Announcement/:course/:section' component={Announcement}></Route>
@@ -96,10 +80,14 @@ class Main extends Component{
           <Route exact path='/student/personalinformation' component={personalinformation}></Route>
           <Route path='/student/course/:course/:section' component={StudentCourse}></Route>
 
-          <Route path='/teacher/course/SetWeightage/:id' component={TeacherCourse}></Route>
-          <Route exact path='/teacher/course/ViewList/:id' component={TeacherViewList}></Route>
-          <Route exact path='/teacher/course/ViewList/AddList' component={TeacherAddList}></Route>
-          <Route path="/teacher/course/:course/:section" component={TeacherCourse}></Route>
+          <Route exact path='/teacher/course/SetWeightage/:course/:section' component={RenderSetWeightage}></Route>
+          <Route exact path='/teacher/course/ViewList/AddList/:course/:section' component={TeacherAddList}></Route>
+          <Route exact path='/teacher/course/ViewList/:course/:section' component={TeacherViewList}></Route>
+          <Route exact path="/teacher/course/:course/:section" component={TeacherCourse}></Route>
+          <Route exact path='/teacher/course/Announcement/:course/:section' component={TeacherAnnouncements}></Route>
+          <Route exact path='/teacher/course/MakeAnnouncement/:course/:section' component={TeacherMakeAnnouncement}></Route>
+          
+          
           <Route exact path='/teacher/personalinformation' component={Teacherpersonalinformation}></Route>
 
           <Route exact path='/Admin/StudentSection'component={AdminStudentSection}></Route>
@@ -114,15 +102,12 @@ class Main extends Component{
           <Route exact path='/Admin/Student/Edit' component={AdminStudentEdit}></Route>
 
           <Route exact path='/Admin/Teacher' component={AdminTeacher}></Route>
-          <Route exact path='/Admin/Teacher/AddTeacher' component={AdminAddNewTeacher}></Route>
+          {/* <Route exact path='/Admin/Teacher/AddTeacher' component={AdminAddNewTeacher}></Route> */}
           {/* <Route exact path='/Admin/Teacher/Search' component={AdminTeacherSearch}></Route> */}
           <Route exact path='/Admin/Teacher/Edit' component={AdminTeacherEdit}></Route>
           
           <Route exact path='/Admin/MarksType'component={AdminMarksType}></Route>
           <Route exact path='/Admin/MarksType/AddMarksType' component={AdminAddNewCourse}></Route>
-
-
-          
 
           <Route exact path='/Admin/Course' component={AdminCourse}></Route>
           <Route exact path='/Admin/Course/AddCourse' component={AdminAddNewCourse}></Route>
@@ -130,8 +115,9 @@ class Main extends Component{
           <Route exact path='/Admin/Course/edit' component={AdminCourseEdit}></Route>
           
           <Route exact path='/Admin/Semester' component={AdminSemester}></Route>
-
           <Route exact path='/Admin/Section' component={AdminSection}></Route>
+
+          
           
           
 
@@ -139,10 +125,19 @@ class Main extends Component{
           <Link to='/Admin/MarksType/Search'>
           <Link to='/Admin/MarksType/AddMarksType'>
           */}
+          <Route exact path='/dean/AssessmentVerifyBySection' component={DeanVerifyAssessmentBySection}></Route>
+          <Route exact path='/dean/AssessmentVerifyByCourse' component={DeanVerifyAssessmentByCourse}></Route>
+          <Route exact path='/dean/AssessmentVerifyBySemester' component={DeanVerifyAssessmentBySemester}></Route>
+          <Route exact path='/dean/disapprove' component={DeanDisapproveAssessment}></Route>
+          <Route exact path='/dean/GradeVerifyBySemester' component={DeanVerifyGradeBySemester}></Route>
+          <Route exact path='/dean/GradeVerifyByCourse' component={DeanVerifyGradeByCourse}></Route>
+          <Route exact path='/dean/GradeVerifyBySection' component={DeanVerifyGradeBySection}></Route>
           
           <Route exact path='/stdsignin' component={StudentSignin}></Route>
           <Route exact path='/tchrsignin' component={TeacherSignin}></Route>
           <Route exact path='/admsignin' component={AdminSignin}></Route>
+          <Route exact path="/deansignin" component={DeanSignin}></Route>
+
           <Redirect to="/home" />
           </Switch>
           

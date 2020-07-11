@@ -12,6 +12,8 @@ import { connect } from 'react-redux';
 import {deleteStudent,UpdateStudent,addStudent,SetStudent} from '../redux/ActionCreators'
 import { baseUrl } from '../shared/basedUrl';
 import axios from 'axios';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
 
 
 function RenderAdminServices(){
@@ -245,6 +247,7 @@ class AdminStudent extends Component{
                                     <Row >
                                         <Col md={{offset:2}}>
                                             <div className='EmptyBox' style={{marginBottom:'12px'}}>
+                                                <SimpleBar style={{maxHeight:'250px'}}>
                                             <br></br>
                                                 <Row>
                                                     <Col>Name: {hold[0].name}</Col>
@@ -268,10 +271,13 @@ class AdminStudent extends Component{
                                                 <br></br>
                                                 <Row>
                                                     <Col>username : {hold[0].username}</Col>
-                                                    <Col>Password : {hold[0].password}</Col>
                                                 </Row>
+                                                <br></br>
+                                                </SimpleBar>
                                             </div>
+                                            
                                         </Col>
+                                        
                                     </Row>
                                     <br></br>
                                     <Row>

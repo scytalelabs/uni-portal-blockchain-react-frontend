@@ -11,6 +11,7 @@ import logo from './UCP-Logo.gif';
 
 const required   = (val) => val && val.length;
 const validReg = (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
+// (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
 
 
 
@@ -105,7 +106,7 @@ class StudentSignin extends Component{
                   
                   <Col md={{offset:3}}>
                   <Control.text model=".regno" id="regno" name="regno" value={regno} placeholder="Registration Number" className="form-control" onChange={this.changeHandler}
-                  validators={{required, validReg}} 
+                  validators={{required}} 
                     style={{backgroundColor:'#ECECEC',borderRadius: '35px',width:'150%'}}/>  
                   </Col>
                   

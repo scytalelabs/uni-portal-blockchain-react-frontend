@@ -188,9 +188,10 @@ class AdminCourse extends Component{
      render(){
         const {search,isEditing,isAdding}=this.state;
         var search_hold=search.toUpperCase();
-        //    console.log("PROPSSSS",this.props.courses)
+           console.log("PROPSSSS",this.props.courses)
             var hold=this.props.courses.filter(function(course) { return course.code === search_hold;  });
-            // console.log("SEARCH",hold)
+            console.log("SEARCH",hold
+            )
             if(search!=="" && hold.length===1 && search_hold === hold[0].code && isEditing===false)
             {
                 this.state.course.code=hold[0].code;

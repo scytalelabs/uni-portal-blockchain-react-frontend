@@ -2,20 +2,6 @@ import React,{Component} from 'react';
 import { Row, Col,} from 'reactstrap';
 import './main.css';
 import { Link, Redirect } from 'react-router-dom';
-// import TeacherCourse from './TeacherCourse';
-
-// function SetWeightage(id,course,section)
-//     {
-//         console.log("ID :",id,"Course: ",course,"Section:",section)
-//         const courses={id,course,section}
-//         // <Redirect to={{ pathname:'/teacher/course/'+id}}/>
-//         // <Redirect to={{
-//         //     pathname: '/order',
-//         //     state: { id: '123' }
-//         // }}
-// // />
-
-//     }
 
 function RenderEachCourse(courses){
     // console.log("COURSES are",courses)
@@ -33,7 +19,7 @@ function RenderEachCourse(courses){
         courses.courses.map(list=>{
             return(
                 
-                <a href={"/student/course/"+list.course+"/"+list.section}>
+                <a href={"/student/course/"+list.course_code+"/"+list.section}>
                     <div >
                         <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                             <Col  md={{offset:1}}  >
@@ -108,7 +94,6 @@ class StudentSidebar1 extends Component{
 
     }
      render(){
-        // console.log("WELL WELL WELL",this.props)
        return(
         <div className='sidebar'>
             <Row>

@@ -25,10 +25,16 @@ class MainPage extends Component{
             },
             {
               id: 2,
-              name:'Vadonut',
+              name:'Administrator',
               image: 'assets/images/admin.png',
               category: 'administrator',
             },
+            {
+                id: 3,
+                name:'Dean',
+                image: 'assets/images/dean.png',
+                category: 'dean',
+              },
            ],
     };
       }
@@ -100,6 +106,28 @@ class MainPage extends Component{
                 
             }
         });
+        const dean= this.state.classes.map((classe) => {
+            if(classe.id===3)
+            {
+                return (
+                <div key={classe.id}>
+                    <Link to='/deansignin'>
+                        <Media left middle>
+                        <br></br>
+                            <Media object src={classe.image} alt={classe.name}  style={{height:'120px'}}></Media>
+                        </Media>
+                    </Link>
+                </div>
+                );
+            }
+            else{
+                return(
+                    <div>
+                    </div>
+                );
+                
+            }
+        });
        return(
         <div style={{backgroundColor: '#EBE4E4'}}>
             <Navbar style={{backgroundColor: '#D9CBCB'}} dark>
@@ -109,23 +137,29 @@ class MainPage extends Component{
                 <div className='container'style={{marginTop:'150px',paddingBottom:'150px'}}> 
                 
                     <div className='row'>
-                        <div className='col-12 col-sm-4'>
+                        <div className='col-12 col-sm-3'>
                             <span className='Student-circle'>
                                 {student}   
                             </span>
                             <p style={{color:'grey'}}>Student Portal</p>
                         </div>
-                        <div className='col-12 col-sm-4'>
+                        <div className='col-12 col-sm-3'>
                             <span className='Teacher-circle'>
                                 {teacher}
                             </span>
                             <p style={{color:'grey'}}>Teacher Portal</p>
                         </div>
-                        <div className='col-12 col-sm-4'>
+                        <div className='col-12 col-sm-3'>
                             <span className='Admin-circle'>
                                 {admin}
                             </span>
                             <p style={{color:'grey'}}>Administrator Portal</p>
+                        </div>
+                        <div className='col-12 col-sm-3'>
+                            <span className='Dean-circle'>
+                                {dean}
+                            </span>
+                            <p style={{color:'grey'}}>Dean Portal</p>
                         </div>
                     </div>
                 </div>

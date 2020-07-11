@@ -30,8 +30,7 @@ function RenderGradebookMarks({id,markslist}){
 
 
 const Gradebookdata =({gradebook,outline})=>{
-    // console.log("HELOOOOOOOOOOOOOOOOOOOOOO G",gradebook);
-    // console.log("HELOOOOOOOOOOOOOOOOOOOOOO G2",outline);
+
     const gradebooklist=outline.length?(outline.map(outlineitem=>{
         return(
             <div key={outlineitem.Type}>
@@ -62,7 +61,7 @@ const Gradebookdata =({gradebook,outline})=>{
 
 return(
     <div className='GradeBook'style={{fontFamily:'"Times New Roman", Times, serif'}}>
-        <div className='body'>
+        <div className='body' >
             <h3>Grade Book</h3>
             <SimpleBar style={{ maxHeight: 492, paddingLeft:'20px' }}>
                 {gradebooklist}

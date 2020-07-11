@@ -5,28 +5,48 @@ import { Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { Control, LocalForm } from 'react-redux-form';
 import RenderSetWeightage from './TeacherSetWeightageComponent'
+import { getAnnouncement } from '../redux/ActionCreators';
 import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
 import TeacherSidebar1 from './TeacherSidebar1Component';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+import TeacherNotification from './TeacherAnnouncemetDisplayComponent';
+import { connect } from 'react-redux';
 
 
 
 function RenderCoursesData(){
-    const Course_Id=localStorage.getItem('Course_Id');
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
 
-                <Link to={'/teacher/course/SetWeightage/'+Course_Id}>
+                <Link to={'/teacher/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            Set Weightage <span>&#x276F;</span>
+                            Announcement <span>&#x276F;</span>
                         </Col>
                     </Row>
                 </Link>
-                <Link to={'/teacher/course/ViewList/'+Course_Id}>
+                <Link to={'/teacher/course/SetWeightage/'+course+'/'+section}>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            Set Weightage 
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to={'/teacher/course/ViewList/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             View List
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to={'/teacher/course/MakeAnnouncement/'+course+'/'+section}>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}} >
+                            Make Announcement
                         </Col>
                     </Row>
                 </Link>
@@ -62,91 +82,98 @@ function RenderSideBar2(){
 class TeacherCourse extends Component{
     constructor(props){
       super(props);
-      this.setTypeWeightage=this.setTypeWeightage.bind(this);
+    //   this.setTypeWeightage=this.setTypeWeightage.bind(this);
+    this.getAnnouncement=this.getAnnouncement.bind(this);
       
     }
     
     state={
-        Assignment:10,
-        Quiz:20,
-        Mid_Term:25,
-        Class_Participation:5,
-        Final_Term:30,
-        Project:10,
-        Project_Presentation:5,
-
-        Weightages:[
-            {id:1,cid:1,Assignment:10,Quiz:20,Mid_Term:25,Class_Participation:5,Final_Term:30,Project:10,Project_Presentation:5},
-            {id:2,cid:2,Assignment:20,Quiz:20,Mid_Term:25,Class_Participation:5,Final_Term:30,Project:10,Project_Presentation:5,},
-            {id:3,cid:3,Assignment:30,Quiz:20,Mid_Term:25,Class_Participation:5,Final_Term:30,Project:10,Project_Presentation:5,},
-            {id:4,cid:4,Assignment:40,Quiz:20,Mid_Term:25,Class_Participation:5,Final_Term:30,Project:10,Project_Presentation:5,},
-            
-
-        ],
-        courses:[
-            {id:1,course:"CCN",section:"C"},
-            {id:2,course:"OOAD",section:"A"},
-            {id:3,course:"CC",section:"B"},
-            {id:4,course:"DB",section:"E"},
-        ]
+        courses:[]
 
     }
-    setTypeWeightage(Weightage)
-        {
-             console.log("HELOO",Weightage);
-            //  const course=this.state.Weightages.filter(list=>{
-            //     return list.id===Weightage.id
-            // })
+        getAnnouncement(announcementinfo){
 
+            this.props.getAnnouncement(announcementinfo);
+        }
+        componentDidMount(){
 
-            let total=parseInt(Weightage.Assignment)+parseInt(Weightage.Quiz)+parseInt(Weightage.Mid_Term)+parseInt(Weightage.Mid_Term)+parseInt(Weightage.Class_Participation)+parseInt(Weightage.Project)+parseInt(Weightage.Project_Presentation)
-
-            if(total===100)
-            {
-                alert("Total is 100");
-                  this.setState(state => {
-                    state.Weightages.map(list => 
-                    {
-                    if(list.id===Weightage.id)
-                    {
-                        list.Assignment=Weightage.Assignment;
-                        list.Quiz=Weightage.Quiz;
-                        list.Mid_Term=Weightage.Mid_Term;
-                        list.Class_Participation=Weightage.Class_Participation;
-                        list.Final_Term=Weightage.Final_Term;
-                        list.Project=Weightage.Project;
-                        list.Project_Presentation=Weightage.Project_Presentation;
-                    }
-                }
-                );
-
-          });
+            let id=this.props.match.params.std_id;
+            this.setState({id:id});
+            const section=localStorage.getItem('section');
+            const course=localStorage.getItem('course');
+            const token=localStorage.getItem('bearer_token');
+            const regno=localStorage.getItem('reg_no');
+            const semester=localStorage.getItem('semester');
+            axios.defaults.headers.common['Authorization']=token;
+            console.log("SEMESTER AND REGNO",semester,regno,token);
+            axios.get(baseUrl+'teacher/'+regno+'/'+semester+'/courses')
+            .then( res => {
+                console.log("RESPONSE IS :",res.data);
+                this.setState({
+                    courses:res.data
+                });
+            })
+            .catch(error=>{
+                console.log(error)
+            })
+            const announcementinfo={
+                semester:semester,
+                regno:regno,
+                section:section,
+                course:course
             }
-            console.log("UPDATED STATE IS",this.state.Weightages);   
+            console.log("COURSE CODE",course);
+            axios.defaults.headers.common['Authorization']=token;
+            axios.get(baseUrl+"teacher/"+announcementinfo.regno+"/"+announcementinfo.semester+"/"+announcementinfo.course+"/"+announcementinfo.section+"/announcements")
+            .then(response=>{
+                console.log("RESPONSE :",response);
+                    this.getAnnouncement(response.data);
+              })
+              .catch(error=>{
+                console.log(error)
+              })
         }
      render(){
+        localStorage.setItem("course",this.props.match.params.course);
+        this.state.courses.map(list => 
+                        {
+                        if(list.course_code===this.props.match.params.course){
+                            console.log("COURSE IS :",list.course)
+                            localStorage.setItem("course_name",list.course);
+
+        }})
+
+        localStorage.setItem("section",this.props.match.params.section);
         const {Weightages}=this.state;
-        console.log("PROPSSSSSSSSSSSSSS:",this.props.match.params.id)
-        localStorage.setItem("Course_Id",this.props.match.params.id);
+        console.log("PROPSSSSSSSSSSSSSS:",this.props.match.params.course)
+        console.log("PROPSSSSSSSSSSSSSS:",this.props.match.params.section)
+        console.log("this.state.course_outline:",this.state.course_outline)
        return(
            <div className='bg5'>
                
                <TeacherNavbarComponent></TeacherNavbarComponent>
                <Container fluid={true}>
                     <Row>
-                    <Col  md={{ offset:0 }}><TeacherSidebar1 courses={this.state.courses}></TeacherSidebar1></Col>
+                        <Col md={{ offset:0 }}><TeacherSidebar1 courses={this.state.courses}></TeacherSidebar1></Col>
                         <Col md={{offset:0}}><RenderSideBar2></RenderSideBar2></Col>
-                        <Col> <br/><br/>
+                        <Col md={{offset:0}}> <br/><br/><TeacherNotification notifications={this.props.notifications}></TeacherNotification></Col>
                         {/* <Total total></Total> */}
-                        <RenderSetWeightage setTypeWeightage={this.setTypeWeightage} Weightages={Weightages} id={this.props.match.params.id}></RenderSetWeightage></Col>
+                         {/* <RenderSetWeightage setTypeWeightage={this.setTypeWeightage} Weightages={Weightages} id={this.props.match.params.id}></RenderSetWeightage> */}
                     </Row>
                 </Container>
-
-
            </div>
-
        )
      }
     }
 
-    export default TeacherCourse;
+    const mapStateoProps=(state)=>{
+        return{
+            notifications:state.notifications
+        }   
+    }
+    const mapDispatchtoProps=(dispatch)=>{
+        return{
+            getAnnouncement:(announcementinfo)=>{dispatch(getAnnouncement(announcementinfo))},
+        }
+    }
+    export default connect(mapStateoProps,mapDispatchtoProps)(TeacherCourse);

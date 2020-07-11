@@ -223,6 +223,12 @@ export const getAnnouncement=(announcementinfo)=>{
         announcementinfo:announcementinfo
     }
 }
+export const addAnnouncement=(announcementinfo)=>{
+    return {
+        type:ActionTypes.ADD_ANNOUNCEMENT,
+        announcementinfo:announcementinfo
+    }
+}
 export const getOutline=(outlineinfo)=>{
     return {
         type:ActionTypes.GET_COURSE_OULINE,
@@ -235,3 +241,18 @@ export const getGradeBook=(gradebookinfo)=>{
         gradebookinfo:gradebookinfo
     }
 }
+export const setTypeWeightage=(data,marks_type)=>{
+    return {
+        type:ActionTypes.SET_TYPE_WEIGHTAGE,
+        data:data,
+        marks_type:marks_type
+    }
+}
+export const getListAssessment=(ListAssessment)=>{
+    return{
+        type:ActionTypes.GET_LIST_ASSESSMENT,
+        ListAssessment:ListAssessment
+    }
+}
+
+

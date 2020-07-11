@@ -1,8 +1,6 @@
 import React,{Component} from 'react';
-import logo from './UCP-Logo.gif';
-import {Navbar, Container,} from 'reactstrap';
+import {Container,} from 'reactstrap';
 import { Row, Col } from 'reactstrap';
-import { Link} from 'react-router-dom';
 import Notification from './studentNotificationComponent'
 import StudentNavbarComponent from './StudentNavbarComponent'
 import { baseUrl} from '../shared/basedUrl';
@@ -12,91 +10,6 @@ import { getAnnouncement } from '../redux/ActionCreators';
 import axios from 'axios';
 import StudentSidebar1 from './StudentSidebar1Component';
 
-
-
-// function RenderCourses(courses){
-//     console.log("COURSES ARE",courses.courses);
-//     return(
-//         courses.courses.map(list=>{
-//             return(
-//                 <Link to={'/student/course/'+list.course}>
-//                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-//                         <Col  md={{offset:1}}  >
-//                         {list.course} ({list.section})
-//                         </Col>
-//                     </Row>
-//                 </Link>
-//                 );
-//             }
-//     )
-//     );
-// }
-
-// function RenderStudentServices(){
-//     return(
-//         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                
-//                     <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}}>
-//                         <Col  md={{offset:1}} >
-//                             <i className="fa fa-user"></i>{' '}Student Services<br/>
-//                         </Col>
-//                     </Row>
-//                 <Link to='/student/personalinformation'>
-//                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-//                         <Col  md={{offset:1}}  >
-//                             PERSONAL INFORMATION
-//                         </Col>
-//                     </Row>
-//                 </Link>
-//                 <Link to='/student/transcript'>
-//                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-//                         <Col  md={{offset:1}} >
-//                             TRANSCRIPT
-//                         </Col>
-//                     </Row>
-//                 </Link>
-//                 <Link to='/student/leavereport'>
-//                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
-//                         <Col  md={{offset:1}} >
-//                             LEAVE STATUS REPORT
-//                         </Col>
-//                     </Row>
-//                 </Link>         
-//         </div>
-//     )
-// }
-// function switcher(){
-//     <div className='sidebarhide'>
-//                 <Row>
-//                     <Col md={{ offset:10 }} >
-//                     <strong style={{color:'#3C315F'}}><span onclick="RenderSideBar1()">&#x276E;&#x276E;</span> </strong>
-//                     </Col>
-//                 </Row>
-//             </div>
-// }
-// function RenderSideBar1(courses){
-    
-//     return(    
-        
-//             <div className='sidebar1'>
-//                 <Row>
-//                     <Col md={{ offset:10 }} >
-//                     <strong style={{color:'#3C315F'}}><span >&#x276E;&#x276E;</span> </strong>
-//                     </Col>
-//                 </Row>
-//                 <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
-                 
-//                  <Row style={{backgroundColor:'#F3F3F3',border:'1px solid #707070',color:'#707070'}} >
-//                      <Col  md={{offset:1}} >
-//                          <i className="fa fa-align-justify"></i>{' '}Courses<br/>
-//                      </Col>
-//                  </Row>
-//                 <RenderCourses courses={courses.courses}></RenderCourses>
-//                 </div>
-//                 <RenderStudentServices></RenderStudentServices>
-//             </div>
-//     )
-// }
 function RendertodaysTimetable(){
     return(
         <div>
@@ -219,13 +132,7 @@ function RendertodaysTimetable(){
 class StudentHome extends Component{
     constructor(props){
       super(props);
-      alert("Home PAGE");
       console.log(this.props);
-    //   axios.get(baseUrl, { headers: {"Authorization" : `Bearer ${token}`} })
-    //     .then(res => {
-    //         console.log(res.data);
-        
-    //     })
       this.state={
         id:null,
         courses:[]
@@ -233,12 +140,10 @@ class StudentHome extends Component{
     this.getAnnouncement=this.getAnnouncement.bind(this);
     }
     getAnnouncement(announcementinfo){
-        console.log("HELOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         this.props.getAnnouncement(announcementinfo);
     }
-    
     componentDidMount(){
-        console.log("PROPS IN STUDENT HOME",this.props);
+        // console.log("PROPS IN STUDENT HOME",this.props);
         // console.log("responce IN STUDENT HOME",response);
 
         let id=this.props.match.params.std_id;
@@ -250,16 +155,17 @@ class StudentHome extends Component{
         const regno=localStorage.getItem('regno');
         const semester=localStorage.getItem('semester');
         axios.defaults.headers.common['Authorization']=token;
-
           
         axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
         .then( res => {
+            // console.lo
             this.setState({
                 courses:res.data
             });
         })
         .catch(error=>{
             console.log(error)
+            window.location.reload(false)
         })
 
 
@@ -285,7 +191,6 @@ class StudentHome extends Component{
        return(
            <div className='bg2'>
                <StudentNavbarComponent ></StudentNavbarComponent>
-               <h3>{this.state.id}</h3>
                 <Container fluid={true}>
                     <Row>
                         <Col  md={{ offset:0 }}>

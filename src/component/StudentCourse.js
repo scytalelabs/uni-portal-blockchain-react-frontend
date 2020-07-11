@@ -101,20 +101,6 @@ function RenderStudentServices(){
         </div>
     )
 }
-function RenderSideBar1(){
-    return(
-
-            <div className='sidebar'>
-                <Row>
-                    <Col md={{ offset:10 }} >
-                    <strong style={{color:'#3C315F'}}><span>&#x276E;&#x276E;</span> </strong>
-                    </Col>
-                </Row>
-                <RenderCourses></RenderCourses>
-                <RenderStudentServices></RenderStudentServices>
-            </div>
-    )
-}
 
 
 function RenderCoursesData(){
@@ -229,8 +215,20 @@ class StudentCourse extends Component{
           })
     }
      render(){
-        // console.log("ACH G",this.props.match.params);
+        console.log("ACH G",this.props.match.params);
         localStorage.setItem("course",this.props.match.params.course);
+        console.log("COURSESSSSIS :",this.state.courses)
+        if(this.state.course.length!==0)
+        {
+            this.state.courses.map(list => 
+                {
+                if(list.course_code==this.props.match.params.course){
+                    console.log("COURSE IS :",list.course)
+                    localStorage.setItem("course_name",list.course);
+    
+            }})
+        }
+        
         localStorage.setItem("section",this.props.match.params.section);
        return(
            <div className='bg4'>

@@ -4,27 +4,26 @@ import './main.css';
 import { Link, Redirect } from 'react-router-dom';
 import TeacherCourse from './TeacherCourse';
 
-// function SetWeightage(id,course,section)
-//     {
-//         console.log("ID :",id,"Course: ",course,"Section:",section)
-//         const courses={id,course,section}
-//         // <Redirect to={{ pathname:'/teacher/course/'+id}}/>
-//         // <Redirect to={{
-//         //     pathname: '/order',
-//         //     state: { id: '123' }
-//         // }}
-// // />
-
-//     }
-
 function RenderEachCourse(courses){
-    console.log("COURSES are",courses.courses.courses,Set)
+    if(courses.courses===undefined)
+    {
+        return(
+            <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+            <Col  md={{offset:1}}  >
+                LOADING...
+            </Col>
+        </Row> 
+        )
+    }
+    console.log("COURSES are",courses.courses.courses)
+
     return(
-        courses.courses.courses.map(list=>{
+        courses.courses.map(list=>{
+            
             return(
                 
-                <a href={"/teacher/course/"+list.id} key={list.id}>
-                <div key={list.id}>
+                <a href={"/teacher/course/"+list.course_code+'/'+list.section} key={list.id}>
+                <div >
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
                             {list.course}({list.section})
@@ -48,7 +47,7 @@ function RenderCourses(courses){
                         <i className="fa fa-align-justify"></i>{' '}Courses<br/>
                     </Col>
                 </Row>
-                <RenderEachCourse courses={courses}></RenderEachCourse>
+                <RenderEachCourse courses={courses.courses}></RenderEachCourse>
                 
                 
         </div>

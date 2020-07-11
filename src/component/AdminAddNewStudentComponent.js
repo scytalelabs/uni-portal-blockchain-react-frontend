@@ -164,7 +164,7 @@ class AdminAddNewStudent extends Component{
                                                     </Col>
                                                     <Col>
                                                     CNIC:
-                                                    <Control.text model=".cnic" id="cnic" name="cnic" value={cnic} placeholder="Enter CNIC Number" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".cnic" id="cnic" name="cnic" type='cnic' value={cnic} placeholder="Enter CNIC Number" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
@@ -175,7 +175,7 @@ class AdminAddNewStudent extends Component{
                                                     </Col>
                                                     <Col>
                                                     DOB:
-                                                    <Control.text model="." id="dob" name="dob" value={dob} placeholder="Enter Date of Birth" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model="." id="dob" name="dob" value={dob} type='date'placeholder="Enter Date of Birth" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>
@@ -186,7 +186,7 @@ class AdminAddNewStudent extends Component{
                                                     </Col>
                                                     <Col>
                                                     Email:
-                                                    <Control.text model=".email" id="email" name="email" value={email} placeholder="Enter Email" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".email" id="email" name="email" type='email' value={email} placeholder="Enter Email" className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>

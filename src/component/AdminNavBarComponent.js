@@ -50,12 +50,10 @@ class AdminNavbarComponent extends Component{
                         <DropdownToggle caret style={{borderRadius: '35px',paddingRight:'40px',paddingLeft:'20px',backgroundColor:"hsla(254, 32%, 28%, 0.7)"}}>
                         {token}
                         </DropdownToggle>
-                        <DropdownMenu style={{borderRadius: '35px',paddingRight:'20px',paddingLeft:'20px',backgroundColor:"hsla(254, 32%, 28%, 0.4)"}}>
-                            <DropdownItem >Muhammad Adrees</DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem>adreees012@ucp.edu.pk</DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem type="submit" onClick={this.logoutHandle}>LogOut</DropdownItem>
+                        <DropdownMenu style={{borderRadius: '10px',paddingRight:'20px',paddingLeft:'20px',backgroundColor:"hsla(254, 32%, 28%, 0.4)"}}>
+                            <DropdownItem style={{backgroundColor:'#c4c1cf'}} >{token}</DropdownItem>
+                            <DropdownItem  style={{backgroundColor:'#c4c1cf'}} divider />
+                            <DropdownItem style={{backgroundColor:'#c4c1cf'}} type="submit" onClick={this.logoutHandle}>LogOut</DropdownItem>
                         </DropdownMenu>
                     </ButtonDropdown>
                 </Navbar>

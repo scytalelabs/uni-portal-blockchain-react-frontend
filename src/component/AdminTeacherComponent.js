@@ -261,10 +261,6 @@ class AdminTeacher extends Component{
                                                 <br></br>
                                                 <Row>
                                                     <Col>Username : {hold[0].username}</Col>
-                                                    <Col>Password : {hold[0].password}</Col>
-                                                </Row>
-                                                <br></br>
-                                                <Row>
                                                     <Col>Address : {hold[0].address}</Col>
                                                 </Row>
                                                 <br></br>
@@ -324,7 +320,7 @@ class AdminTeacher extends Component{
                                     <br></br><br></br>
                                         <Row className='form-group'>            
                                             <Col md={{offset:1}}>
-                                            <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Theacher ID here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
+                                            <Control.text model=".search" id="search" name="search" value={search} placeholder="Enter Teacher ID here to Search" className="form-control" onChange={this.changeHandler} style={{borderRadius: '35px',paddingRight:'250px'}}/>  
                                             </Col>
                                             <Col md={{ offset:1 }}>
                                                 {/* <Link to='/Admin/Teacher/Search'> */}

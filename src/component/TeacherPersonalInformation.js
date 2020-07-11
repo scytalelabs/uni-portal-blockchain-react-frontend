@@ -173,11 +173,7 @@ function Renderpersonalinformation(teacherinfo){
                     <Col>User Name:</Col>
                     <Col>{teacherinfo.teacherinfo.username}</Col>
                 </Row>
-                
-                <Row>
-                    <Col>Password:</Col>
-                    <Col>{teacherinfo.teacherinfo.password}</Col>
-                </Row>
+                <br></br>
                 
             </div>
         </div>
@@ -204,12 +200,7 @@ class Teacherpersonalinformation extends Component{
             password: ""
         },
       isLoading: false,
-      courses:[
-            {id:1,course:"CCN",section:"C"},
-            {id:2,course:"OOAD",section:"A"},
-            {id:3,course:"CC",section:"B"},
-            {id:4,course:"DB",section:"E"},
-        ]
+      courses:[]
       }
 
     }
@@ -222,12 +213,25 @@ class Teacherpersonalinformation extends Component{
             isLoading:true
         })
         const token=localStorage.getItem('bearer_token');
-        const regno=localStorage.getItem('regno');
+        const regno=localStorage.getItem('reg_no');
+        const semester=localStorage.getItem('semester');
         console.log("TOKEN IS ",token);
         console.log("REEGNO IS",regno);
         axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+'teacher/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            console.log("RESPONSE IS :",res.data);
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+            window.location.reload(false)
+        })
         axios.get(baseUrl+'teacher/'+regno+'/personal_info')
         .then( res => {
+            console.log("RESPONSE:",res.data)
             this.setState({
                 teacherinfo:res.data[0],
                 isLoading:false
@@ -242,7 +246,7 @@ class Teacherpersonalinformation extends Component{
         if (isLoading) {
             return <p>Loading ...</p>;
           }
-          
+          console.log("INFO IS",this.state.teacherinfo)
        return(
            <div className='bg5'>
                <TeacherNavbarComponent></TeacherNavbarComponent>

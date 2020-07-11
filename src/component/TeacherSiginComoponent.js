@@ -51,7 +51,8 @@ class TeacherSignin extends Component{
           })
           localStorage.setItem("bearer_token",response.data.data.token);
           localStorage.setItem("semester",response.data.data.semester);
-          localStorage.setItem("regno",response.data.data.reg_no);
+          localStorage.setItem("regno",id);
+          localStorage.setItem("reg_no",response.data.data.reg_no);
          }
          
        })

@@ -7,6 +7,8 @@ import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
 import RenderList from './TeacherRenderListComponent';
 import TeacherSidebar1 from './TeacherSidebar1Component';
+import axios from 'axios';
+import { baseUrl } from '../shared/basedUrl';
 
 function RenderCourses(){
     return(
@@ -101,21 +103,36 @@ function RenderSideBar1(){
 
 
 function RenderCoursesData(){
-    const Course_Id=localStorage.getItem('Course_Id');
+    const section=localStorage.getItem('section');
+    const course=localStorage.getItem('course');
     return(
         <div className='container' style={{color:'white',fontFamily:'"Times New Roman", Times, serif'}}>
             
-                <Link to={'/teacher/course/SetWeightage/'+Course_Id}>
+            <Link to={'/teacher/course/Announcement/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}}  >
-                            Set Weightage
+                            Announcement 
                         </Col>
                     </Row>
                 </Link>
-                <Link to={'/teacher/course/ViewList/'+Course_Id}>
+                <Link to={'/teacher/course/SetWeightage/'+course+'/'+section}>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}}  >
+                            Set Weightage 
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to={'/teacher/course/ViewList/'+course+'/'+section}>
                     <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
                         <Col  md={{offset:1}} >
                             View List <span>&#x276F;</span>
+                        </Col>
+                    </Row>
+                </Link>
+                <Link to={'/teacher/course/MakeAnnouncement/'+course+'/'+section}>
+                    <Row style={{color:'white',backgroundColor:'#3C315F',border:'1px solid #707070'}}>
+                        <Col  md={{offset:1}} >
+                            Make Announcement
                         </Col>
                     </Row>
                 </Link>
@@ -142,6 +159,7 @@ class TeacherViewList extends Component{
           alert('Current State is: ' + JSON.stringify(values));
       }
     state={
+        
         listinfo:[
             {id:1,head:"Assignment",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
             {id:2,head:"Quiz",sr:"Sr.no",lable:"Lable",date:"Date",total:"Total Marks"},
@@ -155,12 +173,7 @@ class TeacherViewList extends Component{
         [
             {lid:1 ,id:1 ,lable:"assignment1",date:"12-5-2020",total:30},
         ]    ,
-        courses:[
-            {id:1,course:"CCN",section:"C"},
-            {id:2,course:"OOAD",section:"A"},
-            {id:3,course:"CC",section:"B"},
-            {id:4,course:"DB",section:"E"},
-        ]
+        courses:[]
         
     }
     AddList=(list)=>{
@@ -168,6 +181,32 @@ class TeacherViewList extends Component{
         let lists=[...this.state.lists,list]
         this.setState({
             lists:lists
+        })
+
+    }
+    addAssignmentMarks(){
+        alert("OK ME AA GYA YAHA PE");
+    }
+    componentDidMount(){
+
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('reg_no');
+        const semester=localStorage.getItem('semester');
+        axios.defaults.headers.common['Authorization']=token;
+        console.log("SEMESTER AND REGNO",semester,regno,token);
+        axios.get(baseUrl+'teacher/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            console.log("RESPONSE IS :",res.data);
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
         })
 
     }

@@ -178,7 +178,7 @@ class AdminStudentEdit extends Component{
                                                     </Col>
                                                     <Col>
                                                     DOB:
-                                                    <Control.text model=".dob" id="dob" name="dob" defaultValue={this.props.student.dob} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
+                                                    <Control.text model=".dob" id="dob" name="dob"  defaultValue={this.props.student.dob} className="form-control" onChange={this.changeHandler} style={{borderRadius:'0px'}}/>  
                                                     </Col>
                                                 </Row>
                                                 <br></br>

@@ -2,17 +2,18 @@ import React,{Component} from 'react';
 import { Row, Col ,Button, Container, } from 'reactstrap';
 import { Control, LocalForm} from 'react-redux-form';
 import { Link } from 'react-router-dom';
-
 import './main.css';
 import AdminNavbarComponent from './AdminNavBarComponent';
-
 import { connect } from 'react-redux';
 import { deleteTeacherSection,addTeacherSection,SetTeacherSection} from '../redux/ActionCreators';
 import { baseUrl } from '../shared/basedUrl';
 import axios from 'axios';
+import AdminAddNewTeacherSection from './AdminAddNewTeacherSectionComponent';
+import TeacherDataDisplay from './AdminTeacherSectionDisplayComponent';
 import 'simplebar/dist/simplebar.min.css';
-import AdminAddNewTeacher from './AdminAddNewTeacherComponent';
-import AdminAddNewTeacherSection from './AddNewTeacherSectionComponent';
+import SimpleBar from 'simplebar-react';
+
+
 
 function RenderAdminServices(){
     return(
@@ -115,6 +116,7 @@ class AdminStudentSection extends Component{
         super(props);
         this.state={
             isAdding:false,
+            searchflag:false,
             search:'',
 
             teacherSectioninfo:{id:null,Teachername:null,reg_no:null,semester:null,course:null,section:null}
@@ -138,7 +140,10 @@ class AdminStudentSection extends Component{
         this.props.deleteTeacherSection(reg_no);
     }
       changeHandler=e=>{
-        this.setState({[e.target.name]:e.target.value})
+        this.setState({
+            [e.target.name]:e.target.value,
+            searchflag:false,
+        })
       } 
 
       SetTeacherSection(sectiondata){
@@ -150,7 +155,10 @@ class AdminStudentSection extends Component{
         axios.defaults.headers.common['Authorization']=token;
         axios.get(baseUrl+'admin/1/assign_section/teachers/'+search)
         .then( res => {
-            this.props.SetTeacherSection(res.data[0]);
+            this.props.SetTeacherSection(res.data);
+            this.setState({
+                searchflag:true
+            })
         })
         .catch(error=>{
             console.log(error)
@@ -160,14 +168,10 @@ class AdminStudentSection extends Component{
             const {search,isAdding}=this.state;
             var search_hold=search.toUpperCase();
             console.log("LENGTHHH",this.props.teacherSectioninfo)
-
-            if(search!=="" && this.props.teacherSectioninfo!==undefined && search_hold == this.props.teacherSectioninfo.reg_no)
+            if(this.props.teacherSectioninfo.length!==0  && this.state.searchflag===true)
             {
-                this.state.teacherSectioninfo.Teachername=this.props.teacherSectioninfo.Teachername;
-                this.state.teacherSectioninfo.reg_no=this.props.teacherSectioninfo.reg_no;
-                this.state.teacherSectioninfo.semester=this.props.teacherSectioninfo.semester;
-                this.state.teacherSectioninfo.course=this.props.teacherSectioninfo.course;
-                this.state.teacherSectioninfo.section=this.props.teacherSectioninfo.section;
+            if(search!=="" && this.props.teacherSectioninfo!==undefined && search_hold == this.props.teacherSectioninfo[0].reg_no)
+            {
 
             return(
             <div className='bg3'>
@@ -199,8 +203,10 @@ class AdminStudentSection extends Component{
                                         
                                             <div className='EmptyBox'style={{marginBottom:'12px'}}>
                                             <br></br>
-                                            <br></br>
-                                                <Row>
+                                            <SimpleBar style={{maxHeight:'220px'}}>
+                                            <TeacherDataDisplay hold={this.props.teacherSectioninfo}></TeacherDataDisplay>
+                                            </SimpleBar>
+                                                {/* <Row>
                                                     <Col>Name: {this.props.teacherSectioninfo.Teachername}</Col>
                                                     <Col>Semester: {this.props.teacherSectioninfo.semester}</Col>
                                                 </Row>
@@ -213,7 +219,7 @@ class AdminStudentSection extends Component{
                                                 <Row>
                                                     <Col>Registration No: {this.props.teacherSectioninfo.reg_no}</Col>
                                                 </Row>
-                                                <br></br>
+                                                <br></br> */}
                                             </div>
                                             
                                         </Col>
@@ -224,7 +230,7 @@ class AdminStudentSection extends Component{
                                         <Col md={{offset:7}}>
                                             {/* <Link to='/Admin/teacher'> */}
                                                 <Button type="submit" onClick={()=>this.deleteTeacherSection(this.props.teacherSectioninfo.reg_no)}style={{backgroundColor:'#3C315F',borderRadius: '35px',paddingLeft:'30px',paddingRight:'30px'}}>
-                                                    Delete
+                                                    Delete All
                                                 </Button>
                                             {/* </Link> */}
                                         </Col>
@@ -235,7 +241,8 @@ class AdminStudentSection extends Component{
                     </Row>
                 </Container>
             </div>
-        )   }
+        )}
+        }
         else if(isAdding==true){
              return(
                  <AdminAddNewTeacherSection addTeacherSection={this.addTeacherSection} toggleisAdding={this.toggleisAdding}/>

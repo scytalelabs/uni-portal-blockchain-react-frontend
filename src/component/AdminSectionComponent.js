@@ -11,6 +11,9 @@ import { deleteSection, addSection ,SetSection} from '../redux/ActionCreators';
 import axios from 'axios';
 import { baseUrl } from '../shared/basedUrl';
 import AdminAddNewSection from './AdminAddNewSection';
+import SimpleBar from 'simplebar-react';
+import 'simplebar/dist/simplebar.min.css';
+import SectionDataDisplay from './AdminSectionDisplayComponent';
 
 
 function RenderAdminServices(){
@@ -156,41 +159,18 @@ class AdminSection extends Component{
      render(){
         const {search,isAdding}=this.state;
         var search_hold=search
+
         // console.log("PROPSSSS",this.props)
         // console.log("SEARCHHOLD",search_hold)
             var hold=this.props.section.filter(function(type) { 
                 console.log("type.type_name",type.section)
                 return type.section == search_hold;  });
 
-             console.log("SEARCH",hold[1])
+             console.log("SEARCH",search_hold)
                 this.state.searched_section=hold;
              console.log("SEARCH HOLD",this.state.searched_section)
-            if(search!=="" && hold.length===1 && search_hold === hold[0].section )
+            if(search!=="" && hold.length>=1 && search_hold === hold[0].section )
             {
-                // this.state.section.section=hold[0].section,
-                // this.state.section.semester=hold[0].semester,
-                // this.state.section.course=hold[0].course,
-                // this.state.section.credithours=hold[0].credithours,
-                // this.state.section.courseCode=hold[0].courseCode
-                // const rendersection = []
-
-                // for (const [index, data] of hold.entries()) {
-                //     rendersection.push(
-                //         <div key={index}>
-                
-                //         </div>
-                    // <li >{value}</li>
-                //     )
-                // }
-                // const  rendersection = hold.map((data) => {
-                    // return (
-                    //     <div key={data.courseCode}>
-                    //         HELOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOo
-                           
-                    //     </div>
-                    // );
-                // })
-        
             return(
             <div className='bg3'>
                 <AdminNavbarComponent></AdminNavbarComponent>
@@ -215,42 +195,14 @@ class AdminSection extends Component{
                                         </Col>
                                     </Row>
                                     <Row >
-                                        <h5>
                                         <Col md={{offset:2}}>
                                             <div className='EmptyBox'style={{marginBottom:'12px'}}>
                                             <br></br>
-                                            <Row md={{offset:1}}>
-                                                <Col> Course:</Col>
-                                                <Col> {hold[0].course}</Col>
-                                                <Col></Col>
-                                            </Row>
-                                            <br></br>
-                                            <Row md={{offset:1}}>
-                                                <Col> Course Code:</Col>
-                                                <Col> {hold[0].courseCode}</Col>
-                                                <Col></Col>
-                                            </Row>
-                                            <br></br>
-                                            <Row md={{offset:1}}>
-                                                <Col> Section:</Col>
-                                                <Col> {hold[0].section}</Col>
-                                                <Col></Col>
-                                            </Row>
-                                            <br></br>
-                                            <Row md={{offset:1}}>
-                                                <Col> Semester:</Col>
-                                                <Col> {hold[0].semester}</Col>
-                                                <Col></Col>
-                                            </Row>
-                                            <br></br>
-                                            <Row md={{offset:1}}>
-                                                <Col> Credit Hours:</Col>
-                                                <Col> {hold[0].credithours}</Col>
-                                                <Col></Col>
-                                            </Row>
+                                                <SimpleBar style={{maxHeight:'220px'}}>
+                                                    <SectionDataDisplay hold={this.state.searched_section}></SectionDataDisplay>
+                                                </SimpleBar>
                                             </div>
                                         </Col>
-                                        </h5>
                                     </Row>
                                     <br></br>
                                     <Row>

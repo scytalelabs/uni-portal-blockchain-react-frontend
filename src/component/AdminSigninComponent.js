@@ -11,7 +11,6 @@ import { baseUrl } from '../shared/basedUrl';
 
 
 const required   = (val) => val && val.length;
-const validReg = (val) => /^[lL][12][fFsS]\d{2}\D{4}\d{4}$/i.test(val);
 
 
 
@@ -29,10 +28,6 @@ class AdminSignin extends Component{
     handleLogin(values){
       
       const{username,password}=this.state
-      // console.log('Current State is: ' + JSON.stringify(values));
-
-      //   alert('Current State is: ' + JSON.stringify(values));
-        alert('name is: ' + this.state);
         console.log("Regno is :"+username+" Password is :"+password);
         localStorage.setItem("token",username)
         const data={
@@ -68,66 +63,73 @@ class AdminSignin extends Component{
          return<Redirect to='/admin'/>
        }
        return(
-          <div className='container'>
-            <Row>
-              <Col md={{offset:1}}><br/><img src={logo} className="" height='100px' width='160px ' alt="logo" /></Col>
-              <Col><br/><br/><br/><hr/></Col>
-            </Row>
-            <Row  >
-              <Col  md={{offset:2}}>
-                <p style={{color:'red'}}><strong>HOME</strong></p>
-              </Col>
-            </Row>
-            <Row>
-              <Col md={{offset:2}} className="AdminSigninPage" style={{backgroundColor:'#B1B3B7', borderRadius:'25% 0% 0% 0%'}}>
-              <br/>
-                <p style={{color:'#646464', fontFamily:'"Times New Roman", Times, serif' }}>Administrator/Teacher Login</p>
-                <p style={{color:'#646464'}}>Please login to access UCP Online Services:</p>
-                <p style={{color:'red'}}>Note: Always logoff after using UCP online Services.</p>
-              </Col>
-              <Col  md={{offset:0}} className="AdminSigninPage" style={{backgroundColor:'#3C315F',borderRadius:'0% 0% 25% 0%'}}>
-                <hr/>
-                <h3 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Administrator/Teacher services</h3>
-                <hr/>
-                <div style={{textAlign:'left'}}>
-                    <img   src={login} className="ucp-logo " height='40px' width='100px ' alt="logo" />
-                </div>
-                <LocalForm onSubmit={this.handleLogin}>
-                  <Row className='form-group' style={{textAlign:'left'}}>
-                    <Col>
-                      <h4 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Username:</h4>
-                    </Col>
-                    <Col>
-                      <Control.text model=".username" id="username" name="username" value={username} placeholder="User Name" className="form-control" style={{borderRadius:'0px',height:'30px',width:'250px'}} onChange={this.changeHandler}/>  
-                    </Col>
-                  </Row> 
+        <div className='bg1'>
+
+        <div class="AdminSigninPage" style={{marginTop:'81px',marginBottom:'81px'}}>
+        <Row>
+          <Col>
+          <img src={logo} className="ucp-logo " height='150px' width='150px ' style={{borderRadius:'35px'}} alt="logo" />
+            <br></br>
+            
+            <h4><p className='' style={{color:'#707070',fontFamily:'"Times New Roman", Times, serif'}}>University of Central Punjab</p></h4>
+            <LocalForm onSubmit={this.handleLogin}>
+              <Row className='form-group'>
+                <Col md={{offset:2}} style={{fontSize:'25px'}}>
+                  <i className="fa fa-user"></i>
+                </Col>
+                <Col md={{offset:1}}>
+                  <Control.text model=".username" id="username" name="username" type="text"className="form-control" value={username} onChange={this.changeHandler}
+                                validators={{required}} 
+                                style={{backgroundColor:'##d4e2d0',borderRadius: '10px',border:'#72A165 1px solid'}}/>  
+                </Col>
+                <Errors  className="text-danger" model=".id" show="touched"
+                        messages={{ required: 'Required' }}/>
+              </Row> 
+              <Row className='form-group'>
+                <Col md={{offset:2}}style={{fontSize:'25px'}}>
+                <i className="fa fa-lock"></i>
+                </Col>
+                
+              
+                <Col md={{offset:1}}>
+                  <Control.text model=".password" id="password" name="password" type="password"className="form-control" value={password} onChange={this.changeHandler}
+                                validators={{required}} 
+                                style={{backgroundColor:'##d4e2d0',borderRadius: '10px',border:'#72A165 1px solid'}}/>  
+                </Col>
+                <Errors  className="text-danger" model=".password" show="touched"
+                      messages={{ required: 'Required'}}/>
+              </Row> 
+              <Row className="form-group">
+                <Col md={{ offset:5 }}>
                   
-                  <Row className='form-group' style={{textAlign:'left'}}>
-                    <Col>
-                      <h4 style={{color:'#ffffff', fontFamily:'"Times New Roman", Times, serif' }}>Password:</h4>
-                    </Col>
-                    <Col>
-                      <Control.text model=".password" id="password" name="password" type='password' value={password} placeholder="Password" className="form-control" style={{borderRadius:'0px', height:'30px',width:'250px'}} onChange={this.changeHandler}/>  
-                    </Col>
-                  </Row> 
-                  <Row className="form-group">
-                    <Col md={{ offset:9 }}>
-                      {/* <Link to='/Admin'> */}
-                        <Button type="submit" style={{backgroundColor:'#476367',borderRadius: '0px' }}>
-                          GO
-                        </Button>
-                      {/* </Link> */}
-                    </Col>
-                  </Row>
-                  <Row className="form-group">
-                    <Col style={{alignItems:'left' ,color:'#FFFFFF'}}>
-                      <h4>Forget Password?</h4>
-                    </Col>
-                  </Row>
-                </LocalForm>
-              </Col>
-            </Row>
-          </div>
+                    <Button type="submit" style={{backgroundColor:'#d4e2d0' ,color:'#395032' }}>
+                      LOGIN
+                    </Button>
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col style={{alignItems:'center' ,color:'#707070'}}>
+                      <p>Forget Password</p>          
+                </Col>
+              </Row>
+            </LocalForm>
+          </Col>
+          <div style={{borderLeft:'2px solid #707070',height:'300px'}}/>
+
+          
+          <Col style={{color:'#d4e2d0'}}>
+          <br></br><br></br>
+          <strong ><u>Instructions</u></strong>
+          
+          <p>Please login to access UCP Online Services </p>
+          <p>Always logoff after using UCP Online Services.</p>
+          <br></br><br></br><br></br><br></br>
+          <p style={{color:'#707070', fontSize:'12px'}}>Copyrights © 2007 - All rights are reserved.<br></br>
+              University of Central Punjab, Lahore, PAKISTAN</p>
+          </Col>
+        </Row> 
+        </div>
+      </div>
        )
      }
     }

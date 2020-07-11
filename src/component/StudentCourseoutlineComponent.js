@@ -3,7 +3,7 @@ import { Row, Col ,Container} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
-import Axios from 'axios';
+import axios from 'axios';
 import { baseUrl } from '../shared/basedUrl';
 import StudentSidebar1 from './StudentSidebar1Component';
 import { connect } from 'react-redux';
@@ -141,10 +141,10 @@ class CourseOutline extends Component{
         const token=localStorage.getItem('bearer_token');
         const regno=localStorage.getItem('regno');
         const semester=localStorage.getItem('semester');
-        Axios.defaults.headers.common['Authorization']=token;
+        axios.defaults.headers.common['Authorization']=token;
 
           
-        Axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
         .then( res => {
             this.setState({
                 courses:res.data
@@ -160,8 +160,8 @@ class CourseOutline extends Component{
             course:course
         }
     
-        Axios.defaults.headers.common['Authorization']=token;
-        Axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
         .then(response=>{
             console.log("RESPONSE :",response);
                 this.getOutline(response.data);

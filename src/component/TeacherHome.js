@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
 import { Row, Col,Container, CardColumns } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import './main.css';
 import TeacherNavbarComponent from './TeacherNavbarComponent';
 import TeacherSidebar1 from './TeacherSidebar1Component';
+import { baseUrl } from '../shared/basedUrl';
+import axios from 'axios';
+
 
 function RendertodaysTimetable(){
     return(
@@ -127,19 +129,39 @@ class TeacherHome extends Component{
     constructor(props){
       super(props);
       this.state={
-          courses:[
-              {id:1,course:"CCN",section:"C"},
-              {id:2,course:"OOAD",section:"A"},
-              {id:3,course:"CC",section:"B"},
-              {id:4,course:"DB",section:"E"},
-          ]
+          id:null,
+          courses:[],
       }
     }
-    handleInfo(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-          alert('Current State is: ' + JSON.stringify(values));   
-      }      
+    componentDidMount(){
+        // console.log("PROPS IN STUDENT HOME",this.props);
+        // console.log("responce IN STUDENT HOME",response);
+
+        let id=this.props.match.params.std_id;
+        this.setState({id:id});
+        const section=localStorage.getItem('section');
+        const course=localStorage.getItem('course');
+        const token=localStorage.getItem('bearer_token');
+        const regno=localStorage.getItem('reg_no');
+        const semester=localStorage.getItem('semester');
+        console.log("SEMESTER AND REGNO",semester,regno,token);
+        axios.defaults.headers.common['Authorization']=token
+        axios.get(baseUrl+'teacher/'+regno+'/'+semester+'/courses')
+        .then( res => {
+            console.log("RESPONSE IS :",res.data);
+            this.setState({
+                courses:res.data
+            });
+        })
+        .catch(error=>{
+            console.log(error)
+            window.location.reload(false)
+        })
+
+
+    }
      render(){
+
        return(
            <div className='bg2'>
                <TeacherNavbarComponent></TeacherNavbarComponent>
@@ -149,8 +171,6 @@ class TeacherHome extends Component{
                         <Col  md={{ offset:1 }}><RendertodaysTimetable ></RendertodaysTimetable></Col>
                     </Row>
                 </Container>
-                
-                
            </div>
        )
      }

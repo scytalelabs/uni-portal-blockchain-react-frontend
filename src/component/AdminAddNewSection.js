@@ -183,7 +183,7 @@ class AdminAddNewSection extends Component{
                                                     <Col>
                                                         Course:
                                                         <select model=".course" id="course" name="course"  value={course} className="form-control" onChange={this.changeHandler}>
-                                                        <option  >Select Semester</option>
+                                                        <option  >Select Course</option>
                                                             {rendercourse}
                                                          </select>
                                                         {/* <Control.text model=".section" id="section" name="section" value={section} placeholder="Enter Section " className="form-control" onChange={this.changeHandler}  style={{borderRadius:'0px'}}/>   */}

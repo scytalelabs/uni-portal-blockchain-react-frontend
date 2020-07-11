@@ -103,28 +103,28 @@ export const initialState={
     //     {id:5 ,name:"Sadaf Baloch",father_name:"Muhammad Baloch",phone_no:"03316611986",address:"IQBAL TOWN",reg_no:"L1F16BSCS0136",cnic:331029627727,dob:"23/09/1998",email:"sadaf.balouch@gmail.com",qualification:"BSCS"},
     // ],
     assignments:[
-        { assignment_id:1,assignmnet_Lable: "Assignment 1",assignmnet_Date:"2020-06-10",assignmnet_Total:"20"},
-        { assignment_id:2,assignmnet_Lable: "Assignment 2",assignmnet_Date:"2020-06-10",assignmnet_Total:"30"},
+        // { assignment_id:1,assignmnet_Lable: "Assignment 1",assignmnet_Date:"2020-06-10",assignmnet_Total:"20"},
+        // { assignment_id:2,assignmnet_Lable: "Assignment 2",assignmnet_Date:"2020-06-10",assignmnet_Total:"30"},
         
     ],
     quizes:[
-        { quiz_id:1,quiz_Lable: "Quiz 1",quiz_Date:"2020-06-10",quiz_Total:"20"},
-        { quiz_id:2,quiz_Lable: "Quiz 2",quiz_Date:"2020-06-10",quiz_Total:"30"},
+        // { quiz_id:1,quiz_Lable: "Quiz 1",quiz_Date:"2020-06-10",quiz_Total:"20"},
+        // { quiz_id:2,quiz_Lable: "Quiz 2",quiz_Date:"2020-06-10",quiz_Total:"30"},
     ],
     mids:[
-        { mid_id:1,mid_Lable:"Mid-Term",mid_Date:"2020-06-10",mid_Total:"20"},
+        // { mid_id:1,mid_Lable:"Mid-Term",mid_Date:"2020-06-10",mid_Total:"20"},
     ],
     classparticipations:[
-        { classParticipation_id:1,classParticipation_Lable:"CP 1",classParticipation_Date:"2020-06-10",classParticipation_Total:"20"},
+        // { classparticipation_id:1,classparticipation_Lable:"CP 1",classparticipation_Date:"2020-06-10",classparticipation_Total:"20"},
     ],
     finals:[
-        { final_id:1,final_Lable:"Final-Term",final_Date:"2020-06-10",final_Total:"20"},
+        // { final_id:1,final_Lable:"Final-Term",final_Date:"2020-06-10",final_Total:"20"},
     ],
     projectpresentations:[
-        { projectpresentation_id:1,projectpresentation_Lable:"Project_Presentation",projectpresentation_Date:"2020-06-10",projectpresentation_Total:"40"},
+        // { projectpresentation_id:1,projectpresentation_Lable:"Project_Presentation",projectpresentation_Date:"2020-06-10",projectpresentation_Total:"40"},
     ],
     projects:[
-        { project_id:1,project_Lable:"Project",project_Date:"2020-06-10",project_Total:"40"},
+        // { project_id:1,project_Lable:"Project",project_Date:"2020-06-10",project_Total:"40"},
     ],
     students:[],
     teachers:[],
@@ -136,7 +136,8 @@ export const initialState={
     teacherSectioninfo:[],
     notifications:[],
     outline:[],
-    gradebook:[]
+    gradebook:[],
+    ListAssessment:[]
 }
 
 // axios.get(baseUrl+'/admin/1/students/')
@@ -296,7 +297,7 @@ export const Reducer=(state=initialState,action)=>{
             const index=state.teachers.findIndex((teacher)=>{
                     return teacher.id===action.updatedteacher.id
             }) 
-            // console.log("ACTION TEACHER IS ",action.updatedteacher);
+            console.log("ACTION TEACHER IS ",action.updatedteacher);
             const teacher=Object.assign({},state.teachers[index]);
             action.updatedteacher.reg_no=teacher.reg_no;
             const teachers=Object.assign([],state.teachers);
@@ -319,7 +320,7 @@ export const Reducer=(state=initialState,action)=>{
             const token=localStorage.getItem('bearer_token');
             console.log("TOKEN IS ",token);
             axios.defaults.headers.common['Authorization']=token;
-            axios.put(baseUrl+"admin/1/students/"+action.updatedteacher.reg_no,data)
+            axios.put(baseUrl+"admin/1/teachers/"+action.updatedteacher.reg_no,data)
             .then(response=>{
                 console.log("RESPONSE :",response);
               })
@@ -655,6 +656,7 @@ export const Reducer=(state=initialState,action)=>{
     }
     else if(action.type===ActionTypes.TEACHER_ADD_ASSIGNMENT)
     {
+        console.log("REDUCER",action.assignmentinfo)
         let assignments=[...state.assignments,action.assignmentinfo]
         return{
             ...state,
@@ -783,7 +785,9 @@ export const Reducer=(state=initialState,action)=>{
     }
     else if(action.type===ActionTypes.GET_ANNOUNCEMENT)
     {
+
         console.log("REDUCER",action)
+
         return{
             ...state,
             notifications:action.announcementinfo,
@@ -808,5 +812,73 @@ export const Reducer=(state=initialState,action)=>{
         }
         
     }
+    else if(action.type===ActionTypes.ADD_ANNOUNCEMENT)
+    {
+        console.log("REDUCER ANNOUNCEMENT",action)
+        const course=localStorage.getItem('course_name');
+        const Announcement_data={
+            semester:action.announcementinfo.semester,
+            course:course,
+            section:action.announcementinfo.section,   
+            announcement:action.announcementinfo.announcement,   
+            date:action.announcementinfo.date,   
+            time:action.announcementinfo.time,   
+        }
+        console.log("DATAAAAA:",Announcement_data)
+        const token=localStorage.getItem('bearer_token');
+        console.log("TOKEN IS ",token);
+        const regno=localStorage.getItem('reg_no');
+        const semester=localStorage.getItem('semester');
+        const section=localStorage.getItem('section');
+        axios.defaults.headers.common['Authorization']=token;
+        // 11.	teacher/{ teacher_Id }/{ semester }/{ course }/{ section} / announcements    
+        console.log("teacher/"+regno+'/'+semester+'/'+course+'/'+section+"/announcements",Announcement_data);
+        axios.post(baseUrl+"teacher/"+regno+'/'+semester+'/'+course+'/'+section+"/announcements",Announcement_data)
+        .then(response=>{
+            console.log("RESPONSE :",response);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    }
+    else if(action.type===ActionTypes.SET_TYPE_WEIGHTAGE)
+    {
+        console.log("REDUCER SET_TYPE_WEIGHTAGE",action)
+        
+        const semester=localStorage.getItem('semester');
+        const course=localStorage.getItem('course_name');
+        const section=localStorage.getItem('section');        
+        const Weightage_Data={
+            semester:semester,
+            course:course,
+            section:section,   
+            marks_type:action.marks_type,   
+            weightage:action.data.weightage,   
+            no_of_selected:0,   
+        }
+        console.log('DATAAAA',Weightage_Data)
+        const token=localStorage.getItem('bearer_token');
+        console.log("TOKEN IS ",token);
+        const regno=localStorage.getItem('reg_no');
+        axios.defaults.headers.common['Authorization']=token;
+        console.log("teacher/"+regno+'/'+semester+'/'+course+'/'+section+"/course_outline",Weightage_Data);
+        axios.post(baseUrl+"teacher/"+regno+'/'+semester+'/'+course+'/'+section+"/course_outline",Weightage_Data)
+        .then(response=>{
+            console.log("RESPONSE :",response);
+          })
+          .catch(error=>{
+            console.log(error)
+          })
+    }
+    else if(action.type===ActionTypes.GET_LIST_ASSESSMENT)
+    {
+        console.log("REDUCER",action.ListAssessment)
+        return{
+            ...state,
+            ListAssessment:action.ListAssessment,
+        }
+        
+    }
+    
     return state;
 }

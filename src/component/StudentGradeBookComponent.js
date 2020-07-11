@@ -6,7 +6,7 @@ import Gradebookdata from './StudentViewGradesComponents';
 import './main.css';
 import StudentNavbarComponent from './StudentNavbarComponent';
 import { connect } from 'react-redux';
-import Axios from 'axios';
+import axios from 'axios';
 import { baseUrl } from '../shared/basedUrl';
 import StudentSidebar1 from './StudentSidebar1Component';
 import { getGradeBook,getOutline } from '../redux/ActionCreators';
@@ -90,14 +90,15 @@ class GradeBook extends Component{
         let id=this.props.match.params.std_id;
         this.setState({id:id});
         const section=localStorage.getItem('section');
-        const course=localStorage.getItem('course');
+        const course=localStorage.getItem('course')
+        const course_name=localStorage.getItem('course_name')
         const token=localStorage.getItem('bearer_token');
         const regno=localStorage.getItem('regno');
         const semester=localStorage.getItem('semester');
-        Axios.defaults.headers.common['Authorization']=token;
+        axios.defaults.headers.common['Authorization']=token;
 
           
-        Axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
+        axios.get(baseUrl+'student/'+regno+'/'+semester+'/courses')
         .then( res => {
             this.setState({
                 courses:res.data
@@ -113,11 +114,11 @@ class GradeBook extends Component{
             section:section,
             course:course
         }
-    
-        Axios.defaults.headers.common['Authorization']=token;
-        Axios.get(baseUrl+"student/"+gradebookinfo.regno+"/"+gradebookinfo.semester+"/"+gradebookinfo.course+"/"+gradebookinfo.section+"/gradebook")
+        console.log("student/"+gradebookinfo.regno+"/"+gradebookinfo.semester+"/"+gradebookinfo.course+"/"+gradebookinfo.section+"/gradebook");
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+"student/"+gradebookinfo.regno+"/"+gradebookinfo.semester+"/"+gradebookinfo.course+"/"+gradebookinfo.section+"/gradebook")
         .then(response=>{
-            console.log("RESPONSE :",response);
+            console.log("GRADEBOOK :",response);
                 this.getGradeBook(response.data);
           })
           .catch(error=>{
@@ -130,10 +131,10 @@ class GradeBook extends Component{
             section:section,
             course:course
         }
-        Axios.defaults.headers.common['Authorization']=token;
-        Axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
+        axios.defaults.headers.common['Authorization']=token;
+        axios.get(baseUrl+"student/"+outlineinfo.regno+"/"+outlineinfo.semester+"/"+outlineinfo.course+"/"+outlineinfo.section+"/course_outline")
         .then(response=>{
-            console.log("RESPONSE :",response);
+            console.log("OUTLINE :",response);
                 this.getOutline(response.data);
           })
           .catch(error=>{
@@ -141,6 +142,7 @@ class GradeBook extends Component{
           })
     }  
      render(){
+         console.log(this.props);
        return(
            <div className='bg4'>
                <StudentNavbarComponent></StudentNavbarComponent>

@@ -91,7 +91,7 @@ class AdminAddNewStudentSection extends Component{
             id:null,
             reg_no:null,
             name:null,
-            course:null,
+            code:null,
             semester:null,
             section:null,
             semesters:[],
@@ -106,7 +106,7 @@ class AdminAddNewStudentSection extends Component{
           console.log("e.target.name",e.target.name);
           console.log("e.target.value",e.target.value);
           if(e.target.name==='semester'){
-            axios.get(baseUrl+'admin/1/'+e.target.value+'/courses')
+            axios.get(baseUrl+'admin/1/courses')
             .then( res => {
                 console.log("courses:",res);
                 this.setState({
@@ -120,13 +120,14 @@ class AdminAddNewStudentSection extends Component{
           if(e.target.name==='course')
         {
             this.state.courses.map(course=>{
-                if(course.course===e.target.value)
+                if(course.code===e.target.value)
                 {
                     this.setState({
                         name:course.name
                     })
                 }
             })
+            console.log('admin/1/'+this.state.semester+'/'+e.target.value);
             axios.get(baseUrl+'admin/1/'+this.state.semester+'/'+e.target.value)
             .then( res => {
             console.log("Section:",res);
@@ -166,7 +167,7 @@ class AdminAddNewStudentSection extends Component{
         })
     }
      render(){
-        const {students,semesters,sections,courses,reg_no,course,semester,section}=this.state;
+        const {students,semesters,sections,courses,reg_no,code,semester,section}=this.state;
         const {addStudentSection,toggleisAdding}=this.props;
         const  rendersemester = semesters.map((semester) => {
             if(semester.status==='current')
@@ -184,7 +185,7 @@ class AdminAddNewStudentSection extends Component{
         const  rendercourse = courses.map((course) => {
 
             return (
-                <option  value={course.course}>{course.name} {course.course}</option>
+                <option  value={course.code}>{course.name} {course.code}</option>
             );
         })
         const  rendersection = sections.map((section) => {
@@ -232,7 +233,7 @@ class AdminAddNewStudentSection extends Component{
                                                     <Row>
                                                     <Col>
                                                         Course:
-                                                        <select model=".course" id="course" name="course"  value={course} className="form-control" onChange={this.changeHandler}>
+                                                        <select model=".course" id="course" name="course"  value={code} className="form-control" onChange={this.changeHandler}>
                                                         <option  >Select Course</option>
                                                             {rendercourse}
                                                          </select>
